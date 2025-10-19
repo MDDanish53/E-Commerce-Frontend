@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { SkeletonLoader } from "../components/Loading";
 import type { CartItem } from "../types/types";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/reducer/cartreducer";
+import { addToCart } from "../redux/reducer/cartReducer";
 
 const Home = () => {
   const dispatch = useDispatch()

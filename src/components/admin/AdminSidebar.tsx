@@ -14,8 +14,8 @@ import {
   RiDashboardFill,
   RiShoppingBag3Fill,
 } from "react-icons/ri";
-import { Link, Location, useLocation } from "react-router-dom";
-import { IconType } from "react-icons";
+import { Link, type Location, useLocation } from "react-router-dom";
+import { type IconType } from "react-icons";
 
 const AdminSidebar = () => {
   const location = useLocation();

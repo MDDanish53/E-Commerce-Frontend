@@ -2,11 +2,10 @@ import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
+import { SkeletonLoader } from "../../../components/Loading";
 import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
 import { server, type RootState } from "../../../redux/store";
-import type { UserReducerInitialState } from "../../../types/reducer-types";
 import type { Order, OrderItem } from "../../../types/types";
-import { SkeletonLoader } from "../../../components/Loading";
 import { responseToast } from "../../../utils/features";
 
 const TransactionManagement = () => {

@@ -1,16 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { lazy, Suspense, useEffect, useState } from "react";
-import Loading from "./components/Loading";
-import Header from "./components/Header";
-import { Toaster } from "react-hot-toast";
 import { onAuthStateChanged } from "firebase/auth";
+import { lazy, Suspense, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Loader from "./components/admin/Loader";
+import Header from "./components/Header";
+import Loading from "./components/Loading";
+import ProtectedRoute from "./components/Protected-route";
 import { auth } from "./firebase";
 import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
-import { useDispatch, useSelector } from "react-redux";
 import type { UserReducerInitialState } from "./types/reducer-types";
-import Loader from "./components/admin/Loader";
-import ProtectedRoute from "./components/Protected-route";
 
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
