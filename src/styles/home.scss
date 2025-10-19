@@ -1,0 +1,80 @@
+@use "admin-styles/mixin" as m;
+@use "_variables" as v;
+
+.home {
+  padding: 2rem 5%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 4rem);
+  width: 100%;
+  > section {
+    width: 100%;
+    height: 18.75rem;
+    margin: auto;
+    background: url("https://cdn.pixabay.com/photo/2015/12/15/09/04/banner-1093909_1280.jpg")
+      no-repeat center / cover;
+  }
+  > h1 {
+    @include m.heading(1px);
+    margin-top: 3rem;
+    @include m.flex(row, space-between, center);
+  }
+  .findmore {
+    font-size: 1rem;
+  }
+  > main {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    gap: 1rem;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.product-card {
+    width: 18.75rem;
+    height: 25rem;
+    padding: 1rem;
+    flex: none;
+    @include m.flex(column, flex-start, center, 4px);
+    position: relative;
+    background: white;
+    &:hover > div {
+      opacity: 1;
+    }
+    img {
+      @include m.square(calc(18.75rem - 3rem));
+      object-fit: cover;
+      margin: 1rem;
+    }
+    > div {
+      opacity: 0;
+      position: absolute;
+      @include m.square(100%);
+      top: 0;
+      left: 0;
+      background-color: #0000006b;
+      @include m.flex;
+
+      button {
+        @include m.flex;
+        @include m.square(3rem);
+        border-radius: 100%;
+        border: none;
+        background-color: v.$color3;
+        cursor: pointer;
+        color: v.$color1;
+        font-size: 1.1rem;
+        transition: all 0.3s;
+        &:hover {
+          rotate: 20deg;
+        }
+      }
+    }
+    span {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+  }

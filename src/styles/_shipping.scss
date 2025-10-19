@@ -1,0 +1,56 @@
+@use "./admin-styles/mixin" as m;
+@use "./variables" as v;
+
+.shipping {
+  @include m.flex;
+  .back-btn {
+    @include m.square(2.5rem);
+    background-color: v.$color2;
+    color: v.$color1;
+    @include m.flex;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    border-radius: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    @include m.baseShadow;
+    svg {
+      transition: all 0.3s;
+    }
+    &:hover svg {
+      translate: -0.25rem;
+    }
+  }
+
+  > form {
+    max-width: 450px;
+    width: 100%;
+    @include m.flex(column, center, stretch, 2rem);
+    padding: 2rem;
+
+    > h1 {
+      @include m.heading(2px);
+      margin: 2rem;
+      text-align: center;
+    }
+
+    > input, > select {
+      @include m.inputStyle;
+      border: 1px solid rgba(31, 31, 31, 0.351);
+      font-size: 1.05rem;
+      border-radius: 5px;
+    }
+     > button {
+      @include m.btn(1rem, v.$color3, v.$color1);
+      border-radius: 5px;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      &:hover {
+        opacity: 0.8;
+      } 
+     }
+  }
+}
