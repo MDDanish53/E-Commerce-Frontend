@@ -105,6 +105,10 @@ export type NewOrderRequest = {
   discount: number;
   total: number;
   user: string;
+  paymentInfo: {
+    id: string;
+    status: string;
+  }
 }
 
 export type UpdateOrderRequest = {

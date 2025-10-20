@@ -50,7 +50,7 @@ const Header = ({user}: PropsType) => {
                   Admin
                 </Link>
               )}
-              <Link onClick={() => setIsOpen(false)} to={"/orders"}>
+              <Link onClick={() => setIsOpen(false)} to={"/my"}>
                 Orders
               </Link>
               <button onClick={logoutHandler}>

@@ -52,13 +52,13 @@ export const cartReducer = createSlice({
         0
       );
       state.subtotal = subtotal;
-      state.shippingCharges = state.subtotal > 1000 ? 0 : 200;
+      state.shippingCharges = state.subtotal > 1000 ? 20 : 200;
       state.tax = Math.round(state.subtotal * 0.18);
       state.total = (state.subtotal + state.tax + state.shippingCharges - state.discount) < 0 ? 0 : (state.subtotal + state.tax + state.shippingCharges - state.discount);
     },
 
     applyDiscount: (state, action: PayloadAction<number>) => {
-      state.discount = action.payload;
+      state.discount = action.payload === 0 ? 20 : action.payload;
     },
     saveShippingInfo: (state, action: PayloadAction<ShippingInfo>) => {
       state.shippingInfo = action.payload;
