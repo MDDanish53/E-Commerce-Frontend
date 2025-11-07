@@ -141,6 +141,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { data, isLoading, isError } = useLatestProductsQuery("");
+  console.log(`latest products - ${data}`);
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
