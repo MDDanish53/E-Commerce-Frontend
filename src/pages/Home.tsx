@@ -206,14 +206,22 @@ const Home = () => {
                   .filter((url): url is string => !!url);
                 const displayPhotos =
                   validPhotos.length > 0
-                    ? validPhotos
-                    : ["/images/placeholder.png"];
+                    ? validPhotos.map((url, index) => ({
+                        public_id: `placeholder-${index}`,
+                        url,
+                      }))
+                    : [
+                        {
+                          public_id: "placeholder",
+                          url: "/images/placeholder.png",
+                        },
+                      ];
 
                 return (
                   <ProductCard
                     key={i._id}
                     productId={i._id}
-                    photos={i.photos}
+                    photos={displayPhotos}
                     price={i.price}
                     name={i.name}
                     stock={i.stock}
