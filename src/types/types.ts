@@ -12,10 +12,28 @@ export type Product = {
   name: string;
   price: number;
   stock: number;
+  numOfReviews: number;
   category: string;
-  photo: string;
+  ratings: number;
+  description: string;
+  photos: {
+    public_id: string;
+    url: string;
+  }[];
   _id: string;
 };
+
+export type Review = {
+  _id: string;
+  comment: string;
+  rating: number;
+  user: {
+    name: string;
+    photo: string;
+    _id: string;
+  }
+  product: string;
+}
 
 export type ShippingInfo = {
   address: string;
@@ -34,7 +52,17 @@ export type CartItem = {
   stock: number;
 };
 
-export type OrderItem = Omit<CartItem, "stock"> & { _id: string };
+export type OrderItem = {
+  _id: string
+  productId: string;
+  photos: {
+    public_id: string;
+    url: string;
+  }[];
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 export type Order = {
   orderItems: OrderItem[];
@@ -129,3 +157,9 @@ export type Line = {
   discount: number[];
   revenue: number[];
 };
+
+export type CouponType = {
+  coupon: string;
+  amount: number;
+  _id: string;
+}

@@ -5,12 +5,14 @@
 @use "_shipping";
 @use "_login";
 @use "_search";
+@use "_product-details";
 @use "./variables" as v;
 @use "admin-styles/dashboard";
 @use "admin-styles/products";
 @use "admin-styles/chart";
 @use "admin-styles/dashboardapp";
 @use "admin-styles/mediaquery";
+@use "_footer";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -74,6 +76,10 @@ a {
     background-color: transparent;
     &:hover {
       color: v.$color3;
+    }
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
 

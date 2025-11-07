@@ -10,8 +10,12 @@ import { SkeletonLoader } from "../components/Loading";
 import type { CartItem } from "../types/types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
+import { useSearchParams } from "react-router-dom";
 
 const Search = () => {
+
+  const searchQuery = useSearchParams()[0];
+
   const {
     data: categoriesResponse,
     isLoading: loadingCategories,
@@ -22,7 +26,7 @@ const Search = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [maxPrice, setMaxPrice] = useState(1000);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(searchQuery.get("category") || "");
   const [page, setPage] = useState(1);
 
   const {isLoading: productLoading, data: searchedData, isError: productIsError, error: productError} = useSearchProductsQuery({
@@ -104,7 +108,7 @@ const Search = () => {
             <ProductCard
             key={i._id}
             productId={i._id}
-            photo={i.photo}
+            photos={i.photos}
             price={i.price}
             name={i.name}
             stock={i.stock}

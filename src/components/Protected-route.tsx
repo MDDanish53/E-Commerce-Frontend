@@ -17,7 +17,9 @@ const ProtectedRoute = ({
   redirect = "/",
 }: Props) => {
   if (!isAuthenticated) return <Navigate to={redirect} />;
-  if(adminOnly && !admin) return <Navigate to={redirect} />;
+  // If route is admin-only, only redirect when we explicitly know the user is NOT an admin.
+  // This allows initial auth sync (where role may be undefined) to complete without forcing a redirect.
+  if (adminOnly && admin === false) return <Navigate to={redirect} />;
   return children ? children : <Outlet />;
 };
 

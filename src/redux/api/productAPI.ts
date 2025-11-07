@@ -1,14 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
+  type AllProductsResponse,
+  type AllReviewsResponse,
+  type CategoriesResponse,
+  type DeleteProductRequest,
+  type DeleteReviewRequest,
+  type MessageResponse,
   type NewProductRequest,
+  type NewReviewRequest,
+  type ProductResponse,
   type SearchProductsRequest,
   type SearchProductsResponse,
-  type AllProductsResponse,
-  type CategoriesResponse,
-  type MessageResponse,
-  type ProductResponse,
-  type UpdateProductRequest,
-  type DeleteProductRequest,
+  type UpdateProductRequest
 } from "../../types/api-types";
 
 export const productAPI = createApi({
@@ -49,6 +52,10 @@ export const productAPI = createApi({
       query: (id) => id,
       providesTags: ["product"]
     }),
+    getReviewsOfProduct: builder.query<AllReviewsResponse, string>({
+      query: (productId) => `reviews/${productId}`,
+      providesTags: ["product"]
+    }),
     newProduct: builder.mutation<MessageResponse, NewProductRequest>({
       query: ({ formData, id }) => ({
         url: `new?id=${id}`,
@@ -56,6 +63,24 @@ export const productAPI = createApi({
         body: formData,
       }),
       invalidatesTags: ["product"],
+    }),
+    newReview: builder.mutation<MessageResponse, NewReviewRequest>({
+      query: ({comment, rating, userId, productId}) => ({
+        url: `review/new/${productId}?id=${userId}`,
+        method: "POST",
+        body: {comment, rating},
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      invalidatesTags: ["product"]
+    }),
+    deleteReview: builder.mutation<MessageResponse, DeleteReviewRequest>({
+      query: ({userId, reviewId}) => ({
+        url: `review/${reviewId}?id=${userId}`,
+        method: "DELETE"
+      }),
+      invalidatesTags: ["product"]
     }),
     updateProduct: builder.mutation<MessageResponse, UpdateProductRequest>({
       query: ({formData, userId, productId}) => ({
@@ -78,6 +103,9 @@ export const productAPI = createApi({
 export const {
   useLatestProductsQuery,
   useAllProductsQuery,
+  useGetReviewsOfProductQuery,
+  useNewReviewMutation,
+  useDeleteReviewMutation,
   useCategoriesQuery,
   useSearchProductsQuery,
   useNewProductMutation,

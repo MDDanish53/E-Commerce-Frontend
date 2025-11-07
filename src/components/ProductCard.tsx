@@ -1,10 +1,15 @@
 import { FaPlus } from "react-icons/fa";
-import { server } from "../redux/store";
 import type { CartItem } from "../types/types";
+import { Link } from "react-router-dom";
+import { IoIosOpen } from "react-icons/io";
+import { transformImage } from "../utils/features";
 
 type productProps = {
   productId: string;
-  photo: string;
+  photos: {
+    public_id: string;
+    url: string;
+  }[];
   name: string;
   price: number;
   stock: number;
@@ -13,7 +18,7 @@ type productProps = {
 
 const ProductCard = ({
   productId,
-  photo,
+  photos,
   name,
   price,
   stock,
@@ -21,7 +26,7 @@ const ProductCard = ({
 }: productProps) => {
   return (
     <div className="product-card">
-      <img src={`${server}/${photo}`} alt={name} />
+      <img src={transformImage(photos?.[0]?.url, 700)} alt={name} />
       <p>{name}</p>
       <span>₹{price}</span>
       <div>
@@ -29,7 +34,7 @@ const ProductCard = ({
           onClick={() =>
             handler({
               productId,
-              photo,
+              photo: photos?.[0]?.url,
               name,
               price,
               stock,
@@ -39,6 +44,7 @@ const ProductCard = ({
         >
           <FaPlus />
         </button>
+        <Link to={`/product/${productId}`}><IoIosOpen /></Link>
       </div>
     </div>
   );
