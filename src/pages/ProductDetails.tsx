@@ -48,6 +48,10 @@ const ProductDetails = () => {
   const [createReview] = useNewReviewMutation();
   const [deleteReview] = useDeleteReviewMutation();
 
+  const validImages = data?.product.photos
+    ?.map((i) => i.url)
+    .filter((url): url is string => !!url);
+
   const decrement = () => {
     if (quantity === 1) return;
     setQuantity((prev) => prev - 1);
@@ -123,13 +127,16 @@ const ProductDetails = () => {
         <>
           <main>
             <section>
-              <Slider
-                showThumbnails
-                showNav={false}
-                onClick={() => setCarouselOpen(true)}
-                images={data?.product.photos.map((i) => i.url) || []}
-              />
-              {carouselOpen && (
+              {validImages && validImages.length > 0 && (
+                <Slider
+                  showThumbnails
+                  showNav={false}
+                  onClick={() => setCarouselOpen(true)}
+                  images={data?.product.photos.map((i) => i.url) || []}
+                />
+              )}
+
+              {carouselOpen && validImages && validImages.length > 0 && (
                 <MyntraCarousel
                   images={data?.product.photos.map((i) => i.url) || []}
                   NextButton={NextButton}

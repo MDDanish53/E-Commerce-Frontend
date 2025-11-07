@@ -10,7 +10,7 @@ import { FaHeadset } from "react-icons/fa";
 import { LuShieldCheck } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
 import { Slider } from "6pp";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import videoCover from "../assets/videos/cover.mp4";
 import { FaAnglesDown } from "react-icons/fa6";
 
@@ -166,12 +166,14 @@ const Home = () => {
               ))}
             </ul>
           </aside>
-          <Slider
-            autoplay
-            autoplayDuration={1500}
-            showNav={false}
-            images={banners}
-          />
+          {banners.length > 0 && (
+            <Slider
+              autoplay
+              autoplayDuration={1500}
+              showNav={false}
+              images={banners}
+            />
+          )}
         </div>
         <h1>
           Latest Products
@@ -180,32 +182,38 @@ const Home = () => {
           </Link>
         </h1>
         <main>
-          {isLoading ? (
-            <>
-              {Array.from({ length: 6 }, (_, i) => (
-                <div key={i} style={{ height: "25rem" }}>
-                  <SkeletonLoader width="18.75rem" length={1} height="20rem" />
-                  <SkeletonLoader
-                    width="18.75rem"
-                    length={2}
-                    height="1.95rem"
-                  />
-                </div>
-              ))}
-            </>
-          ) : (
-            products.map((i) => (
-              <ProductCard
-                key={i._id}
-                productId={i._id}
-                photos={i.photos}
-                price={i.price}
-                name={i.name}
-                stock={i.stock}
-                handler={addToCartHandler}
-              />
-            ))
-          )}
+          <AnimatePresence>
+            {isLoading ? (
+              <>
+                {Array.from({ length: 6 }, (_, i) => (
+                  <div key={i} style={{ height: "25rem" }}>
+                    <SkeletonLoader
+                      width="18.75rem"
+                      length={1}
+                      height="20rem"
+                    />
+                    <SkeletonLoader
+                      width="18.75rem"
+                      length={2}
+                      height="1.95rem"
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              products.map((i) => (
+                <ProductCard
+                  key={i._id}
+                  productId={i._id}
+                  photos={i.photos}
+                  price={i.price}
+                  name={i.name}
+                  stock={i.stock}
+                  handler={addToCartHandler}
+                />
+              ))
+            )}
+          </AnimatePresence>
         </main>
       </div>
 
@@ -222,23 +230,27 @@ const Home = () => {
           </motion.h2>
           {coverMessage.map((el, i) => (
             <motion.span
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            transition={{
-              duration: 0.25,
-              delay: i / 10,
-            }}
-            key={i}
-            >{el} </motion.span>
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.25,
+                delay: i / 10,
+              }}
+              key={i}
+            >
+              {el}{" "}
+            </motion.span>
           ))}
         </div>
-        <motion.span animate={{
-          y: [0, 10, 0],
-          transition: {
-            duration: 1,
-            repeat: Infinity
-          }
-        }}>
+        <motion.span
+          animate={{
+            y: [0, 10, 0],
+            transition: {
+              duration: 1,
+              repeat: Infinity,
+            },
+          }}
+        >
           <FaAnglesDown />
         </motion.span>
       </article>
@@ -248,58 +260,63 @@ const Home = () => {
           <h2>Our Clients</h2>
           <div>
             {clients.map((client, i) => (
-              <motion.img initial={{
-                opacity: 0,
-                x: -10
-              }} 
-              whileInView={{
-                opacity: 1,
-                x: 0,transition: {
-                  delay: i / 20,
-                  ease: "circIn"
-                }
-              }} 
-              src={client.src}
-              alt={client.alt}
-              key={i}
+              <motion.img
+                initial={{
+                  opacity: 0,
+                  x: -10,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    delay: i / 20,
+                    ease: "circIn",
+                  },
+                }}
+                src={client.src}
+                alt={client.alt}
+                key={i}
               />
             ))}
           </div>
 
           <motion.p
-          initial={{opacity: 0, y: -100}}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: clients.length / 20
-            }
-          }}
+            initial={{ opacity: 0, y: -100 }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                delay: clients.length / 20,
+              },
+            }}
           >
             Trusted By 100+ Companies in 30+ Countries
           </motion.p>
         </div>
       </article>
 
-      <hr style={{
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
-        border: "none",
-        height: "1px"
-      }}/>
+      <hr
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.1)",
+          border: "none",
+          height: "1px",
+        }}
+      />
 
       <article className="our-services">
         <ul>
           {services.map((service, i) => (
             <motion.li
-            initial={{opacity: 0, y: -100}}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: i / 20
-              }
-            }}
-            key={service.title}
+              initial={{ opacity: 0, y: -100 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: {
+                  delay: i / 20,
+                },
+              }}
+              exit={{ opacity: 0, y: 50 }}
+              key={service.title}
             >
               <div>{service.icon}</div>
               <section>
