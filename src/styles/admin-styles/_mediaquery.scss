@@ -177,6 +177,10 @@
     > main {
       flex-direction: column;
       > section {
+         &:first-of-type {
+          width: 100%;
+          height: auto;
+        }
         &:last-of-type {
           flex-direction: column;
           display: flex;
