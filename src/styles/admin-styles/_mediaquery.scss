@@ -181,10 +181,16 @@
           flex-direction: column;
           display: flex;
           align-items: center;
+          height: auto;
           article {
             align-items: center;
           }
         }
+      }
+      button {
+        font-size: smaller;
+        width: 9rem;
+        padding: 8%;
       }
     }
   }

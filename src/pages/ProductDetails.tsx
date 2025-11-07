@@ -144,8 +144,8 @@ const ProductDetails = () => {
               <em
                 style={{ display: "flex", gap: "1rem", alignItems: "center" }}
               >
-                <RatingsComponent value={data?.product.ratings || 0} />(
-                {data?.product?.numOfReviews} reviews)
+                <RatingsComponent value={data?.product.ratings || 0} />
+                <span>({data?.product?.numOfReviews} reviews)</span>
               </em>
               <h3>₹{data?.product.price}</h3>
               <article>
@@ -193,11 +193,13 @@ const ProductDetails = () => {
       <section>
         <article>
           <h2>Reviews</h2>
-          {reviewsResponse.isLoading ? null : (
-            user && <button onClick={showDialog}>
-              <FiEdit />
-            </button>
-          )}
+          {reviewsResponse.isLoading
+            ? null
+            : user && (
+                <button onClick={showDialog}>
+                  <FiEdit />
+                </button>
+              )}
         </article>
         <div
           style={{
