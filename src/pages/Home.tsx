@@ -1,18 +1,17 @@
-import { Link } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
-import { useLatestProductsQuery } from "../redux/api/productAPI";
-import toast from "react-hot-toast";
-import { SkeletonLoader } from "../components/Loading";
-import type { CartItem } from "../types/types";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/reducer/cartReducer";
-import { FaHeadset } from "react-icons/fa";
-import { LuShieldCheck } from "react-icons/lu";
-import { TbTruckDelivery } from "react-icons/tb";
 import { Slider } from "6pp";
 import { AnimatePresence, motion } from "framer-motion";
-import videoCover from "../assets/videos/cover.mp4";
+import toast from "react-hot-toast";
+import { FaHeadset } from "react-icons/fa";
 import { FaAnglesDown } from "react-icons/fa6";
+import { LuShieldCheck } from "react-icons/lu";
+import { TbTruckDelivery } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { SkeletonLoader } from "../components/Loading";
+import ProductCard from "../components/ProductCard";
+import { useLatestProductsQuery } from "../redux/api/productAPI";
+import { addToCart } from "../redux/reducer/cartReducer";
+import type { CartItem } from "../types/types";
 
 const clients = [
   {
@@ -201,17 +200,27 @@ const Home = () => {
                 ))}
               </>
             ) : (
-              products.map((i) => (
-                <ProductCard
-                  key={i._id}
-                  productId={i._id}
-                  photos={i.photos}
-                  price={i.price}
-                  name={i.name}
-                  stock={i.stock}
-                  handler={addToCartHandler}
-                />
-              ))
+              products.map((i) => {
+                const validPhotos = (i.photos ?? [])
+                  .map((p) => p.url)
+                  .filter((url): url is string => !!url);
+                const displayPhotos =
+                  validPhotos.length > 0
+                    ? validPhotos
+                    : ["/images/placeholder.png"];
+
+                return (
+                  <ProductCard
+                    key={i._id}
+                    productId={i._id}
+                    photos={i.photos}
+                    price={i.price}
+                    name={i.name}
+                    stock={i.stock}
+                    handler={addToCartHandler}
+                  />
+                );
+              })
             )}
           </AnimatePresence>
         </main>
@@ -219,7 +228,7 @@ const Home = () => {
 
       <article className="cover-video-container">
         <div className="cover-video-overlay"></div>
-        <video autoPlay loop muted src={videoCover}></video>
+        <video autoPlay loop muted src="/videos/cover.mp4"></video>
         <div className="cover-video-content">
           <motion.h2
             initial={{ x: -100, opacity: 0 }}

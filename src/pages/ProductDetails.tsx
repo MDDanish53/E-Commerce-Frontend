@@ -165,7 +165,7 @@ const ProductDetails = () => {
                   onClick={() =>
                     addToCartHandler({
                       productId: data?.product._id!,
-                      photo: data?.product.photos[0].url!,
+                      photo: validImages && validImages.length > 0 ? validImages[0] : "/images/placeholder.png",
                       name: data?.product.name!,
                       price: data?.product.price!,
                       quantity,
@@ -223,7 +223,7 @@ const ProductDetails = () => {
               <SkeletonLoader width="45rem" length={5} />
             </>
           ) : (
-            reviewsResponse?.data?.reviews.map((review) => (
+            (reviewsResponse?.data?.reviews ?? []).map((review) => (
               <ReviewCard
                 deleteHandler={deleteReviewHandler}
                 userId={user?._id}
