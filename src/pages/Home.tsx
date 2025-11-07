@@ -141,7 +141,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { data, isLoading, isError } = useLatestProductsQuery("");
-  console.log("latest products - ", data);
   const products = data?.products || [];
 
   const addToCartHandler = (cartItem: CartItem) => {
