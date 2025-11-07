@@ -141,7 +141,8 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { data, isLoading, isError } = useLatestProductsQuery("");
-  console.log(`latest products - ${data}`);
+  console.log("latest products - ", data);
+  const products = data?.products || [];
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
@@ -194,7 +195,7 @@ const Home = () => {
               ))}
             </>
           ) : (
-            data?.products.map((i) => (
+            products.map((i) => (
               <ProductCard
                 key={i._id}
                 productId={i._id}
