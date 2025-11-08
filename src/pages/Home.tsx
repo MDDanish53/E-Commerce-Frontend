@@ -236,7 +236,7 @@ const Home = () => {
 
       <article className="cover-video-container">
         <div className="cover-video-overlay"></div>
-        <video autoPlay loop muted src="https://player.cloudinary.com/embed/?cloud_name=dm0wfoqld&public_id=4962796-uhd_3840_2160_25fps_nvexaz&profile=cld-default"></video>
+        <video autoPlay loop muted src="https://res.cloudinary.com/dm0wfoqld/video/upload/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.mp4"></video>
         <div className="cover-video-content">
           <motion.h2
             initial={{ x: -100, opacity: 0 }}
