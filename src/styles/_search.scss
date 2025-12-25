@@ -2,66 +2,261 @@
 @use "./variables" as v;
 
 .search {
-  padding: 2rem;
-  @include m.flex(row, flex-start, stretch, 2rem);
-  min-height: calc(100vh - 6.5vh);
+  padding: v.$spacing-xl 5%;
+  @include m.flex(row, flex-start, flex-start, v.$spacing-3xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
 
   > aside {
-    min-width: 20rem;
-    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.247);
-    padding: 2rem;
-    @include m.flex(column, flex-start, stretch, 0.5rem);
+    min-width: 280px;
+    background: white;
+    padding: v.$spacing-2xl;
+    border-radius: v.$radius-xl;
+    box-shadow: v.$shadow-card;
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+    @include m.flex(column, flex-start, stretch, v.$spacing-xl);
 
     > h2 {
       @include m.heading;
+      font-size: 1.5rem;
+      color: v.$neutral-900;
+      margin-bottom: v.$spacing-md;
     }
 
     > div {
+      > h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: v.$neutral-700;
+        margin-bottom: v.$spacing-sm;
+      }
+      
       > input,
       > select {
         @include m.inputStyle(
           100%,
-          1rem,
+          v.$spacing-md,
           white,
-          1px solid rgba(154, 154, 154, 0.38)
+          2px solid v.$neutral-300
         );
-        border-radius: 10px;
-        margin: 0.5rem;
+        border-radius: v.$radius-lg;
+        margin: v.$spacing-sm 0;
+        font-size: 0.95rem;
+        transition: all v.$transition-base;
+        
+        &:focus {
+          border-color: v.$primary-500;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
       }
     }
   }
 
   > main {
     width: 100%;
-    padding: 0 2rem;
+    padding: 0;
+    
     > h1 {
       @include m.heading();
+      font-size: 2rem;
+      color: v.$neutral-900;
+      margin-bottom: v.$spacing-xl;
     }
+    
     > input {
-      @include m.inputStyle(50%);
-      border-radius: 5px;
-      margin: 1rem;
-      font-size: 1.2rem;
+      @include m.inputStyle(100%);
+      border: 2px solid v.$neutral-300;
+      border-radius: v.$radius-lg;
+      margin: v.$spacing-md 0;
+      font-size: 1.05rem;
+      padding: v.$spacing-md;
+      max-width: 500px;
       display: block;
+      transition: all v.$transition-base;
+      
+      &:focus {
+        border-color: v.$primary-500;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
     }
+    
     .search-product-list {
-      @include m.flex(row, flex-start, flex-start);
-      flex-wrap: wrap;
-      height: calc(100% - 10rem);
-      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: v.$spacing-xl;
+      height: auto;
+      overflow-y: visible;
     }
+    
     article {
       @include m.flex;
+      
       > button {
         @include m.flex;
-        @include m.btn(0.5rem 1rem, v.$color3, v.$color1);
-        border-radius: 10px;  
+        @include m.btn(v.$spacing-sm v.$spacing-lg, transparent, white);
+        background: v.$gradient-primary;
+        border: none;
+        border-radius: v.$radius-lg;
+        box-shadow: v.$shadow-md;
+        font-weight: 600;
+        transition: all v.$transition-base;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: v.$shadow-lg;
+        }
+        
         &:disabled {
           cursor: not-allowed;
           opacity: 0.5;
-          color: v.$color2;
+          background: v.$neutral-400;
         }
       }
     }
   }
 }
+
+// ============================================
+// RESPONSIVE DESIGN FOR SEARCH PAGE
+// ============================================
+
+@media (max-width: v.$breakpoint-lg) {
+  .search {
+    padding: v.$spacing-lg 3%;
+    gap: v.$spacing-2xl;
+    
+    > aside {
+      min-width: 240px;
+    }
+  }
+}
+
+@media (max-width: v.$breakpoint-md) {
+  .search {
+    flex-direction: column;
+    padding: v.$spacing-md 4%;
+    gap: v.$spacing-xl;
+    
+    > aside {
+      width: 100%;
+      position: static;
+      padding: v.$spacing-lg;
+      
+      > h2 {
+        font-size: 1.25rem;
+      }
+      
+      > div {
+        > h4 {
+          font-size: 0.95rem;
+        }
+        
+        > input,
+        > select {
+          font-size: 0.9rem;
+        }
+      }
+    }
+    
+    > main {
+      > h1 {
+        font-size: 1.75rem;
+      }
+      
+      > input {
+        max-width: 100%;
+      }
+      
+      .search-product-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: v.$spacing-lg;
+      }
+    }
+  }
+}
+
+@media (max-width: v.$breakpoint-sm) {
+  .search {
+    padding: v.$spacing-sm 3%;
+    gap: v.$spacing-lg;
+    
+    > aside {
+      padding: v.$spacing-md;
+      border-radius: v.$radius-lg;
+      
+      > h2 {
+        font-size: 1.125rem;
+        margin-bottom: v.$spacing-sm;
+      }
+      
+      > div {
+        gap: v.$spacing-sm;
+        
+        > h4 {
+          font-size: 0.875rem;
+          margin-bottom: v.$spacing-xs;
+        }
+        
+        > input,
+        > select {
+          padding: v.$spacing-sm;
+          font-size: 0.875rem;
+        }
+      }
+    }
+    
+    > main {
+      > h1 {
+        font-size: 1.5rem;
+        margin-bottom: v.$spacing-md;
+      }
+      
+      > input {
+        font-size: 0.95rem;
+        padding: v.$spacing-sm v.$spacing-md;
+        margin: v.$spacing-sm 0;
+      }
+      
+      .search-product-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: v.$spacing-sm;
+      }
+      
+      article {
+        > button {
+          padding: v.$spacing-sm v.$spacing-md;
+          font-size: 0.9rem;
+        }
+      }
+    }
+    
+    // Make product cards fit 2 per row without horizontal scroll
+    .product-card {
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      min-height: 18rem;
+      padding: v.$spacing-sm;
+      
+      img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        max-height: 12rem;
+      }
+      
+      p {
+        font-size: 0.8rem;
+        line-height: 1.2;
+      }
+      
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+

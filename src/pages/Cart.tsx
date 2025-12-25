@@ -13,6 +13,7 @@ import {
 } from "../redux/reducer/cartReducer";
 import { server, type RootState } from "../redux/store";
 import type { CartItem } from "../types/types";
+import { gsap } from "gsap";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,24 @@ const Cart = () => {
 
   const [couponCode, setCouponCode] = useState("");
   const [isValidCouponCode, setIsValidCouponCode] = useState(false);
+
+  // GSAP animation for cart items
+  useEffect(() => {
+    const items = document.querySelectorAll('.cart-item');
+    if (items.length > 0) {
+      gsap.fromTo(
+        items,
+        { opacity: 0, x: -20 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: 'power2.out',
+        }
+      );
+    }
+  }, [cartItems.length]);
 
   const incrementHandler = (cartItem: CartItem) => {
     if (cartItem.quantity >= cartItem.stock)

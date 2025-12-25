@@ -1,46 +1,98 @@
 @use "./admin-styles/mixin" as m;
+@use "./variables" as v;
 
 .login {
-  height: 90vh;
+  min-height: calc(100vh - 100px);
+  background: v.$gradient-hero;
+  position: relative;
   @include m.flex(column);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2300cba9" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,197.3C1248,203,1344,149,1392,122.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover;
+    opacity: 0.3;
+  }
 
   > main {
     width: 100%;
-    height: 80%;
-    max-width: 400px;
-    padding: 2rem;
-    @include m.baseShadow;
+    max-width: 480px;
+    min-height: 500px;
+    padding: v.$spacing-3xl;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: v.$radius-2xl;
+    box-shadow: v.$shadow-2xl;
+    position: relative;
+    z-index: 1;
     @include m.flex(column, center, stretch);
+    
+    > h1 {
+      font-size: 2rem;
+      color: v.$neutral-900;
+      margin-bottom: v.$spacing-2xl;
+      text-align: center;
+    }
+    
     > div {
       width: 100%;
-      @include m.flex(column, flex-start, stretch, 0.2rem);
+      @include m.flex(column, flex-start, stretch, v.$spacing-lg);
+      
       > input, > select {
         @include m.inputStyle;
-        border: 1px solid rgba(162, 162, 162, 0.53);
-        border-radius: 5px;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        border: 2px solid v.$neutral-300;
+        border-radius: v.$radius-lg;
+        font-family: v.$font-primary;
+        padding: v.$spacing-md;
+        transition: all v.$transition-base;
+        
+        &:focus {
+          border-color: v.$primary-500;
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
       }
+      
       > p {
         text-align: center;
-        margin: 2rem;
+        margin: v.$spacing-lg 0;
+        color: v.$neutral-600;
       }
+      
       button {
-        width: 70%;
-        margin: auto;
-        height: 3rem;
-        @include m.btn(unset, rgb(62, 125, 242), white);
+        width: 100%;
+        margin: v.$spacing-md auto 0;
+        min-height: 3.5rem;
+        @include m.btn(v.$spacing-md, transparent, white);
+        background: v.$gradient-primary;
         @include m.flex;
-        border: 1px solid rgb(62, 125, 242);
-        border-radius: 5px;
-        font-size: 1.05rem;
+        gap: v.$spacing-md;
+        border: none;
+        border-radius: v.$radius-lg;
+        font-size: 1.125rem;
+        font-weight: 600;
+        box-shadow: v.$shadow-md;
+        transition: all v.$transition-base;
+        
         > svg {
           background-color: white;
-          width: 30%;
-          height: 100%; 
+          padding: v.$spacing-sm;
+          border-radius: v.$radius-md;
+          height: 2rem;
+          width: 2rem;
         }
+        
         > span {
-          width: 100%;
+          flex: 1;
           text-align: center;
+        }
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: v.$shadow-lg;
         }
       }
     }

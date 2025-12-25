@@ -48,6 +48,22 @@ const ProductDetails = () => {
   const [createReview] = useNewReviewMutation();
   const [deleteReview] = useDeleteReviewMutation();
 
+  const {
+    Ratings: RatingsEditable,
+    rating,
+    setRating,
+  } = useRating({
+    IconFilled: <FaStar />,
+    IconOutline: <FaRegStar />,
+    value: 0,
+    selectable: true,
+    styles: {
+      fontSize: "1.75rem",
+      color: "coral",
+      justifyContent: "flex-start",
+    },
+  });
+
   const validImages = data?.product.photos
     ?.map((i) => i.url)
     .filter((url): url is string => !!url);
@@ -68,27 +84,9 @@ const ProductDetails = () => {
     toast.success("Added to Cart");
   };
 
-  if (isError) return <Navigate to="/404" />;
-
   const showDialog = () => {
     reviewDialogRef.current?.showModal();
   };
-
-  const {
-    Ratings: RatingsEditable,
-    rating,
-    setRating,
-  } = useRating({
-    IconFilled: <FaStar />,
-    IconOutline: <FaRegStar />,
-    value: 0,
-    selectable: true,
-    styles: {
-      fontSize: "1.75rem",
-      color: "coral",
-      justifyContent: "flex-start",
-    },
-  });
 
   const closeDialogHandler = () => {
     reviewDialogRef.current?.close();
@@ -118,6 +116,9 @@ const ProductDetails = () => {
     const res = await deleteReview({ reviewId, userId: user?._id });
     responseToast(res, null, "");
   };
+
+  // Now check for error after all hooks
+  if (isError) return <Navigate to="/404" />;
 
   return (
     <div className="product-details">

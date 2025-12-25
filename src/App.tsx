@@ -12,6 +12,7 @@ import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import type { UserReducerInitialState } from "./types/reducer-types";
 import Footer from "./components/Footer";
+import { useSmoothScroll } from "./utils/smoothScroll";
 
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
@@ -53,6 +54,9 @@ const App = () => {
   );
 
   const dispatch = useDispatch();
+
+  // Initialize smooth scrolling
+  useSmoothScroll();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

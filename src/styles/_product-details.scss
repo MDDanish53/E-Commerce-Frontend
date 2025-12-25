@@ -2,96 +2,147 @@
 @use "./variables" as v;
 
 .product-details {
-  padding: 4rem;
+  padding: 2rem 4rem;
 
   > main {
     display: flex;
-    max-width: 1920px;
+    max-width: 1400px;
     width: 100%;
     margin: auto;
+    gap: 2rem;
+    
     > section {
       &:first-of-type {
-        width: 40%;
-        height: 90vh;
+        width: 45%;
+        min-height: 500px;
+        position: sticky;
+        top: 100px;
+        height: fit-content;
       }
 
       &:last-of-type {
-        width: 60%;
-        min-height: 80vh;
-        padding: 4rem;
+        width: 55%;
+        padding: 0;
 
         h1 {
-          font-size: 3.5rem;
-          margin: 1rem 0;
+          font-size: 1.75rem;
+          font-weight: 600;
+          margin: 0 0 0.75rem 0;
+          line-height: 1.3;
+          color: v.$neutral-900;
         }
 
         code {
-          font-size: 1.2rem;
-          background-color: rgb(5, 107, 224);
-          color: white;
-          border-radius: 10px;
-          padding: 0.15rem 0.5rem;
+          font-size: 0.875rem;
+          background-color: v.$primary-100;
+          color: v.$primary-700;
+          border-radius: v.$radius-md;
+          padding: 0.25rem 0.75rem;
+          display: inline-block;
+          margin-bottom: 0.75rem;
+          font-weight: 500;
+        }
+        
+        em {
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+          margin: 0.75rem 0;
+          
+          span {
+            font-size: 0.875rem;
+            color: v.$neutral-600;
+            font-style: normal;
+          }
+        }
+        
+        h3 {
+          font-size: 2rem;
+          font-weight: 700;
+          margin: 1rem 0;
+          color: v.$primary-600;
         }
 
         article {
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          gap: 1rem;
+          gap: 1.5rem;
           margin: 2rem 0;
+          padding: 1.5rem 0;
+          border-top: 1px solid v.$neutral-200;
+          border-bottom: 1px solid v.$neutral-200;
+          
           > div {
-            width: 9rem;
-            @include m.flex(row, space-between);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            
             button {
-              border: none;
-              @include m.square(3rem);
-              border-radius: 5px;
+              border: 1px solid v.$neutral-300;
+              background: white;
+              @include m.square(2.5rem);
+              border-radius: v.$radius-md;
               @include m.flex;
               cursor: pointer;
-              font-size: 1.2rem;
+              font-size: 1.125rem;
+              font-weight: 600;
+              color: v.$neutral-700;
+              transition: all v.$transition-base;
+              
               &:hover {
-                background-color: v.$color2;
-                color: v.$color1;
+                background-color: v.$primary-500;
+                color: white;
+                border-color: v.$primary-500;
               }
             }
-
-            h3 {
-              font-size: 1.5rem;
-              margin: 1rem 0;
-            }
-
-            p {
-              font-size: 1.2rem;
-              margin: 1rem 0;
-              font-weight: 300;
-              line-height: 150%;
+            
+            span {
+              min-width: 2.5rem;
+              text-align: center;
+              font-size: 1.125rem;
+              font-weight: 600;
             }
           }
+          
           > button {
-            width: 9rem;
-            background-color: v.$color3;
-            padding: 1rem;
+            width: 100%;
+            max-width: 300px;
+            background: v.$gradient-primary;
+            padding: 0.875rem 1.5rem;
             border: none;
             cursor: pointer;
-            color: v.$color1;
+            color: white;
             @include m.flex;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 5px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: v.$radius-lg;
+            box-shadow: v.$shadow-md;
+            transition: all v.$transition-base;
+            
             &:hover {
-              opacity: 0.8;
+              transform: translateY(-2px);
+              box-shadow: v.$shadow-lg;
             }
           }
+        }
+        
+        > p {
+          font-size: 0.95rem;
+          line-height: 1.7;
+          color: v.$neutral-700;
+          margin: 1.5rem 0 0 0;
         }
       }
     }
   }
 
   > section {
-    max-width: 1920px;
+    max-width: 1400px;
     width: 100%;
-    margin: auto;
-    padding-top: 1rem;
+    margin: 3rem auto 0;
+    padding: 0 4rem;
     > article {
       display: flex;
       justify-content: space-between;
@@ -228,3 +279,208 @@
     font-size: 1.25rem;
   }
 }
+
+// ============================================
+// RESPONSIVE DESIGN FOR PRODUCT DETAILS
+// ============================================
+
+@media (max-width: v.$breakpoint-lg) {
+  .product-details {
+    padding: 2rem;
+    
+    > main {
+      gap: 1.5rem;
+    }
+    
+    > section {
+      padding: 0 2rem;
+    }
+    
+    .review {
+      width: 35rem;
+    }
+  }
+}
+
+@media (max-width: v.$breakpoint-md) {
+  .product-details {
+    padding: 1.5rem;
+    
+    > main {
+      flex-direction: column;
+      
+      > section {
+        &:first-of-type {
+          width: 100%;
+          position: static;
+        }
+        
+        &:last-of-type {
+          width: 100%;
+          
+          h1 {
+            font-size: 1.5rem;
+          }
+          
+          code {
+            font-size: 0.8125rem;
+          }
+          
+          em span {
+            font-size: 0.8125rem;
+          }
+          
+          h3 {
+            font-size: 1.625rem;
+          }
+          
+          > p {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+    
+    > section {
+      padding: 0 1.5rem;
+    }
+    
+    .review {
+      width: 100%;
+    }
+    
+    .review-dialog {
+      width: 90%;
+    }
+  }
+}
+
+@media (max-width: v.$breakpoint-sm) {
+  .product-details {
+    padding: 1rem;
+    
+    > main > section {
+      &:last-of-type {
+        h1 {
+          font-size: 1.25rem;
+          margin: 0 0 0.5rem 0;
+        }
+        
+        code {
+          font-size: 0.75rem;
+          padding: 0.2rem 0.5rem;
+        }
+        
+        em {
+          gap: 0.5rem;
+          margin: 0.5rem 0;
+          
+          span {
+            font-size: 0.75rem;
+          }
+        }
+        
+        h3 {
+          font-size: 1.375rem;
+          margin: 0.75rem 0;
+        }
+        
+        article {
+          margin: 1rem 0;
+          padding: 1rem 0;
+          gap: 1rem;
+          
+          > div {
+            button {
+              @include m.square(2.25rem);
+              font-size: 1rem;
+            }
+            
+            span {
+              font-size: 1rem;
+              min-width: 2.25rem;
+            }
+          }
+          
+          > button {
+            width: 100%;
+            max-width: 100%;
+            font-size: 0.875rem;
+            padding: 0.75rem 1.25rem;
+          }
+        }
+        
+        > p {
+          font-size: 0.8125rem;
+          line-height: 1.6;
+          margin: 1rem 0 0 0;
+        }
+      }
+    }
+    
+    > section {
+      padding: 0 1rem;
+      margin: 2rem auto 0;
+      
+      > article {
+        > h2 {
+          font-size: 1.125rem;
+        }
+        
+        > button {
+          width: 2.5rem;
+          height: 2.5rem;
+          font-size: 1.125rem;
+        }
+      }
+    }
+    
+    .review {
+      padding: 1rem;
+      
+      p {
+        font-size: 0.875rem;
+      }
+      
+      > div {
+        img {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+        
+        small {
+          font-size: 0.8125rem;
+        }
+      }
+      
+      > button {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.875rem;
+      }
+    }
+    
+    .review-dialog {
+      width: 95%;
+      padding: 1.25rem;
+      
+      > h2 {
+        font-size: 1.125rem;
+      }
+      
+      > form {
+        > textarea {
+          font-size: 0.9375rem;
+          min-height: 18vh;
+          padding: 0.75rem;
+        }
+        
+        > button {
+          font-size: 0.9375rem;
+          padding: 0.75rem;
+        }
+      }
+    }
+  }
+}
+

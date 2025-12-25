@@ -12,6 +12,11 @@ import ProductCard from "../components/ProductCard";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
 import { addToCart } from "../redux/reducer/cartReducer";
 import type { CartItem } from "../types/types";
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const clients = [
   {
@@ -147,6 +152,64 @@ const Home = () => {
     dispatch(addToCart(cartItem));
     toast.success("Added to Cart");
   };
+
+
+
+  // GSAP fade-in animations
+  useEffect(() => {
+    // Animate product cards on scroll
+    const productCards = gsap.utils.toArray('.product-card');
+    if (productCards.length > 0) {
+      gsap.fromTo(
+        productCards,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.home > main',
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }
+
+    // Animate services section
+    const servicesSection = gsap.utils.toArray('.our-services li');
+    if (servicesSection.length > 0) {
+      gsap.fromTo(
+        servicesSection,
+        {
+          opacity: 0,
+          scale: 0.8,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.15,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: '.our-services',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [products.length]);
 
   if (isError) toast.error("Cannot Fetch the Products");
   return (

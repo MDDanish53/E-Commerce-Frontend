@@ -2,108 +2,201 @@
 @use "_variables" as v;
 
 .cart {
-  padding: 2rem 4rem;
-  @include m.flex(row, unset, unset, 4rem);
-  height: calc(100vh - 4rem);
+  padding: v.$spacing-xl 5%;
+  @include m.flex(row, unset, flex-start, v.$spacing-3xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
 
   > main {
     width: 70%;
     > h1 {
       @include m.heading(2px);
-      text-align: center;
+      text-align: left;
+      font-size: 2rem;
+      color: v.$neutral-900;
+      margin-bottom: v.$spacing-lg;
     }
     overflow-y: auto;
+    @include m.flex(column, flex-start, stretch, v.$spacing-lg);
     &::-webkit-scrollbar {
-      display: none;
+      width: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      background: v.$neutral-200;
+      border-radius: v.$radius-full;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: v.$gradient-primary;
+      border-radius: v.$radius-full;
     }
   }
 
   > aside {
     width: 30%;
-    padding: 4rem;
-    @include m.flex(column, center, stretch, 1.5rem);
+    padding: v.$spacing-2xl;
+    background: white;
+    border-radius: v.$radius-xl;
+    box-shadow: v.$shadow-card;
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+    @include m.flex(column, flex-start, stretch, v.$spacing-md);
 
     > input {
-      padding: 1rem;
-      border: 1px solid rgba(0, 0, 0, 0.28);
+      padding: v.$spacing-md;
+      border: 2px solid v.$neutral-300;
       outline: none;
-      border-radius: 5px;
-      margin-top: 2rem;
-    }
-    > p {
-      font-size: 1.1rem;
-    }
-    > a {
-      background-color: v.$color3;
-      padding: 1rem;
-      text-decoration: none;
-      color: v.$color1;
-      @include m.flex;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border-radius: 5px;
-      &:hover {
-        opacity: 0.8;
+      border-radius: v.$radius-lg;
+      margin-top: v.$spacing-lg;
+      font-size: 0.95rem;
+      transition: all v.$transition-base;
+      
+      &:focus {
+        border-color: v.$primary-500;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
       }
     }
+    
+    > p {
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      color: v.$neutral-700;
+      
+      > b {
+        color: v.$neutral-900;
+        font-size: 1.125rem;
+      }
+    }
+    
+    > a {
+      background: v.$gradient-primary;
+      padding: v.$spacing-md;
+      text-decoration: none;
+      color: white;
+      @include m.flex;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: v.$radius-lg;
+      font-weight: 600;
+      box-shadow: v.$shadow-md;
+      transition: all v.$transition-base;
+      margin-top: v.$spacing-lg;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: v.$shadow-lg;
+      }
+    }
+    
     > span {
-      margin-top: -1rem;
+      margin-top: 0;
       @include m.flex(row, center, center, 5px);
+      font-size: 0.9rem;
+      
       > code {
-        font-weight: 900;
-        align-self: flex-end;
+        font-weight: 700;
+        background: v.$neutral-100;
+        padding: v.$spacing-xs v.$spacing-sm;
+        border-radius: v.$radius-sm;
       }
     }
   }
 }
 
 .cart-item {
-  padding: 1rem;
-  @include m.flex(row, flex-start, center, 3rem);
+  padding: v.$spacing-xl;
+  background: white;
+  border-radius: v.$radius-xl;
+  box-shadow: v.$shadow-card;
+  @include m.flex(row, flex-start, center, v.$spacing-xl);
+  transition: all v.$transition-base;
+  
+  &:hover {
+    box-shadow: v.$shadow-hover;
+  }
+  
   > img {
     @include m.square(10rem);
     object-fit: contain;
+    border-radius: v.$radius-lg;
+    background: v.$neutral-100;
+    padding: v.$spacing-sm;
   }
    
   > article {
-    @include m.flex(column, center, flex-start, 0.25rem);
+    @include m.flex(column, center, flex-start, v.$spacing-sm);
+    flex: 1;
+    
     a {
-      font-size: 1.2rem;
-      color: v.$color2;
+      font-size: 1.125rem;
+      color: v.$neutral-900;
+      font-weight: 600;
+      transition: color v.$transition-base;
+      
       &:hover {
-        color: v.$color3;
+        color: v.$primary-600;
       }
     }
+    
     span {
       font-weight: 700;
+      font-size: 1.25rem;
+      color: v.$primary-700;
     }
   }
 
   > div {
     margin-left: auto;
     @include m.flex;
+    gap: v.$spacing-md;
+    background: v.$neutral-100;
+    padding: v.$spacing-sm;
+    border-radius: v.$radius-lg;
+    
     button {
       border: none;
-      @include m.square(2rem);
-      border-radius: 5px;
+      @include m.square(2.5rem);
+      border-radius: v.$radius-md;
       @include m.flex;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: white;
+      color: v.$primary-700;
+      transition: all v.$transition-base;
+      
       &:hover {
-        background-color: v.$color2;
-        color: v.$color1;
+        background: v.$primary-600;
+        color: white;
+        transform: scale(1.1);
       }
+    }
+    
+    p {
+      min-width: 2.5rem;
+      text-align: center;
+      font-weight: 600;
+      @include m.flex;
     }
   }
 
   > button {
     border: none;
-    background-color: transparent;
+    background: v.$error-light;
+    color: v.$error;
+    padding: v.$spacing-md;
+    border-radius: v.$radius-md;
     @include m.flex;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.125rem;
+    transition: all v.$transition-base;
+    
     &:hover {
-      color: red;
+      background: v.$error;
+      color: white;
+      transform: scale(1.1);
     }
   }
 }

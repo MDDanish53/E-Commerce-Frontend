@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import {
   useCategoriesQuery,
@@ -11,6 +11,10 @@ import type { CartItem } from "../types/types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
 import { useSearchParams } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Search = () => {
 
@@ -44,6 +48,33 @@ const Search = () => {
     dispatch(addToCart(cartItem));
     toast.success("Added to Cart");
   }
+
+  // GSAP Scroll Animations
+  useEffect(() => {
+    const productCards = gsap.utils.toArray('.product-card');
+    if (productCards.length > 0) {
+      gsap.fromTo(
+        productCards,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.08,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.search-product-list',
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [searchedData]);
 
   const isPrevPage = false;
   const isNextPage = true;

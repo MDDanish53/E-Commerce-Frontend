@@ -1,3 +1,124 @@
-$color1: white;
-$color2: rgb(46, 46, 46);
-$color3: rgb(0, 104, 136);
+// ============================================
+// PREMIUM DESIGN SYSTEM - E-COMMERCE
+// ============================================
+
+// Typography
+$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+// Color Palette - HSL Based for Easy Theming
+// Primary Colors
+$primary-900: hsl(210, 50%, 12%);    // Deep blue-black
+$primary-800: hsl(210, 40%, 18%);
+$primary-700: hsl(210, 35%, 25%);
+$primary-600: hsl(210, 30%, 35%);
+$primary-500: hsl(195, 30%, 45%);
+$primary-400: hsl(190, 35%, 55%);
+$primary-300: hsl(185, 40%, 65%);
+$primary-200: hsl(180, 45%, 75%);
+$primary-100: hsl(175, 50%, 85%);
+$primary-50: hsl(170, 55%, 95%);
+
+// Accent Colors - Vibrant Coral/Pink to Orange
+$accent-900: hsl(15, 80%, 35%);
+$accent-700: hsl(15, 85%, 50%);
+$accent-500: hsl(15, 90%, 60%);
+$accent-300: hsl(20, 95%, 70%);
+$accent-100: hsl(25, 100%, 85%);
+
+// Neutral Colors
+$neutral-900: hsl(220, 15%, 15%);
+$neutral-800: hsl(220, 12%, 25%);
+$neutral-700: hsl(220, 10%, 35%);
+$neutral-600: hsl(220, 8%, 50%);
+$neutral-500: hsl(220, 6%, 65%);
+$neutral-400: hsl(220, 5%, 75%);
+$neutral-300: hsl(220, 4%, 85%);
+$neutral-200: hsl(220, 5%, 92%);
+$neutral-100: hsl(220, 8%, 97%);
+$neutral-50: hsl(0, 0%, 100%);
+
+// Semantic Colors
+$success: hsl(142, 71%, 45%);
+$success-light: hsl(142, 71%, 90%);
+$error: hsl(0, 84%, 60%);
+$error-light: hsl(0, 84%, 95%);
+$warning: hsl(45, 100%, 51%);
+$warning-light: hsl(45, 100%, 95%);
+$info: hsl(210, 100%, 56%);
+$info-light: hsl(210, 100%, 95%);
+
+// Background Colors
+$bg-primary: hsl(0, 0%, 100%);
+$bg-secondary: hsl(220, 20%, 98%);
+$bg-tertiary: hsl(220, 15%, 95%);
+$bg-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$bg-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$bg-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+$bg-gradient-light: linear-gradient(to bottom, hsl(220, 25%, 99%), hsl(220, 20%, 96%));
+
+// Gradient Definitions
+$gradient-primary: linear-gradient(135deg, $primary-700 0%, $primary-500 50%, $primary-400 100%);
+$gradient-accent: linear-gradient(135deg, $accent-700 0%, $accent-500 50%, $accent-300 100%);
+$gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+$gradient-hero: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+$gradient-warm: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+$gradient-cool: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-sunset: linear-gradient(135deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+
+// Shadow System
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+$shadow-glow: 0 0 20px rgba(102, 126, 234, 0.4);
+$shadow-glow-accent: 0 0 20px rgba(245, 87, 108, 0.4);
+$shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.04);
+$shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(0, 0, 0, 0.08);
+
+// Spacing Scale (based on 0.25rem = 4px)
+$spacing-xs: 0.25rem;    // 4px
+$spacing-sm: 0.5rem;     // 8px
+$spacing-md: 1rem;       // 16px
+$spacing-lg: 1.5rem;     // 24px
+$spacing-xl: 2rem;       // 32px
+$spacing-2xl: 3rem;      // 48px
+$spacing-3xl: 4rem;      // 64px
+$spacing-4xl: 6rem;      // 96px
+$spacing-5xl: 8rem;      // 128px
+
+// Border Radius
+$radius-sm: 0.25rem;     // 4px
+$radius-md: 0.5rem;      // 8px
+$radius-lg: 0.75rem;     // 12px
+$radius-xl: 1rem;        // 16px
+$radius-2xl: 1.5rem;     // 24px
+$radius-full: 9999px;    // Fully rounded
+
+// Transitions
+$transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// Z-Index Scale
+$z-base: 1;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1536px;
+
+// Legacy Variables (for backward compatibility)
+$color1: $bg-primary;
+$color2: $neutral-800;
+$color3: $primary-600;
