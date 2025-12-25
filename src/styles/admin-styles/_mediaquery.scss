@@ -14,24 +14,61 @@
     .transaction-container {
       justify-content: center;
       flex-wrap: wrap;
-      width: 100%;
-      padding: 2rem 1rem;
-    }
-    .graph-container {
-      padding: 1rem;
-      > div { 
-        width: 100%; 
-        max-width: 100%;
+      width: 100% !important;
+      max-width: 100vw !important;
+      padding: 1rem 0; // Reduced padding
+      box-sizing: border-box;
+      margin: 0;
+      
+      .widget {
+        width: 100% !important;
+        max-width: 20rem;
+        margin: 0.5rem;
       }
     }
+    
+    // Ensure charts don't overflow
+    .graph-container, .transaction-container {
+      > div { 
+        width: 100% !important; 
+        max-width: 100% !important;
+        overflow-x: hidden; // Prevent inner overflow
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      
+      canvas {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+    }
+
+    // Fix table overflow
     .transaction-container {
-      padding: 1rem;
       height: unset;
       flex-direction: column;
       
-      > div {
+      .transaction-box {
+        width: 100%;
+        overflow-x: auto; // Allow table internal scroll
+        
+        table {
+          width: 100%;
+          min-width: 600px; // ensure table has enough width to be readable
+        }
+      }
+      
+      .gender-chart {
         width: 100%;
         max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        canvas {
+          max-width: 200px !important; // Constrain donut chart
+          max-height: 200px !important;
+        }
       }
     }
     
