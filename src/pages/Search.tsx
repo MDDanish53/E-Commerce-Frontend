@@ -13,12 +13,14 @@ import { addToCart } from "../redux/reducer/cartReducer";
 import { useSearchParams } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FaFilter } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Search = () => {
 
   const searchQuery = useSearchParams()[0];
+  const [showFilters, setShowFilters] = useState(false);
 
   const {
     data: categoriesResponse,
@@ -90,8 +92,14 @@ const Search = () => {
   }
   return (
     <div className="search">
-      <aside>
-        <h2>Filters</h2>
+      <button className="mobile-filter-btn" onClick={() => setShowFilters(!showFilters)}>
+        Filters <FaFilter />
+      </button>
+      <aside className={showFilters ? "active" : ""}>
+        <div className="filter-header">
+           <h2>Filters</h2>
+           <button className="close-filters" onClick={() => setShowFilters(false)}>&times;</button>
+        </div>
         <div>
           <h4>Sort</h4>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
@@ -100,6 +108,7 @@ const Search = () => {
             <option value="dsc">Price (High to Low)</option>
           </select>
         </div>
+
         <div>
           <h4>Max Price: {maxPrice || ""}</h4>
           <input

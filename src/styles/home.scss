@@ -526,25 +526,51 @@
     padding: v.$spacing-md 2%;
     
     > main {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
       gap: v.$spacing-md;
+      padding-bottom: v.$spacing-md; // Space for scrollbar
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      
+      // Hide scrollbar but allow scrolling
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: v.$neutral-200;
+        border-radius: 10px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: v.$primary-300;
+        border-radius: 10px;
+      }
       
       // Skeleton loader responsive
       > div {
-        min-width: 0 !important;
-        width: 100% !important;
+        min-width: 14rem !important;
+        width: 14rem !important;
         height: 18rem !important;
+        flex-shrink: 0;
       }
     }
   }
   
   .product-card {
-    width: 100%;
-    min-width: 0;
+    min-width: 14rem;
+    width: 14rem;
+    max-width: 14rem;
     height: 18rem;
     padding: v.$spacing-sm;
+    flex-shrink: 0; // Prevent shrinking in flex container
     
     img {
-      @include m.square(calc(100% - 1rem));
+      @include m.square(calc(14rem - 1rem));
       max-height: 12rem;
     }
     

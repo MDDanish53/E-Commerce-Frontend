@@ -43,6 +43,9 @@
 
   .admin-container {
     grid-template-columns: 1fr !important;
+    height: auto !important; // Allow page to scroll naturally
+    min-height: 100vh;
+    overflow-y: visible;
   }
   .product-details {
     padding: 2rem;
