@@ -95,6 +95,15 @@ const Search = () => {
       <button className="mobile-filter-btn" onClick={() => setShowFilters(!showFilters)}>
         Filters <FaFilter />
       </button>
+
+      {/* Backdrop Overlay */}
+      {showFilters && (
+        <div 
+          className="filter-overlay" 
+          onClick={() => setShowFilters(false)}
+        />
+      )}
+
       <aside className={showFilters ? "active" : ""}>
         <div className="filter-header">
            <h2>Filters</h2>
