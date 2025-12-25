@@ -156,6 +156,53 @@
       }
     }
   }
+
+  // GLOBAL ADMIN TABLE FIX
+  // Applies to Products, Customers, Transactions, etc.
+  .dashboard-product-box,
+  .transaction-box {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: auto !important;
+    background: white;
+    padding: 0.5rem;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    display: block; // Ensure it behaves as a block for scrolling
+
+    > h2 {
+      margin: 1rem 0;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 800px; // Ensure table triggers scroll
+      border-collapse: collapse;
+      
+      th, td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+        white-space: nowrap; // Keep columns neat
+        text-align: left;
+      }
+      
+      th {
+        font-weight: 700;
+        background-color: transparent; // or minimal style
+      }
+    }
+    
+    // Pagination controls
+    .table-pagination {
+       display: flex;
+       justify-content: center;
+       padding: 1rem;
+       gap: 1rem;
+    }
+  }
 }
 
 @media screen and (width<= 768px) {
