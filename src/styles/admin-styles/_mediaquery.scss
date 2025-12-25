@@ -8,6 +8,7 @@
 
   .dashboard {
     width: 100%;
+    padding-top: 4rem; // Fix top area hiding behind fixed header elements
     
     .widget-container,
     .graph-container,
@@ -50,11 +51,20 @@
       
       .transaction-box {
         width: 100%;
+        max-width: 100%;
         overflow-x: auto; // Allow table internal scroll
+        box-shadow: none; // remove shadow to prevent box expansion issues
+        padding: 0.5rem;
         
         table {
           width: 100%;
-          min-width: 600px; // ensure table has enough width to be readable
+          min-width: 700px; // ensure table has enough width to be readable and trigger scroll
+          border-collapse: collapse;
+          
+          th, td {
+             padding: 0.5rem;
+             font-size: 0.85rem;
+          }
         }
       }
       
