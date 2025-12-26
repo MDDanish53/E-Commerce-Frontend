@@ -153,7 +153,7 @@ const ProductDetails = () => {
                 style={{ display: "flex", gap: "1rem", alignItems: "center" }}
               >
                 <RatingsComponent value={data?.product.ratings || 0} />
-                <span>({data?.product?.numOfReviews} reviews)</span>
+                <span>({data?.product?.numOfreviews || 0} reviews)</span>
               </em>
               <h3>₹{data?.product.price}</h3>
               <article>
