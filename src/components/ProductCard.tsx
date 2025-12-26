@@ -26,7 +26,7 @@ const ProductCard = ({
 }: productProps) => {
   return (
     <div className="product-card">
-      <img src={transformImage(photos?.[0]?.url, 700)} alt={name} />
+      <img src={transformImage(photos?.[0]?.url, 400)} alt={name} loading="lazy" />
       <p>{name}</p>
       <span>₹{price}</span>
       <div>

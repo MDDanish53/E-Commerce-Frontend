@@ -89,6 +89,20 @@
       gap: v.$spacing-xl;
       height: auto;
       overflow-y: visible;
+
+      .product-card {
+        width: 100%;
+        max-width: unset;
+        height: auto;
+        min-height: 22rem; 
+        
+        img {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 1;
+          object-fit: cover;
+        }
+      }
     }
     
     article {
