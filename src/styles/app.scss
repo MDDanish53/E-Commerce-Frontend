@@ -210,6 +210,30 @@ a {
   @include m.grid(1fr 4fr, 2rem);
   height: calc(100vh - 80px);
   background-color: rgb(247, 247, 247);
+  
+  > main {
+    width: 100%;
+    overflow-y: auto;
+    padding-bottom: 200px; // Prevent footer overlap
+    
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 115, 255, 0.3);
+      border-radius: 4px;
+      
+      &:hover {
+        background: rgba(0, 115, 255, 0.5);
+      }
+    }
+  }
+  
   > aside {
     width: 100%;
     background-color: white;
