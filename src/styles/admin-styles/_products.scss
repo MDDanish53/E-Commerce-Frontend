@@ -3,11 +3,21 @@
 .dashboard-product-box {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
   padding: 2rem;
-  overflow: auto;
-  @include m.square(100%);
+  overflow: visible; // Let table scroll naturally within main
+  width: 100%;
+  min-height: 400px; // Ensure enough height to display content
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 115, 255, 0.1);
+  
+  // Table images
+  img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block; // Ensure images render properly
+  }
   
   &::-webkit-scrollbar {
     height: 8px;
