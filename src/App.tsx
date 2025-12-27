@@ -11,6 +11,7 @@ import { auth } from "./firebase";
 import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import type { UserReducerInitialState } from "./types/reducer-types";
+import type { User } from "./types/types";
 import Footer from "./components/Footer";
 import { useSmoothScroll } from "./utils/smoothScroll";
 
@@ -51,6 +52,11 @@ const NewDiscount = lazy(() => import("./pages/admin/management/newdiscount"));
 const FooterWrapper = () => {
   const location = useLocation();
   return location.pathname.startsWith("/admin") ? null : <Footer />;
+};
+
+const HeaderWrapper = ({ user }: { user: User | null }) => {
+  const location = useLocation();
+  return location.pathname.startsWith("/admin") ? null : <Header user={user} />;
 };
 
 const App = () => {
@@ -100,8 +106,7 @@ const App = () => {
     <Loader />
   ) : (
     <Router>
-      {/* Header */}
-      <Header user={user} />
+      <HeaderWrapper user={user} />
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
