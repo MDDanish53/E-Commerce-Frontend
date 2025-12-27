@@ -60,7 +60,35 @@ const AdminSidebar = () => {
             : {}
         }
       >
-        <h2>Logo.</h2>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <h2>SleekStore</h2>
+        </Link>
+        <div style={{ marginBottom: '2rem' }}>
+          <Link 
+            to="/" 
+            style={{
+              display: 'block',
+              padding: '0.75rem 1rem',
+              backgroundColor: 'rgba(0,115,255,0.1)',
+              borderRadius: '10px',
+              color: 'rgb(0,115,255)',
+              textDecoration: 'none',
+              fontWeight: '500',
+              textAlign: 'center',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(0,115,255,0.2)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = 'rgba(0,115,255,0.1)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            ← Back to Store
+          </Link>
+        </div>
         <DivOne location={location} />
         <DivTwo location={location} />
         <DivThree location={location} />

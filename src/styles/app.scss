@@ -208,7 +208,7 @@ a {
 
 .admin-container {
   @include m.grid(1fr 4fr, 2rem);
-  height: 100vh;
+  height: calc(100vh - 80px);
   background-color: rgb(247, 247, 247);
   > aside {
     width: 100%;
