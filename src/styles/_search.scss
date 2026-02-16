@@ -217,23 +217,26 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: transparent; // visual click feedback
+        background: v.$error-light; // Make it visible!
         border: none;
-        font-size: 1.5rem;
+        font-size: 1.25rem; // Slightly smaller icon
         cursor: pointer;
-        color: v.$neutral-600;
-        padding: v.$spacing-md; // large touch target
+        color: v.$error; // Red color for visibility
+        padding: v.$spacing-sm; // Compact padding
+        width: 2.5rem; // Explicit width
+        height: 2.5rem; // Explicit height
         border-radius: 50%;
         transition: all v.$transition-base;
         z-index: 1002;
+        flex-shrink: 0; // Prevent shrinking
 
         svg {
           pointer-events: none;
         }
 
         &:hover {
-          color: v.$error;
-          background: v.$neutral-100;
+          color: white;
+          background: v.$error;
         }
 
         &:active {
