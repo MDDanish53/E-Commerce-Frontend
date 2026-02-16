@@ -1,359 +1,177 @@
-@use "./admin-styles/mixin" as m;
-@use "./variables" as v;
+@use "admin-styles/mixin" as m;
+@use "_variables" as v;
 
-.search {
+.product-search-page {
   padding: v.$spacing-xl 5%;
-  @include m.flex(row, flex-start, flex-start, v.$spacing-3xl);
+  @include m.flex(row, unset, flex-start);
+  gap: v.$spacing-2xl;
   max-width: 1400px;
   margin: 0 auto;
   min-height: calc(100vh - 100px);
 
   > aside {
-    min-width: 280px;
+    width: 280px;
+    flex: none;
+    padding: v.$spacing-xl;
     background: white;
-    padding: v.$spacing-2xl;
     border-radius: v.$radius-xl;
     box-shadow: v.$shadow-card;
+    border: 1px solid v.$neutral-200;
     position: sticky;
-    top: 120px;
+    top: 80px;
     height: fit-content;
-    @include m.flex(column, flex-start, stretch, v.$spacing-xl);
+    @include m.flex(column, flex-start, stretch, v.$spacing-lg);
 
     > h2 {
-      @include m.heading;
-      font-size: 1.5rem;
+      @include m.heading(1px);
+      text-align: left;
+      font-size: 1.125rem;
       color: v.$neutral-900;
-      margin-bottom: v.$spacing-md;
+      display: flex;
+      align-items: center;
+      gap: v.$spacing-sm;
     }
 
     > div {
       > h4 {
-        font-size: 1rem;
-        font-weight: 600;
-        color: v.$neutral-700;
+        font-size: 0.75rem;
+        color: v.$neutral-500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         margin-bottom: v.$spacing-sm;
+        font-weight: 600;
       }
-      
-      > input,
+
+      > input[type="range"] {
+        width: 100%;
+        accent-color: v.$primary-500;
+      }
+
       > select {
-        @include m.inputStyle(
-          100%,
-          v.$spacing-md,
-          white,
-          2px solid v.$neutral-300
-        );
-        border-radius: v.$radius-lg;
-        margin: v.$spacing-sm 0;
-        font-size: 0.95rem;
-        transition: all v.$transition-base;
-        
+        @include m.inputStyle(100%, v.$spacing-sm);
+        border: 1px solid v.$neutral-300;
+        border-radius: v.$radius-md;
+        outline: none;
+        font-size: 0.9rem;
+        color: v.$neutral-700;
+        background: white;
+        cursor: pointer;
+        transition: border-color v.$transition-base;
+
         &:focus {
           border-color: v.$primary-500;
-          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+          box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.08);
         }
+      }
+
+      > p {
+        font-size: 0.875rem;
+        color: v.$neutral-600;
+        margin-bottom: v.$spacing-sm;
+        font-weight: 500;
       }
     }
   }
 
   > main {
-    width: 100%;
-    padding: 0;
-    
-    > h1 {
-      @include m.heading();
-      font-size: 2rem;
-      color: v.$neutral-900;
-      margin-bottom: v.$spacing-xl;
-    }
-    
+    flex: 1;
+    @include m.flex(column, flex-start, stretch, v.$spacing-xl);
+
     > input {
-      @include m.inputStyle(100%);
-      border: 2px solid v.$neutral-300;
+      width: 100%;
+      @include m.inputStyle(100%, v.$spacing-md);
+      border: 1px solid v.$neutral-300;
       border-radius: v.$radius-lg;
-      margin: v.$spacing-md 0;
-      font-size: 1.05rem;
-      padding: v.$spacing-md;
-      max-width: 500px;
-      display: block;
+      font-size: 0.95rem;
+      background: white;
+      box-shadow: v.$shadow-sm;
       transition: all v.$transition-base;
-      
+
       &:focus {
+        outline: none;
         border-color: v.$primary-500;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-      }
-    }
-    
-    .search-product-list {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: v.$spacing-xl;
-      height: auto;
-      overflow-y: visible;
-
-      .product-card {
-        width: 100%;
-        max-width: unset;
-        height: auto;
-        min-height: 22rem; 
-        
-        img {
-          width: 100%;
-          height: auto;
-          aspect-ratio: 1;
-          object-fit: cover;
-        }
-      }
-    }
-    
-    article {
-      @include m.flex;
-      
-      > button {
-        @include m.flex;
-        @include m.btn(v.$spacing-sm v.$spacing-lg, transparent, white);
-        background: v.$gradient-primary;
-        border: none;
-        border-radius: v.$radius-lg;
-        box-shadow: v.$shadow-md;
-        font-weight: 600;
-        transition: all v.$transition-base;
-        
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: v.$shadow-lg;
-        }
-        
-        &:disabled {
-          cursor: not-allowed;
-          opacity: 0.5;
-          background: v.$neutral-400;
-        }
+        box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.08);
       }
     }
   }
 }
 
-// ============================================
-// RESPONSIVE DESIGN FOR SEARCH PAGE
-// ============================================
-
-.mobile-filter-btn {
-  display: none;
-}
-
-.filter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.search-product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: v.$spacing-lg;
   width: 100%;
-  
-  .close-filters {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 2.5rem; // Larger touch target
-    cursor: pointer;
-    color: v.$neutral-700;
-    line-height: 1;
-    padding: 0 0.5rem;
-    
-    &:hover {
-      color: v.$error;
-    }
-  }
 }
 
-// Backdrop overlay
-.filter-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 90; // Below sidebar (100) but above everything else
-  backdrop-filter: blur(2px);
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+// ============================================
+// RESPONSIVE
+// ============================================
 
 @media (max-width: v.$breakpoint-lg) {
-  .search {
-    padding: v.$spacing-lg 3%;
-    gap: v.$spacing-2xl;
-    
+  .product-search-page {
     > aside {
-      min-width: 240px;
+      width: 240px;
     }
+  }
+
+  .search-product-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: v.$spacing-md;
   }
 }
 
 @media (max-width: v.$breakpoint-md) {
-  .search {
+  .product-search-page {
     flex-direction: column;
-    padding: v.$spacing-md 4%;
-    gap: v.$spacing-xl;
-    position: relative;
-    
-    .mobile-filter-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: v.$gradient-primary;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      box-shadow: v.$shadow-md;
-      width: fit-content;
-      margin-bottom: 1rem;
-      cursor: pointer;
-      font-size: 0.95rem;
-      z-index: 10;
-    }
-    
+    padding: v.$spacing-md;
+    gap: v.$spacing-lg;
+
     > aside {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      height: 100vh;
-      width: 80%;
-      max-width: 320px;
-      z-index: 100;
-      transition: left 0.3s ease;
-      overflow-y: auto;
-      box-shadow: 10px 0 20px rgba(0,0,0,0.1);
-      
-      &.active {
-        left: 0;
-      }
-      
-      .filter-header .close-filters {
-        display: block;
-      }
-      
+      width: 100%;
+      position: static;
+      padding: v.$spacing-lg;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: v.$spacing-md;
+      border-radius: v.$radius-lg;
+
       > h2 {
-        font-size: 1.5rem;
+        width: 100%;
+        font-size: 1rem;
       }
-      
+
       > div {
-        > h4 {
-          font-size: 1rem;
-        }
-        
-        > input,
-        > select {
-          font-size: 0.95rem;
-        }
+        flex: 1;
+        min-width: 120px;
       }
     }
-    
+
     > main {
-      > h1 {
-        font-size: 1.75rem;
-      }
-      
+      width: 100%;
+
       > input {
-        max-width: 100%;
-      }
-      
-      .search-product-list {
-        grid-template-columns: repeat(3, 1fr);
-        gap: v.$spacing-lg;
+        border: 1px solid v.$neutral-300;
       }
     }
+  }
+
+  .search-product-list {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: v.$spacing-md;
   }
 }
 
 @media (max-width: v.$breakpoint-sm) {
-  .search {
-    padding: v.$spacing-sm 3%;
-    gap: v.$spacing-lg;
-    
-    .mobile-filter-btn {
-      font-size: 0.9rem;
-      padding: 0.6rem 1.2rem;
-    }
-    
+  .product-search-page {
+    padding: v.$spacing-sm;
+
     > aside {
-      width: 85%;
-      padding: v.$spacing-lg;
-      
-      > h2 {
-        font-size: 1.125rem;
-        margin-bottom: v.$spacing-sm;
-      }
-      
-      > div {
-        gap: v.$spacing-sm;
-        
-        > h4 {
-          font-size: 0.875rem;
-          margin-bottom: v.$spacing-xs;
-        }
-        
-        > input,
-        > select {
-          padding: v.$spacing-sm;
-          font-size: 0.875rem;
-        }
-      }
-    }
-    
-    > main {
-      > h1 {
-        font-size: 1.5rem;
-        margin-bottom: v.$spacing-md;
-      }
-      
-      > input {
-        font-size: 0.95rem;
-        padding: v.$spacing-sm v.$spacing-md;
-        margin: v.$spacing-sm 0;
-      }
-      
-      .search-product-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: v.$spacing-sm;
-      }
-      
-      article {
-        > button {
-          padding: v.$spacing-sm v.$spacing-md;
-          font-size: 0.9rem;
-        }
-      }
-    }
-    
-    // Make product cards fit 2 per row without horizontal scroll
-    .product-card {
-      width: 100%;
-      min-width: 0;
-      height: auto;
-      min-height: 18rem;
-      padding: v.$spacing-sm;
-      
-      img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-        max-height: 12rem;
-      }
-      
-      p {
-        font-size: 0.8rem;
-        line-height: 1.2;
-      }
-      
-      span {
-        font-size: 1rem;
-      }
+      padding: v.$spacing-md;
     }
   }
-}
 
+  .search-product-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: v.$spacing-sm;
+  }
+}

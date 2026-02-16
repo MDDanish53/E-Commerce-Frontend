@@ -22,59 +22,48 @@
     @include m.flex;
     align-items: stretch;
     margin: v.$spacing-2xl 0;
-    gap: v.$spacing-3xl;
+    gap: v.$spacing-2xl;
 
     aside {
       width: 15%;
       flex: none;
       background: white;
-      padding: v.$spacing-xl;
+      padding: v.$spacing-lg;
       border-radius: v.$radius-xl;
       box-shadow: v.$shadow-card;
       position: sticky;
-      top: 100px;
+      top: 80px;
       height: fit-content;
-      
+      border: 1px solid v.$neutral-200;
+
       h1 {
         @include m.heading(1px);
-        margin-bottom: v.$spacing-xl;
-        font-size: 1.5rem;
+        margin-bottom: v.$spacing-lg;
+        font-size: 1.25rem;
         color: v.$neutral-900;
         @include m.flex(row, space-between, center);
-        
-        &::before {
-          content: "";
-          width: 4px;
-          height: 2rem;
-          background: v.$gradient-primary;
-          position: absolute;
-          transform: translateX(-1.25rem);
-          border-radius: v.$radius-full;
-        }
       }
 
       > ul {
-        @include m.flex(column, flex-start, stretch, v.$spacing-sm);
+        @include m.flex(column, flex-start, stretch, 0.125rem);
         list-style: none;
-        
+
         > li {
           cursor: pointer;
           flex: none;
-          transition: all v.$transition-base;
-          
+
           a {
             display: block;
             padding: v.$spacing-sm v.$spacing-md;
             border-radius: v.$radius-md;
-            color: v.$neutral-700;
+            color: v.$neutral-600;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all v.$transition-base;
-            
+
             &:hover {
               background: v.$primary-50;
-              color: v.$primary-700;
-              transform: translateX(4px);
+              color: v.$primary-600;
             }
           }
         }
@@ -86,54 +75,53 @@
     @include m.heading(1px);
     margin-top: v.$spacing-3xl;
     @include m.flex(row, space-between, center);
-    font-size: 2rem;
+    font-size: 1.75rem;
     color: v.$neutral-900;
-    
+
     .findmore {
-      font-size: 1rem;
-      color: v.$primary-600;
+      font-size: 0.9rem;
+      color: v.$primary-500;
       font-weight: 500;
       transition: all v.$transition-base;
-      
+
       &:hover {
-        color: v.$primary-700;
-        transform: translateX(4px);
+        color: v.$primary-600;
       }
     }
   }
 
   > main {
-    margin: v.$spacing-2xl 0;
+    margin: v.$spacing-xl 0;
     width: 100%;
     display: flex;
-    gap: v.$spacing-xl;
+    gap: v.$spacing-lg;
     overflow-x: auto;
-    padding-bottom: v.$spacing-md;
+    padding-bottom: v.$spacing-sm;
 
     &::-webkit-scrollbar {
-      height: 8px;
+      height: 4px;
     }
-    
+
     &::-webkit-scrollbar-track {
       background: v.$neutral-200;
       border-radius: v.$radius-full;
     }
-    
+
     &::-webkit-scrollbar-thumb {
-      background: v.$gradient-primary;
+      background: v.$neutral-400;
       border-radius: v.$radius-full;
-      
-      &:hover {
-        background: v.$primary-600;
-      }
     }
   }
 }
 
+// ============================================
+// PRODUCT CARD
+// ============================================
+
 .product-card {
-  width: 18.75rem;
-  height: 27rem;
-  padding: v.$spacing-lg;
+  width: 17rem;
+  height: 25rem;
+  padding: v.$spacing-md;
   flex: none;
   @include m.flex(column, flex-start, center, v.$spacing-sm);
   position: relative;
@@ -142,27 +130,13 @@
   box-shadow: v.$shadow-card;
   transition: all v.$transition-base;
   overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: v.$gradient-primary;
-    transform: scaleX(0);
-    transition: transform v.$transition-base;
-  }
+  border: 1px solid v.$neutral-200;
 
   &:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     box-shadow: v.$shadow-hover;
-    
-    &::before {
-      transform: scaleX(1);
-    }
-    
+    border-color: v.$neutral-300;
+
     > div {
       opacity: 1;
       visibility: visible;
@@ -170,33 +144,33 @@
   }
 
   img {
-    @include m.square(calc(18.75rem - 3rem));
+    @include m.square(calc(17rem - 2rem));
     object-fit: cover;
-    margin: v.$spacing-md 0;
+    margin: v.$spacing-sm 0;
     border-radius: v.$radius-lg;
     transition: transform v.$transition-base;
   }
-  
+
   &:hover img {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 
   p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: v.$neutral-700;
     font-weight: 500;
     text-align: center;
     line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   span {
     font-weight: 700;
-    font-size: 1.25rem;
-    color: v.$primary-700;
-    background: v.$gradient-primary;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 1.15rem;
+    color: v.$primary-600;
   }
 
   > div {
@@ -206,37 +180,37 @@
     @include m.square(100%);
     top: 0;
     left: 0;
-    background: linear-gradient(135deg, rgba(15, 32, 39, 0.92), rgba(44, 83, 100, 0.92));
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
     @include m.flex;
-    gap: v.$spacing-lg;
+    gap: v.$spacing-md;
     transition: all v.$transition-base;
-    
+
     button,
     a {
       @include m.flex;
-      @include m.square(3.5rem);
+      @include m.square(3rem);
       border-radius: v.$radius-full;
       border: none;
       background: white;
       cursor: pointer;
-      color: v.$primary-700;
-      font-size: 1.25rem;
-      box-shadow: v.$shadow-lg;
-      transition: all v.$transition-bounce;
-      
+      color: v.$primary-600;
+      font-size: 1.125rem;
+      box-shadow: v.$shadow-md;
+      transition: all v.$transition-base;
+
       &:hover {
-        transform: rotate(360deg) scale(1.1);
-        background: v.$gradient-primary;
+        transform: scale(1.1);
+        background: v.$primary-500;
         color: white;
-      }
-      
-      &:active {
-        transform: scale(0.95);
       }
     }
   }
 }
+
+// ============================================
+// COVER VIDEO
+// ============================================
 
 .cover-video-container {
   width: 100%;
@@ -251,10 +225,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.45);
     z-index: 2;
   }
-  
+
   video {
     width: 100%;
     height: 100%;
@@ -263,7 +237,7 @@
     top: 0;
     left: 0;
   }
-  
+
   > span {
     position: absolute;
     bottom: v.$spacing-2xl;
@@ -271,10 +245,11 @@
 
     svg {
       color: white;
-      font-size: 3rem;
+      font-size: 2.5rem;
+      animation: up-and-down 1s ease-in-out infinite alternate;
     }
   }
-  
+
   .cover-video-content {
     z-index: 3;
     position: absolute;
@@ -285,120 +260,107 @@
     text-align: center;
     padding: v.$spacing-xl;
     max-width: 90%;
-    
+
     h2 {
       font-size: 3rem;
       margin-bottom: v.$spacing-lg;
       font-weight: 700;
+      letter-spacing: -0.5px;
     }
-    
+
     span {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       line-height: 1.8;
       display: inline;
+      opacity: 0.9;
     }
   }
-  
-  // Mobile responsive styles
+
   @media (max-width: v.$breakpoint-md) {
     height: 70vh;
     min-height: 500px;
-    
+
     .cover-video-content {
       padding: v.$spacing-lg;
-      max-width: 95%;
-      
+
       h2 {
         font-size: 2rem;
         margin-bottom: v.$spacing-md;
       }
-      
+
       span {
-        font-size: 1.125rem;
+        font-size: 1rem;
         line-height: 1.6;
       }
     }
-    
-    > span {
-      bottom: v.$spacing-xl;
-      
-      svg {
-        font-size: 2rem;
-      }
-    }
   }
-  
+
   @media (max-width: v.$breakpoint-sm) {
     height: 60vh;
     min-height: 400px;
-    
+
     .cover-video-content {
-      padding: v.$spacing-md;
-      
       h2 {
         font-size: 1.5rem;
-        margin-bottom: v.$spacing-sm;
       }
-      
+
       span {
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-    }
-    
-    > span {
-      bottom: v.$spacing-lg;
-      
-      svg {
-        font-size: 1.5rem;
+        font-size: 0.9rem;
       }
     }
   }
 }
 
+// ============================================
+// SERVICES & CLIENTS
+// ============================================
+
 .our-services {
-  background-color: #fff; // Light grey background
-  padding: 10rem;
+  background-color: white;
+  padding: v.$spacing-5xl v.$spacing-2xl;
   position: relative;
-  overflow: hidden;
 
   > ul {
-    max-width: 1367px;
+    max-width: 1200px;
     margin: 0 auto;
-
-    @include m.grid(1fr 1fr 1fr, 0, auto);
+    @include m.grid(1fr 1fr 1fr, v.$spacing-3xl, auto);
     list-style: none;
+
     > li {
       @include m.flex(column);
+
       > div {
-        background-color: black;
-        @include m.square(5rem);
+        background: v.$gradient-primary;
+        @include m.square(4rem);
         @include m.flex;
-        border-radius: 50%;
-        border: 0.6rem solid gray;
-        transition: all 0.3s ease;
+        border-radius: v.$radius-xl;
+        transition: all v.$transition-base;
         svg {
           color: white;
-          font-size: 2.5rem;
+          font-size: 1.75rem;
         }
 
         &:hover {
-          border: 0rem solid rgb(0, 0, 0);
+          transform: scale(1.05);
+          box-shadow: v.$shadow-glow;
         }
       }
 
       > section {
         @include m.flex(column);
         text-align: center;
-        gap: 0;
-        margin-top: 1rem;
+        gap: v.$spacing-xs;
+        margin-top: v.$spacing-md;
+
         h3 {
-          font-size: 1.5rem;
-          color: #000000;
+          font-size: 1.25rem;
+          color: v.$neutral-900;
+          font-weight: 600;
         }
         p {
-          font-size: 1rem;
-          color: #3a3a3a;
+          font-size: 0.9rem;
+          color: v.$neutral-600;
+          line-height: 1.5;
         }
       }
     }
@@ -406,71 +368,73 @@
 }
 
 .our-clients {
-  background-color: #fff; // Light grey background
-  padding: 10rem;
-  position: relative;
-  overflow: hidden;
+  background-color: v.$neutral-50;
+  padding: v.$spacing-5xl v.$spacing-2xl;
 
   div {
-    max-width: 1367px;
+    max-width: 1200px;
     margin: 0 auto;
 
     h2 {
-      color: #333; // Dark text color for the title
+      color: v.$neutral-900;
       text-align: center;
       @include m.heading;
-      margin-bottom: 4rem;
-      font-size: 2rem;
+      margin-bottom: v.$spacing-3xl;
+      font-size: 1.75rem;
     }
 
     div {
       @include m.flex;
       flex-wrap: wrap;
-      gap: 3rem;
+      gap: v.$spacing-2xl;
 
       img {
-        height: 3rem; // Fixed height for all logos
+        height: 2.5rem;
         width: auto;
-        transition: transform 0.3s ease;
+        opacity: 0.5;
+        transition: all v.$transition-base;
+        filter: grayscale(100%);
 
         &:hover {
-          transform: scale(1.1); // Slightly enlarge logos on hover
+          opacity: 1;
+          filter: grayscale(0%);
+          transform: scale(1.05);
         }
       }
     }
 
     p {
       text-align: center;
-      margin-top: 4rem;
-      margin-bottom: 2rem;
+      margin-top: v.$spacing-3xl;
+      color: v.$neutral-600;
     }
   }
 }
 
 // ============================================
-// RESPONSIVE DESIGN - MEDIA QUERIES
+// RESPONSIVE
 // ============================================
 
 @media (max-width: v.$breakpoint-lg) {
   .home {
     padding: v.$spacing-lg 3%;
-    
+
     > div {
       gap: v.$spacing-xl;
-      
+
       aside {
         width: 20%;
       }
     }
-    
-    > main {
-      gap: v.$spacing-lg;
-    }
   }
-  
+
   .product-card {
-    width: 16rem;
-    height: 24rem;
+    width: 15rem;
+    height: 23rem;
+
+    img {
+      @include m.square(calc(15rem - 2rem));
+    }
   }
 }
 
@@ -478,42 +442,42 @@
   .home {
     > div {
       flex-direction: column;
-      
+
       aside {
         width: 100%;
         position: static;
-        
+
         > ul {
           flex-direction: row;
           flex-wrap: wrap;
-          
+
           > li a {
             white-space: nowrap;
           }
         }
       }
     }
-    
+
     > h1 {
       font-size: 1.5rem;
     }
   }
-  
+
   .product-card {
     width: 100%;
     min-width: 0;
     height: 22rem;
-    
+
     img {
       @include m.square(calc(100% - 2rem));
       max-height: 15rem;
     }
   }
-  
+
   .our-services,
   .our-clients {
-    padding: v.$spacing-3xl v.$spacing-xl;
-    
+    padding: v.$spacing-3xl v.$spacing-lg;
+
     > ul {
       grid-template-columns: 1fr !important;
       gap: v.$spacing-2xl;
@@ -524,7 +488,7 @@
 @media (max-width: v.$breakpoint-sm) {
   .home {
     padding: v.$spacing-md 2%;
-    
+
     > main {
       display: flex;
       flex-direction: row;
@@ -532,26 +496,14 @@
       overflow-y: hidden;
       flex-wrap: nowrap;
       gap: v.$spacing-md;
-      padding-bottom: v.$spacing-md; // Space for scrollbar
+      padding-bottom: v.$spacing-sm;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      
-      // Hide scrollbar but allow scrolling
+
       &::-webkit-scrollbar {
-        height: 6px;
+        height: 4px;
       }
-      
-      &::-webkit-scrollbar-track {
-        background: v.$neutral-200;
-        border-radius: 10px;
-      }
-      
-      &::-webkit-scrollbar-thumb {
-        background: v.$primary-300;
-        border-radius: 10px;
-      }
-      
-      // Skeleton loader responsive
+
       > div {
         min-width: 14rem !important;
         width: 14rem !important;
@@ -560,29 +512,28 @@
       }
     }
   }
-  
+
   .product-card {
     min-width: 14rem;
     width: 14rem;
     max-width: 14rem;
     height: 18rem;
     padding: v.$spacing-sm;
-    flex-shrink: 0; // Prevent shrinking in flex container
-    
+    flex-shrink: 0;
+
     img {
       @include m.square(calc(14rem - 1rem));
       max-height: 12rem;
     }
-    
+
     p {
       font-size: 0.8rem;
-      line-height: 1.2;
     }
-    
+
     span {
       font-size: 1rem;
     }
-    
+
     > div {
       button, a {
         @include m.square(2.5rem);

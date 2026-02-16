@@ -2,87 +2,111 @@
 @use "./variables" as v;
 
 .shipping {
-  @include m.flex;
   min-height: calc(100vh - 100px);
+  @include m.flex;
   padding: v.$spacing-2xl;
-  
-  .back-btn {
-    @include m.square(3rem);
-    background: v.$gradient-primary;
-    color: white;
-    @include m.flex;
-    position: fixed;
-    top: v.$spacing-2xl;
-    left: v.$spacing-2xl;
-    border-radius: v.$radius-full;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    box-shadow: v.$shadow-lg;
-    z-index: 100;
-    transition: all v.$transition-base;
-    
-    svg {
-      transition: all v.$transition-base;
-    }
-    
-    &:hover {
-      transform: scale(1.1);
-      box-shadow: v.$shadow-xl;
-      
-      svg {
-        translate: -0.25rem;
-      }
-    }
-  }
+  background: v.$bg-gradient-light;
 
-  > form {
-    max-width: 600px;
+  > main {
+    max-width: 480px;
     width: 100%;
-    @include m.flex(column, center, stretch, v.$spacing-xl);
-    padding: v.$spacing-3xl;
     background: white;
-    border-radius: v.$radius-2xl;
-    box-shadow: v.$shadow-lg;
+    padding: v.$spacing-2xl;
+    border-radius: v.$radius-xl;
+    box-shadow: v.$shadow-xl;
+    border: 1px solid v.$neutral-200;
 
-    > h1 {
-      @include m.heading(2px);
-      margin: 0 0 v.$spacing-xl 0;
+    h1 {
+      @include m.heading(1.5px);
       text-align: center;
-      font-size: 2rem;
+      margin-bottom: v.$spacing-xl;
+      font-size: 1.5rem;
       color: v.$neutral-900;
     }
 
-    > input, > select {
-      @include m.inputStyle;
-      border: 2px solid v.$neutral-300;
-      font-size: 1.05rem;
-      border-radius: v.$radius-lg;
-      padding: v.$spacing-md v.$spacing-lg;
-      transition: all v.$transition-base;
-      
-      &:focus {
-        border-color: v.$primary-500;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    > form {
+      @include m.flex(column, unset, stretch, v.$spacing-lg);
+
+      > div {
+        > label {
+          font-size: 0.8rem;
+          font-weight: 500;
+          color: v.$neutral-600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-bottom: v.$spacing-xs;
+          display: block;
+        }
+
+        > input,
+        > select {
+          border: 1px solid v.$neutral-300;
+          width: 100%;
+          padding: v.$spacing-sm v.$spacing-md;
+          border-radius: v.$radius-md;
+          font-size: 0.95rem;
+          transition: all v.$transition-base;
+          background: v.$neutral-50;
+
+          &:focus {
+            outline: none;
+            border-color: v.$primary-500;
+            box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.08);
+            background: white;
+          }
+        }
+      }
+
+      > button {
+        width: 100%;
+        background: v.$gradient-primary;
+        padding: v.$spacing-md;
+        color: white;
+        border: none;
+        border-radius: v.$radius-lg;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: v.$shadow-sm;
+        transition: all v.$transition-base;
+        margin-top: v.$spacing-sm;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: v.$shadow-md;
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
       }
     }
-    
-    > button {
-      @include m.btn(v.$spacing-md, transparent, white);
-      background: v.$gradient-primary;
-      border: none;
+  }
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+
+@media (max-width: v.$breakpoint-sm) {
+  .shipping {
+    padding: v.$spacing-md;
+
+    > main {
+      padding: v.$spacing-xl;
       border-radius: v.$radius-lg;
-      font-size: 1.125rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      box-shadow: v.$shadow-md;
-      margin-top: v.$spacing-lg;
-      transition: all v.$transition-base;
-      
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: v.$shadow-lg;
+
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      > form > div {
+        > input,
+        > select {
+          padding: 0.625rem v.$spacing-md;
+        }
       }
     }
   }

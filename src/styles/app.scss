@@ -14,11 +14,16 @@
 @use "admin-styles/mediaquery";
 @use "_footer";
 
+// ============================================
+// GLOBAL RESET & BASE
+// ============================================
+
 :root {
   font-family: v.$font-primary;
   line-height: 1.6;
   font-weight: 400;
   color: v.$neutral-900;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -46,14 +51,18 @@ a {
   color: v.$error;
 }
 .purple {
-  color: #764ba2;
+  color: hsl(250, 55%, 55%);
 }
 .green {
   color: v.$success;
 }
 
+// ============================================
+// CONTAINER
+// ============================================
+
 .container {
-  max-width: 1367px;
+  max-width: 1400px;
   width: 100%;
   margin: auto;
   overflow: auto;
@@ -64,63 +73,57 @@ a {
   }
 }
 
+// ============================================
+// HEADER
+// ============================================
+
 .header {
   @include m.flex(row, flex-end, center, 2rem);
-  padding: v.$spacing-lg v.$spacing-2xl;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: v.$shadow-sm;
+  padding: v.$spacing-md v.$spacing-2xl;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid v.$neutral-200;
   position: sticky;
   top: 0;
   z-index: v.$z-sticky;
-  
+  transition: box-shadow v.$transition-base;
+
+  &:hover {
+    box-shadow: v.$shadow-md;
+  }
+
   a {
-    color: v.$neutral-800;
-    letter-spacing: 0.5px;
-    font-size: 1.125rem;
+    color: v.$neutral-700;
+    letter-spacing: 0.3px;
+    font-size: 0.95rem;
     font-weight: 500;
     transition: all v.$transition-base;
     position: relative;
-    
+    padding: v.$spacing-xs v.$spacing-sm;
+    border-radius: v.$radius-md;
+
     &:hover {
-      color: v.$primary-600;
-      transform: translateY(-2px);
-    }
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: v.$gradient-primary;
-      transition: width v.$transition-base;
-    }
-    
-    &:hover::after {
-      width: 100%;
+      color: v.$primary-500;
+      background: v.$primary-50;
     }
   }
 
   button {
     border: none;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     cursor: pointer;
     background-color: transparent;
-    color: v.$neutral-700;
+    color: v.$neutral-600;
     transition: all v.$transition-base;
     padding: v.$spacing-sm;
     border-radius: v.$radius-md;
-    
+
     &:hover {
-      color: v.$primary-600;
+      color: v.$primary-500;
       background: v.$primary-50;
-      transform: scale(1.1);
     }
-    
+
     &:disabled {
       cursor: not-allowed;
       opacity: 0.4;
@@ -130,32 +133,50 @@ a {
   dialog {
     border: none;
     border-radius: v.$radius-lg;
-    padding: v.$spacing-md;
-    min-width: 140px;
+    padding: v.$spacing-sm;
+    min-width: 160px;
     position: absolute;
-    left: calc(100% - 150px);
+    left: calc(100% - 180px);
     top: 80%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: white;
     box-shadow: v.$shadow-xl;
-    
+    border: 1px solid v.$neutral-200;
+    animation: dialogFadeIn 200ms ease-out;
+
     > div {
-      @include m.flex(column, flex-start, stretch, v.$spacing-sm);
-      
+      @include m.flex(column, flex-start, stretch, 0.125rem);
+
       a, button {
         padding: v.$spacing-sm v.$spacing-md;
         border-radius: v.$radius-md;
         width: 100%;
         text-align: left;
-        font-size: 0.95rem;
-        
+        font-size: 0.9rem;
+        font-weight: 500;
+
         &:hover {
           background: v.$primary-50;
+          color: v.$primary-600;
         }
       }
     }
   }
 }
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// COMMON
+// ============================================
 
 .heading {
   @include m.heading;
@@ -168,15 +189,20 @@ a {
   @include m.flex(column);
   > svg {
     font-size: 5rem;
+    color: v.$neutral-400;
   }
 }
+
+// ============================================
+// CHECKOUT
+// ============================================
 
 .checkout-container {
   max-width: 480px;
   width: 100%;
   margin: v.$spacing-3xl auto;
   padding: v.$spacing-xl;
-  
+
   > form {
     @include m.flex(column, flex-start, stretch, v.$spacing-xl);
     background: white;
@@ -187,18 +213,19 @@ a {
     > button {
       @include m.btn(v.$spacing-md, transparent, white);
       width: 100%;
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-weight: 600;
       background: v.$gradient-primary;
       border: none;
-      box-shadow: v.$shadow-md;
+      border-radius: v.$radius-lg;
+      box-shadow: v.$shadow-sm;
       transition: all v.$transition-base;
-      
+
       &:hover {
         transform: translateY(-2px);
-        box-shadow: v.$shadow-lg;
+        box-shadow: v.$shadow-md;
       }
-      
+
       &:active {
         transform: translateY(0);
       }
@@ -206,64 +233,85 @@ a {
   }
 }
 
+// ============================================
+// ADMIN CONTAINER
+// ============================================
+
 .admin-container {
-  @include m.grid(1fr 4fr, 2rem);
-  height: calc(100vh - 80px);
-  background-color: rgb(247, 247, 247);
-  overflow: hidden; // Prevent outer scroll
-  
+  @include m.grid(1fr 4fr, 0);
+  height: calc(100vh - 56px);
+  background-color: v.$neutral-100;
+  overflow: hidden;
+
   > main {
     width: 100%;
-    height: 100%; // Make main take full height for proper scrolling
+    height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 200px; // Prevent footer overlap
-    
+    padding: v.$spacing-lg;
+    padding-bottom: 200px;
+
     &::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
     }
-    
+
     &::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
+      background: transparent;
     }
-    
+
     &::-webkit-scrollbar-thumb {
-      background: rgba(0, 115, 255, 0.3);
-      border-radius: 4px;
-      
+      background: v.$neutral-300;
+      border-radius: v.$radius-full;
+
       &:hover {
-        background: rgba(0, 115, 255, 0.5);
+        background: v.$neutral-400;
       }
     }
   }
-  
+
   > aside {
     width: 100%;
-    height: 100%; // Make sidebar take full height
+    height: 100%;
     background-color: white;
-    padding: 1rem;
+    padding: v.$spacing-md;
     z-index: 10;
     overflow-y: auto;
+    border-right: 1px solid v.$neutral-200;
+
     &::-webkit-scrollbar {
       display: none;
     }
 
     > div {
-      margin: 2rem 1rem;
+      margin: v.$spacing-lg v.$spacing-sm;
       > h5 {
-        @include m.heading(2px);
-        opacity: 0.8;
-        margin: 1rem 0;
+        @include m.heading(1.5px);
+        opacity: 0.5;
+        margin: v.$spacing-md 0 v.$spacing-sm;
+        font-size: 0.7rem;
+        color: v.$neutral-600;
       }
       > ul {
-        @include m.flex(column, unset, unset, 0.5rem);
+        @include m.flex(column, unset, unset, 0.125rem);
         list-style: none;
         > li {
-          padding: 0.5rem 1rem;
-          border-radius: 10px;
+          padding: v.$spacing-sm v.$spacing-md;
+          border-radius: v.$radius-md;
+          transition: all v.$transition-base;
+
+          &:hover {
+            background: v.$primary-50;
+          }
+
           a {
-            color: rgba(0, 0, 0, 0.825);
+            color: v.$neutral-700;
             @include m.flex(row, unset);
+            font-size: 0.9rem;
+            font-weight: 500;
+
+            &:hover {
+              color: v.$primary-600;
+            }
           }
         }
       }
@@ -271,56 +319,82 @@ a {
   }
 }
 
+// ============================================
+// TABLES
+// ============================================
+
 .table {
   border-collapse: collapse;
   width: 100%;
+
   th,
   td {
-    padding: 8px;
+    padding: 0.75rem 1rem;
     text-align: left;
     vertical-align: middle;
   }
 
   th {
-    font-weight: bold;
-    color: #0000009e;
-    font-size: 1.1rem;
-    font-weight: 400;
-    padding: 2rem 1rem;
+    font-weight: 600;
+    color: v.$neutral-600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border-bottom: 2px solid v.$neutral-200;
   }
 
   tbody {
     tr {
-      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.093);
+      border-bottom: 1px solid v.$neutral-100;
+      transition: background v.$transition-fast;
+
+      &:hover {
+        background: v.$primary-50;
+      }
     }
 
     td {
-      padding: 1rem;
+      padding: 0.875rem 1rem;
+      font-size: 0.9rem;
+      color: v.$neutral-800;
 
       img {
-        width: 4rem;
-        height: 4rem;
+        width: 3.5rem;
+        height: 3.5rem;
         object-fit: contain;
-        border-radius: 10px;
+        border-radius: v.$radius-md;
+        background: v.$neutral-100;
+        padding: 0.25rem;
       }
       a {
         text-decoration: none;
-        background-color: rgba(44, 104, 255, 0.455);
-        color: rgba(44, 104, 255);
-        padding: 0.25rem 0.5rem;
-        border-radius: 10px;
+        background-color: v.$primary-50;
+        color: v.$primary-600;
+        padding: 0.25rem 0.75rem;
+        border-radius: v.$radius-full;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all v.$transition-base;
+
+        &:hover {
+          background: v.$primary-100;
+        }
       }
       button {
         width: 2rem;
         height: 2rem;
-        font-size: 1.1rem;
+        font-size: 1rem;
         border: none;
         outline: none;
         background-color: transparent;
         cursor: pointer;
-        color: rgb(255, 44, 44);
+        color: v.$error;
+        border-radius: v.$radius-md;
+        transition: all v.$transition-base;
+
         &:hover {
-          opacity: 0.6;
+          background: v.$error-light;
         }
       }
 
@@ -337,65 +411,95 @@ a {
 
 .table-pagination {
   @include m.flex;
-  padding: 2rem;
+  padding: 1.5rem;
   > button {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.25rem;
     border: none;
     outline: none;
-    border-radius: 10px;
+    border-radius: v.$radius-full;
     cursor: pointer;
-    background-color: rgba(0, 115, 255);
+    background: v.$primary-500;
     color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all v.$transition-base;
+
+    &:hover {
+      background: v.$primary-600;
+      transform: translateY(-1px);
+    }
+
     &:disabled {
-      background-color: rgba(0, 115, 255, 0.1);
+      background-color: v.$neutral-200;
+      color: v.$neutral-500;
       cursor: not-allowed;
+      transform: none;
     }
   }
 }
 
+// ============================================
+// HAMBURGER & SIDEBAR (Admin mobile)
+// ============================================
+
 #hamburger {
   display: grid;
   place-items: center;
-  @include m.square(3rem);
+  @include m.square(2.75rem);
   border: none;
   outline: none;
   cursor: pointer;
-  color: rgba(44, 104, 255);
+  color: v.$primary-500;
   position: fixed;
-  top: 1rem;
-  left: 1rem;
-  font-size: 2rem;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 1.5rem;
   background-color: white;
-  border-radius: 50%;
+  border-radius: v.$radius-lg;
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); // Added shadow for better visibility
+  box-shadow: v.$shadow-md;
+  transition: all v.$transition-base;
+
+  &:hover {
+    box-shadow: v.$shadow-lg;
+    transform: scale(1.05);
+  }
 }
 
 #close-sidebar {
-  width: 80%;
-  margin: 1rem auto;
+  width: 85%;
+  margin: v.$spacing-md auto;
   display: block;
-  padding: 0.75rem;
+  padding: 0.625rem;
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: rgb(168, 2, 2);
+  background-color: v.$error;
   color: white;
-  border-radius: 10px;
+  border-radius: v.$radius-md;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all v.$transition-base;
+
+  &:hover {
+    background-color: darken(hsl(0, 72%, 56%), 8%);
+  }
 }
+
+// ============================================
+// LOADERS
+// ============================================
 
 .loader {
   width: 100%;
   height: 100vh;
   @include m.flex;
   > div {
-    @include m.square(10rem);
+    @include m.square(3.5rem);
     border-radius: 50%;
-    border-top: 1rem solid rgb(43, 43, 43);
-    border-left: 1rem solid rgb(43, 43, 43);
-    border-right: 1rem solid #fff;
-    border-bottom: 1rem solid #fff;
-    animation: loading-animation 0.5s linear infinite;
+    border: 3px solid v.$neutral-200;
+    border-top-color: v.$primary-500;
+    animation: loading-animation 0.7s linear infinite;
   }
 }
 
@@ -407,10 +511,11 @@ a {
 .skeleton-shape {
   height: 30px;
   width: 100%;
-  background-color: #ddd;
+  background: linear-gradient(90deg, v.$neutral-200 25%, v.$neutral-100 50%, v.$neutral-200 75%);
+  background-size: 200% 100%;
   margin-bottom: 10px;
-  border-radius: 4px;
-  animation: skeleton-loading 1.5s infinite;
+  border-radius: v.$radius-md;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
 }
 
 @keyframes loading-animation {
@@ -418,6 +523,7 @@ a {
     transform: rotateZ(360deg);
   }
 }
+
 @keyframes up-and-down {
   to {
     transform: translate(-50%, -20%);
@@ -426,12 +532,9 @@ a {
 
 @keyframes skeleton-loading {
   0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
+    background-position: 200% 0;
   }
   100% {
-    opacity: 0.6;
+    background-position: -200% 0;
   }
 }

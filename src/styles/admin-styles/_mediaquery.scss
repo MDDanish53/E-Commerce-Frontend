@@ -3,13 +3,13 @@
 
 @media screen and (width<= 1200px) {
   .admin-container {
-    overflow-x: hidden; // Prevent horizontal scroll
+    overflow-x: hidden;
   }
 
   .dashboard {
     width: 100%;
-    padding-top: 4rem; // Fix top area hiding behind fixed header elements
-    
+    padding-top: 4rem;
+
     .widget-container,
     .graph-container,
     .transaction-container {
@@ -17,71 +17,69 @@
       flex-wrap: wrap;
       width: 100% !important;
       max-width: 100vw !important;
-      padding: 1rem 0; // Reduced padding
+      padding: 1rem 0;
       box-sizing: border-box;
       margin: 0;
-      
+
       .widget {
         width: 100% !important;
         max-width: 20rem;
         margin: 0.5rem;
       }
     }
-    
-    // Ensure charts don't overflow
+
     .graph-container, .transaction-container {
-      > div { 
-        width: 100% !important; 
+      > div {
+        width: 100% !important;
         max-width: 100% !important;
-        overflow-x: hidden; // Prevent inner overflow
+        overflow-x: hidden;
         padding: 1rem;
         box-sizing: border-box;
       }
-      
+
       canvas {
         max-width: 100% !important;
         height: auto !important;
       }
     }
 
-    // Fix table overflow
     .transaction-container {
       height: unset;
       flex-direction: column;
-      
+
       .transaction-box {
         width: 100%;
         max-width: 100%;
-        overflow-x: auto; // Allow table internal scroll
-        box-shadow: none; // remove shadow to prevent box expansion issues
+        overflow-x: auto;
+        box-shadow: none;
         padding: 0.5rem;
-        
+
         table {
           width: 100%;
-          min-width: 700px; // ensure table has enough width to be readable and trigger scroll
+          min-width: 700px;
           border-collapse: collapse;
-          
+
           th, td {
              padding: 0.5rem;
              font-size: 0.85rem;
           }
         }
       }
-      
+
       .gender-chart {
         width: 100%;
         max-width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        
+
         canvas {
-          max-width: 200px !important; // Constrain donut chart
+          max-width: 200px !important;
           max-height: 200px !important;
         }
       }
     }
-    
+
     .revenue-chart {
       padding: 1rem;
       > h2 {
@@ -111,7 +109,7 @@
 
   .admin-container {
     grid-template-columns: 1fr !important;
-    height: auto !important; // Allow page to scroll naturally
+    height: auto !important;
     min-height: 100vh;
     overflow-y: visible;
   }
@@ -128,7 +126,7 @@
           min-height: 60vh;
           padding: 1rem;
           h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin: 1rem 0;
           }
           code {
@@ -157,8 +155,6 @@
     }
   }
 
-  // GLOBAL ADMIN TABLE FIX
-  // Applies to Products, Customers, Transactions, etc.
   .dashboard-product-box,
   .transaction-box {
     width: 100% !important;
@@ -168,34 +164,33 @@
     padding: 0.5rem;
     box-shadow: none !important;
     box-sizing: border-box;
-    display: block; // Ensure it behaves as a block for scrolling
+    display: block;
 
     > h2 {
       margin: 1rem 0;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     table {
       width: 100%;
-      min-width: 800px; // Ensure table triggers scroll
+      min-width: 800px;
       border-collapse: collapse;
-      
+
       th, td {
         padding: 0.75rem;
         font-size: 0.85rem;
-        white-space: nowrap; // Keep columns neat
+        white-space: nowrap;
         text-align: left;
       }
-      
+
       th {
-        font-weight: 700;
-        background-color: transparent; // or minimal style
+        font-weight: 600;
+        background-color: transparent;
       }
     }
-    
-    // Pagination controls
+
     .table-pagination {
        display: flex;
        justify-content: center;
@@ -214,11 +209,11 @@
     padding: 2rem;
     > ul {
       grid-template-columns: 1fr;
-      gap: 4rem;
+      gap: 3rem;
       > li {
         > section {
           > h3 {
-            font-size: 1.2rem;
+            font-size: 1.125rem;
           }
           > p {
             font-size: 0.8rem;
@@ -230,25 +225,24 @@
 
   .footer {
     .footer-row {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      grid-template-columns: 1fr;
     }
-    .footer-col h4 {
-      &:after {
-        left: 50%;
-        transform: translateX(-50%);
+    .footer-col {
+      text-align: center;
+
+      h4 {
+        text-align: center;
       }
     }
 
     .social-links {
-      align-items: center;
+      justify-content: center;
     }
   }
 
   .cart {
     display: block;
-    padding: 2rem;
+    padding: 1.5rem;
 
     > main {
       width: 100%;
@@ -258,7 +252,7 @@
     }
   }
 
-  .cartitem {
+  .cart-item {
     width: 100%;
     > img {
       width: 3rem;
@@ -280,12 +274,12 @@
       box-shadow: none;
       > h2 {
         @include m.heading;
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
     }
     > main > input {
       width: 100%;
-      border: 1px solid rgba(212, 212, 212, 0.379);
+      border: 1px solid rgba(0, 0, 0, 0.08);
     }
   }
 }

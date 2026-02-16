@@ -2,21 +2,21 @@
 @use "./variables" as v;
 
 .product-details {
-  padding: 2rem 4rem;
+  padding: v.$spacing-xl v.$spacing-2xl;
 
   > main {
     display: flex;
     max-width: 1400px;
     width: 100%;
     margin: auto;
-    gap: 2rem;
-    
+    gap: v.$spacing-2xl;
+
     > section {
       &:first-of-type {
         width: 45%;
         min-height: 500px;
         position: sticky;
-        top: 100px;
+        top: 80px;
         height: fit-content;
       }
 
@@ -25,59 +25,60 @@
         padding: 0;
 
         h1 {
-          font-size: 1.75rem;
-          font-weight: 600;
-          margin: 0 0 0.75rem 0;
+          font-size: 1.625rem;
+          font-weight: 700;
+          margin: 0 0 v.$spacing-sm 0;
           line-height: 1.3;
           color: v.$neutral-900;
+          letter-spacing: -0.3px;
         }
 
         code {
-          font-size: 0.875rem;
-          background-color: v.$primary-100;
-          color: v.$primary-700;
+          font-size: 0.8rem;
+          background-color: v.$primary-50;
+          color: v.$primary-600;
           border-radius: v.$radius-md;
-          padding: 0.25rem 0.75rem;
+          padding: v.$spacing-xs v.$spacing-sm;
           display: inline-block;
-          margin-bottom: 0.75rem;
-          font-weight: 500;
+          margin-bottom: v.$spacing-sm;
+          font-weight: 600;
         }
-        
+
         em {
           display: flex;
-          gap: 0.75rem;
+          gap: v.$spacing-sm;
           align-items: center;
-          margin: 0.75rem 0;
-          
+          margin: v.$spacing-sm 0;
+
           span {
             font-size: 0.875rem;
-            color: black !important;
+            color: v.$neutral-900 !important;
             font-weight: 500;
             font-style: normal;
           }
         }
-        
+
         h3 {
-          font-size: 2rem;
+          font-size: 1.75rem;
           font-weight: 700;
-          margin: 1rem 0;
+          margin: v.$spacing-md 0;
           color: v.$primary-600;
         }
 
         article {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
-          margin: 2rem 0;
-          padding: 1.5rem 0;
+          gap: v.$spacing-lg;
+          margin: v.$spacing-xl 0;
+          padding: v.$spacing-lg 0;
           border-top: 1px solid v.$neutral-200;
           border-bottom: 1px solid v.$neutral-200;
-          
+
           > div {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            
+            gap: v.$spacing-md;
+
             button {
               border: 1px solid v.$neutral-300;
               background: white;
@@ -85,18 +86,18 @@
               border-radius: v.$radius-md;
               @include m.flex;
               cursor: pointer;
-              font-size: 1.125rem;
+              font-size: 1rem;
               font-weight: 600;
               color: v.$neutral-700;
               transition: all v.$transition-base;
-              
+
               &:hover {
                 background-color: v.$primary-500;
                 color: white;
                 border-color: v.$primary-500;
               }
             }
-            
+
             span {
               min-width: 2.5rem;
               text-align: center;
@@ -104,12 +105,12 @@
               font-weight: 600;
             }
           }
-          
+
           > button {
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
             background: v.$gradient-primary;
-            padding: 0.875rem 1.5rem;
+            padding: v.$spacing-md v.$spacing-lg;
             border: none;
             cursor: pointer;
             color: white;
@@ -117,23 +118,27 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-radius: v.$radius-lg;
-            box-shadow: v.$shadow-md;
+            box-shadow: v.$shadow-sm;
             transition: all v.$transition-base;
-            
+
             &:hover {
               transform: translateY(-2px);
-              box-shadow: v.$shadow-lg;
+              box-shadow: v.$shadow-md;
+            }
+
+            &:active {
+              transform: translateY(0);
             }
           }
         }
-        
+
         > p {
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           line-height: 1.7;
-          color: v.$neutral-700;
-          margin: 1.5rem 0 0 0;
+          color: v.$neutral-600;
+          margin: v.$spacing-lg 0 0 0;
         }
       }
     }
@@ -142,45 +147,189 @@
   > section {
     max-width: 1400px;
     width: 100%;
-    margin: 3rem auto 0;
-    padding: 0 4rem;
+    margin: v.$spacing-2xl auto 0;
+    padding: 0 v.$spacing-2xl;
+
     > article {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       > h2 {
         @include m.heading;
+        font-size: 1.5rem;
       }
+
       > button {
-        background-color: black;
+        background-color: v.$neutral-900;
         border: none;
         cursor: pointer;
         color: white;
         border-radius: 50%;
-        width: 3rem;
-        height: 3rem;
+        width: 2.75rem;
+        height: 2.75rem;
         display: grid;
         place-items: center;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
+        transition: all v.$transition-base;
+
+        &:hover {
+          background: v.$primary-600;
+          transform: scale(1.05);
+        }
       }
     }
   }
 }
 
+// Review Dialog
 .review-dialog {
-  width: 30rem;
-  padding: 2rem;
+  width: 28rem;
+  padding: v.$spacing-xl;
   min-height: 30vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: v.$radius-xl;
+  box-shadow: v.$shadow-xl;
+
   > button {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background-color: rgb(29, 29, 29);
+    top: v.$spacing-sm;
+    right: v.$spacing-sm;
+    background-color: v.$neutral-900;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: v.$radius-full;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    transition: all v.$transition-base;
+
+    &:hover {
+      background: v.$error;
+    }
+  }
+
+  > h2 {
+    @include m.heading;
+    font-size: 1.25rem;
+    margin-bottom: v.$spacing-md;
+  }
+
+  > form {
+    margin: v.$spacing-md 0;
+    @include m.flex(column);
+
+    > textarea {
+      padding: v.$spacing-md;
+      max-width: 100%;
+      width: 100%;
+      min-width: 100%;
+      min-height: 20vh;
+      border: 1px solid v.$neutral-300;
+      border-radius: v.$radius-md;
+      font-size: 1rem;
+      transition: border-color v.$transition-base;
+
+      &:focus {
+        outline: none;
+        border-color: v.$primary-500;
+      }
+    }
+
+    > button {
+      width: 100%;
+      background: v.$gradient-primary;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: v.$spacing-md;
+      border-radius: v.$radius-lg;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: v.$spacing-md;
+      transition: all v.$transition-base;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: v.$shadow-md;
+      }
+    }
+  }
+}
+
+// Carousel
+.carousel-btn {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: v.$radius-md;
+  padding: v.$spacing-sm;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background v.$transition-base;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+// Review Cards
+.review {
+  position: relative;
+  width: 40rem;
+  flex: none;
+  background: white;
+  padding: v.$spacing-xl;
+  border-radius: v.$radius-xl;
+  margin: v.$spacing-md 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: v.$spacing-md;
+  border: 1px solid v.$neutral-200;
+  transition: all v.$transition-base;
+
+  &:hover {
+    border-color: v.$neutral-300;
+    box-shadow: v.$shadow-sm;
+  }
+
+  p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: v.$neutral-700;
+    line-height: 1.6;
+  }
+
+  > div {
+    display: flex;
+    gap: v.$spacing-md;
+    align-items: center;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+    }
+
+    small {
+      color: v.$neutral-500;
+      font-size: 0.85rem;
+    }
+  }
+
+  > button {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    background-color: v.$neutral-900;
     color: white;
     border: none;
     cursor: pointer;
@@ -189,167 +338,72 @@
     height: 2rem;
     display: grid;
     place-items: center;
-    font-size: 1.2rem;
-  }
-  > h2 {
-    @include m.heading;
-  }
-  > form {
-    margin: 1rem 0;
-    @include m.flex(column);
-    > textarea {
-    padding: 1rem;
-    max-width: 100%;
-    width: 100%;
-    min-width: 100%;
-    min-height: 25vh;
-    border: 1px solid rgb(29, 29, 29);
-    border-radius: 5px;
-    font-size: 1.2rem;
-  }
-  > button {
-    width: 100%;
-    background-color: rgb(29, 29, 29);
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 1rem;
-    border-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    transition: all v.$transition-base;
+
     &:hover {
-      opacity: 0.8;
+      background: v.$error;
     }
-  }
-  }
-}
-
-.carousel-btn {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border-radius: 10px;
-  padding: 0.5rem;
-  border: none;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-}
-
-.review {
-  position: relative;
-  width: 45rem;
-  flex: none;
-  background-color: rgb(244, 244, 244);
-  padding: 2rem;
-  border-radius: 1rem;
-  margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-  p {
-    font-size: 1.2rem;
-    font-weight: 300;
-  }
-  > div {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    img {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-    }
-    small {
-      color: v.$color3;
-    }
-  }
-
-  > button {
-    position: absolute;
-    top: -1.25rem;
-    right: -1.25rem;
-    background-color: rgb(29, 29, 29);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: grid;
-    place-items: center;
-    font-size: 1.25rem;
   }
 }
 
 // ============================================
-// RESPONSIVE DESIGN FOR PRODUCT DETAILS
+// RESPONSIVE
 // ============================================
 
 @media (max-width: v.$breakpoint-lg) {
   .product-details {
-    padding: 2rem;
-    
+    padding: v.$spacing-lg;
+
     > main {
-      gap: 1.5rem;
+      gap: v.$spacing-lg;
     }
-    
+
     > section {
-      padding: 0 2rem;
+      padding: 0 v.$spacing-lg;
     }
-    
+
     .review {
-      width: 35rem;
+      width: 32rem;
     }
   }
 }
 
 @media (max-width: v.$breakpoint-md) {
   .product-details {
-    padding: 1.5rem;
-    
+    padding: v.$spacing-md;
+
     > main {
       flex-direction: column;
-      
+
       > section {
         &:first-of-type {
           width: 100%;
           position: static;
         }
-        
+
         &:last-of-type {
           width: 100%;
-          
+
           h1 {
-            font-size: 1.5rem;
+            font-size: 1.375rem;
           }
-          
-          code {
-            font-size: 0.8125rem;
-          }
-          
-          em span {
-            font-size: 0.8125rem;
-          }
-          
+
           h3 {
-            font-size: 1.625rem;
-          }
-          
-          > p {
-            font-size: 0.875rem;
+            font-size: 1.5rem;
           }
         }
       }
     }
-    
+
     > section {
-      padding: 0 1.5rem;
+      padding: 0 v.$spacing-md;
     }
-    
+
     .review {
       width: 100%;
     }
-    
+
     .review-dialog {
       width: 90%;
     }
@@ -358,130 +412,86 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-details {
-    padding: 1rem;
-    
+    padding: v.$spacing-sm;
+
     > main > section {
       &:last-of-type {
         h1 {
-          font-size: 1.25rem;
-          margin: 0 0 0.5rem 0;
+          font-size: 1.125rem;
         }
-        
+
         code {
           font-size: 0.75rem;
-          padding: 0.2rem 0.5rem;
+          padding: 0.125rem 0.375rem;
         }
-        
-        em {
-          gap: 0.5rem;
-          margin: 0.5rem 0;
-          
-          span {
-            font-size: 0.75rem;
-          }
-        }
-        
+
         h3 {
-          font-size: 1.375rem;
-          margin: 0.75rem 0;
+          font-size: 1.25rem;
+          margin: v.$spacing-sm 0;
         }
-        
+
         article {
-          margin: 1rem 0;
-          padding: 1rem 0;
-          gap: 1rem;
-          
-          > div {
-            button {
-              @include m.square(2.25rem);
-              font-size: 1rem;
-            }
-            
-            span {
-              font-size: 1rem;
-              min-width: 2.25rem;
-            }
+          margin: v.$spacing-md 0;
+          padding: v.$spacing-md 0;
+          gap: v.$spacing-md;
+
+          > div button {
+            @include m.square(2rem);
+            font-size: 0.9rem;
           }
-          
+
           > button {
             width: 100%;
             max-width: 100%;
-            font-size: 0.875rem;
-            padding: 0.75rem 1.25rem;
+            font-size: 0.85rem;
+            padding: 0.75rem;
           }
         }
-        
+
         > p {
-          font-size: 0.8125rem;
-          line-height: 1.6;
-          margin: 1rem 0 0 0;
+          font-size: 0.8rem;
         }
       }
     }
-    
+
     > section {
-      padding: 0 1rem;
-      margin: 2rem auto 0;
-      
+      padding: 0 v.$spacing-sm;
+      margin: v.$spacing-lg auto 0;
+
       > article {
         > h2 {
-          font-size: 1.125rem;
+          font-size: 1rem;
         }
-        
+
         > button {
-          width: 2.5rem;
-          height: 2.5rem;
-          font-size: 1.125rem;
+          width: 2.25rem;
+          height: 2.25rem;
+          font-size: 1rem;
         }
       }
     }
-    
+
     .review {
-      padding: 1rem;
-      
+      padding: v.$spacing-md;
+
       p {
         font-size: 0.875rem;
       }
-      
-      > div {
-        img {
-          width: 1.5rem;
-          height: 1.5rem;
-        }
-        
-        small {
-          font-size: 0.8125rem;
-        }
+
+      > div img {
+        width: 1.5rem;
+        height: 1.5rem;
       }
-      
+
       > button {
-        width: 2rem;
-        height: 2rem;
-        font-size: 0.875rem;
+        width: 1.75rem;
+        height: 1.75rem;
       }
     }
-    
+
     .review-dialog {
       width: 95%;
-      padding: 1.25rem;
-      
-      > h2 {
-        font-size: 1.125rem;
-      }
-      
-      > form {
-        > textarea {
-          font-size: 0.9375rem;
-          min-height: 18vh;
-          padding: 0.75rem;
-        }
-        
-        > button {
-          font-size: 0.9375rem;
-          padding: 0.75rem;
-        }
-      }
+      padding: v.$spacing-md;
     }
   }
 }
-
