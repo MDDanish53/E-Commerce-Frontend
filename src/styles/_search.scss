@@ -267,7 +267,8 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-sm;
+    padding: v.$spacing-md; // Increased from sm to md for better edge spacing
+    overflow-x: hidden; // Prevent horizontal scroll
     
     .search-product-list {
       grid-template-columns: repeat(2, 1fr);
