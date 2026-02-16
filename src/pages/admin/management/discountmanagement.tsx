@@ -69,7 +69,6 @@ const DiscountManagement = () => {
         navigate("/admin/discount")
       }
     } catch (error) {
-      console.log(error)
     } finally {
       setBtnLoading(false)
     }

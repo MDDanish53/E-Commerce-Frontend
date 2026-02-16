@@ -206,19 +206,27 @@
       }
 
       .close-filters {
-        background: none;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
         border: none;
-        font-size: 2rem;
+        font-size: 1.5rem;
         cursor: pointer;
         color: v.$neutral-600;
-        padding: v.$spacing-xs;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: v.$spacing-sm;
+        border-radius: 50%;
+        transition: all v.$transition-base;
+        z-index: 1002;
 
         &:hover {
           color: v.$error;
+          background: v.$neutral-100;
+        }
+
+        &:active {
+          transform: scale(0.95);
         }
       }
     }
@@ -232,6 +240,7 @@
       max-width: 380px;
       height: 100vh;
       padding: v.$spacing-lg;
+      padding-top: v.$spacing-2xl; // Added safe area for top status bar
       flex-direction: column;
       gap: v.$spacing-lg;
       border-radius: 0;

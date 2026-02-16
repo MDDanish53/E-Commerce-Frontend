@@ -13,7 +13,7 @@ import { addToCart } from "../redux/reducer/cartReducer";
 import { useSearchParams } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaFilter } from "react-icons/fa";
+import { FaFilter, FaTimes } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -107,7 +107,12 @@ const Search = () => {
       <aside className={showFilters ? "active" : ""}>
         <div className="filter-header">
            <h2>Filters</h2>
-           <button className="close-filters" onClick={() => setShowFilters(false)}>&times;</button>
+           <button 
+             className="close-filters" 
+             onClick={() => setShowFilters(false)}
+           >
+             <FaTimes />
+           </button>
         </div>
         <div>
           <h4>Sort</h4>

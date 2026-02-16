@@ -75,7 +75,6 @@ const Productmanagement = () => {
 
       responseToast(res, navigate, "/admin/product");
     } catch (error) {
-      console.log(error);
     } finally {
       setBtnLoading(false);
     }
