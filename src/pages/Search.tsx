@@ -108,6 +108,7 @@ const Search = () => {
         <div className="filter-header">
            <h2>Filters</h2>
            <button 
+             type="button"
              className="close-filters" 
              onClick={() => setShowFilters(false)}
            >

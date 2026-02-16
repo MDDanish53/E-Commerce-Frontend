@@ -198,7 +198,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: v.$spacing-md;
+      margin-bottom: v.$spacing-sm;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 1005;
+      padding-top: v.$spacing-sm;
+      padding-bottom: v.$spacing-sm;
+      border-bottom: 1px solid v.$neutral-200;
 
       h2 {
         font-size: 1.25rem;
@@ -210,15 +217,19 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: transparent;
+        background: transparent; // visual click feedback
         border: none;
         font-size: 1.5rem;
         cursor: pointer;
         color: v.$neutral-600;
-        padding: v.$spacing-md;
+        padding: v.$spacing-md; // large touch target
         border-radius: 50%;
         transition: all v.$transition-base;
         z-index: 1002;
+
+        svg {
+          pointer-events: none;
+        }
 
         &:hover {
           color: v.$error;
@@ -240,9 +251,18 @@
       max-width: 380px;
       height: 100vh;
       padding: v.$spacing-md;
-      padding-top: v.$spacing-2xl; // Added safe area for top status bar
+      padding-top: 0; // Header is sticky inside, so we don't need padding-top here if logic changes? Wait, if header is IN aside.
+      // Actually Search.tsx structure: aside > div.filter-header. 
+      // If aside has padding, sticky header will be inside that padding. 
+      // To make header fully full-width sticky, we might need to adjust. 
+      // But for now, let's keep padding but remove top padding to let header sit flush if needed? 
+      // No, aside has padding. Sticky element respects padding.
+      // Let's keep padding-top: v.$spacing-md so it's consistent.
+      
+      padding-top: v.$spacing-md; 
+
       flex-direction: column;
-      gap: v.$spacing-sm;
+      gap: v.$spacing-xs; // Drastically reduced gap (was md, then sm, now xs - 4px)
       border-radius: 0;
       z-index: 999;
       overflow-y: auto;
@@ -257,6 +277,11 @@
 
       > div {
         width: 100%;
+        padding-bottom: v.$spacing-sm; // separation between blocks
+        
+        > h4 {
+           margin-bottom: v.$spacing-xs; // Compact headings
+        }
       }
     }
 
