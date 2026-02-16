@@ -164,172 +164,118 @@
 }
 
 @media (max-width: v.$breakpoint-md) {
-  // Show mobile filter button
-  .mobile-filter-btn {
-    display: flex;
-    position: fixed;
-    bottom: v.$spacing-xl;
-    right: v.$spacing-xl;
-    padding: v.$spacing-md v.$spacing-lg;
-    background: v.$gradient-primary;
-    color: white;
-    border: none;
-    border-radius: v.$radius-full;
-    font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: v.$shadow-lg;
-    cursor: pointer;
-    z-index: 100;
-    gap: v.$spacing-sm;
-    transition: all v.$transition-base;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: v.$shadow-xl;
-    }
-  }
-
   .product-search-page {
+    display: flex;
     flex-direction: column;
     padding: v.$spacing-md;
-    gap: v.$spacing-lg;
+    gap: v.$spacing-md;
 
-    .filter-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: v.$spacing-sm;
-      position: sticky;
-      top: 0;
-      background-color: white;
-      z-index: 1005;
-      padding-top: v.$spacing-sm;
-      padding-bottom: v.$spacing-sm;
-      border-bottom: 1px solid v.$neutral-200;
+    // Flatten the main container to interleave its children with aside
+    > main {
+      display: contents;
 
-      h2 {
-        font-size: 1.25rem;
-        margin: 0;
+      // 1. Title
+      > h1 {
+        order: 1;
+        font-size: 1.5rem;
+        margin-bottom: v.$spacing-sm;
       }
 
-      .close-filters {
-        position: fixed; // FAIL-SAFE: detach from flow
-        top: 1rem;
-        right: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: v.$error; // Start Red
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        color: white; // Start White
-        padding: 0; // Reset padding
-        width: 3rem; // Large, explicit
-        height: 3rem; // Large, explicit
-        border-radius: 50%;
-        box-shadow: v.$shadow-lg; // Add shadow for elevation
-        transition: all v.$transition-base;
-        z-index: 10000; // Nuclear z-index
-        flex-shrink: 0;
+      // 2. Search Input
+      > input {
+        order: 2;
+        width: 100%;
+        margin-bottom: v.$spacing-sm;
+        border: 1px solid v.$neutral-300;
+        padding: v.$spacing-sm;
+      }
 
-        svg {
-          pointer-events: none;
-        }
+      // 4. Product List (comes after filters)
+      .search-product-list {
+        order: 4;
+        width: 100%;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: v.$spacing-md;
+      }
 
-        &:hover {
-          background: v.$error-light;
-          color: v.$error;
-          transform: scale(1.1);
-        }
-
-        &:active {
-          transform: scale(0.95);
-        }
+      // 5. Pagination
+      > article {
+        order: 5;
+        width: 100%;
+        margin-top: v.$spacing-md;
       }
     }
 
+    // 3. Filters Section
     > aside {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 85%;
-      max-width: 380px;
-      height: 100vh;
-      padding: v.$spacing-md;
-      padding-top: 0; // Header is sticky inside, so we don't need padding-top here if logic changes? Wait, if header is IN aside.
-      // Actually Search.tsx structure: aside > div.filter-header. 
-      // If aside has padding, sticky header will be inside that padding. 
-      // To make header fully full-width sticky, we might need to adjust. 
-      // But for now, let's keep padding but remove top padding to let header sit flush if needed? 
-      // No, aside has padding. Sticky element respects padding.
-      // Let's keep padding-top: v.$spacing-md so it's consistent.
-      
-      padding-top: v.$spacing-md; 
+      order: 3;
+      display: flex; // Always visible
+      flex-direction: row; // Horizontal layout for compactness
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: v.$spacing-sm;
+      width: 100%;
+      height: auto;
+      background: transparent;
+      padding: 0;
+      position: static; // No longer fixed
+      box-shadow: none;
+      border: none;
+      z-index: 1;
+      overflow: visible;
 
-      flex-direction: column;
-      gap: v.$spacing-xs; // Drastically reduced gap (was md, then sm, now xs - 4px)
-      border-radius: 0;
-      z-index: 999;
-      overflow-y: auto;
-
-      &.active {
-        display: flex;
+      // Hide the "Filters" header text on mobile to save space
+      .filter-header {
+        display: none;
       }
 
       > h2 {
         display: none;
       }
 
+      // Filter Groups (Sort, Price, Category)
       > div {
-        width: 100%;
-        padding-bottom: v.$spacing-sm; // separation between blocks
+        flex: 1 1 140px; // Responsive width
+        background: white;
+        padding: v.$spacing-sm;
+        border-radius: v.$radius-md;
+        border: 1px solid v.$neutral-200;
         
         > h4 {
-           margin-bottom: v.$spacing-xs; // Compact headings
+          font-size: 0.75rem;
+          margin-bottom: v.$spacing-xs;
+        }
+
+        select, input[type="range"] {
+          width: 100%;
+          font-size: 0.85rem;
         }
       }
     }
-
-    > main {
-      width: 100%;
-
-      > input {
-        border: 1px solid v.$neutral-300;
-      }
+    
+    // Hide overlay
+    .filter-overlay {
+      display: none;
     }
   }
 
-  .filter-overlay.active {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 998;
-  }
-
-  .search-product-list {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: v.$spacing-md;
+  // Remove mobile toggle button
+  .mobile-filter-btn {
+    display: none;
   }
 }
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
     padding: v.$spacing-sm;
-
-    > aside {
-      padding: v.$spacing-md;
+    
+    .search-product-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: v.$spacing-sm;
     }
-  }
 
-  .search-product-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: v.$spacing-sm;
+    > aside > div {
+       flex: 1 1 100%; // Stack filters on very small screens
+    }
   }
 }

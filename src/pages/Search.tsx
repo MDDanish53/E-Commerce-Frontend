@@ -13,14 +13,12 @@ import { addToCart } from "../redux/reducer/cartReducer";
 import { useSearchParams } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaFilter, FaTimes } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Search = () => {
 
   const searchQuery = useSearchParams()[0];
-  const [showFilters, setShowFilters] = useState(false);
 
   const {
     data: categoriesResponse,
@@ -92,32 +90,9 @@ const Search = () => {
   }
   return (
     <div className="product-search-page">
-      <button className="mobile-filter-btn" onClick={() => setShowFilters(!showFilters)}>
-        Filters <FaFilter />
-      </button>
-
-      {/* Backdrop Overlay */}
-      {showFilters && (
-        <div 
-          className="filter-overlay" 
-          onClick={() => setShowFilters(false)}
-        />
-      )}
-
-      <aside className={showFilters ? "active" : ""}>
+      <aside>
         <div className="filter-header">
            <h2>Filters</h2>
-           <button 
-             type="button"
-             className="close-filters" 
-             onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                setShowFilters(false);
-              }}
-           >
-             <FaTimes />
-           </button>
         </div>
         <div>
           <h4>Sort</h4>
