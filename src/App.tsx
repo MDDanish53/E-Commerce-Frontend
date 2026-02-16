@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from "firebase/auth";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
@@ -48,10 +48,15 @@ const DiscountManagement = lazy(
 );
 const NewDiscount = lazy(() => import("./pages/admin/management/newdiscount"));
 
-// Component to conditionally show footer based on route
-const ConditionalFooter = () => {
+// Component to conditionally show footer and track route changes
+const ConditionalFooter = ({ onPathChange }: { onPathChange: (path: string) => void }) => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  
+  // Notify parent of path changes
+  useEffect(() => {
+    onPathChange(location.pathname);
+  }, [location.pathname, onPathChange]);
   
   // Don't show footer on admin pages
   if (isAdminRoute) return null;
@@ -65,9 +70,13 @@ const App = () => {
   );
 
   const dispatch = useDispatch();
-
-  // Initialize smooth scrolling
-  useSmoothScroll();
+  
+  // Track current path for smooth scroll control
+  const [currentPath, setCurrentPath] = useState("");
+  
+  // Disable smooth scrolling on admin routes to allow internal container scrolling
+  const isAdminRoute = currentPath.startsWith('/admin');
+  useSmoothScroll(!isAdminRoute);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -176,7 +185,7 @@ const App = () => {
         </Routes>
       </Suspense>
       {/* Conditionally render footer - hidden on admin pages */}
-      <ConditionalFooter />
+      <ConditionalFooter onPathChange={setCurrentPath} />
       <Toaster position="bottom-center" />
     </Router>
   );

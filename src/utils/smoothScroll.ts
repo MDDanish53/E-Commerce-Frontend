@@ -4,9 +4,13 @@ import Lenis from '@studio-freight/lenis';
 /**
  * Smooth Scroll Provider Component
  * Wraps the app with Lenis smooth scrolling
+ * @param enabled - Whether to enable smooth scroll (default: true). Set to false on admin routes.
  */
-export const useSmoothScroll = () => {
-  useEffect(() =>{ 
+export const useSmoothScroll = (enabled: boolean = true) => {
+  useEffect(() => {
+    // Don't initialize Lenis if disabled (e.g., on admin routes)
+    if (!enabled) return;
+
     // Initialize Lenis with simplified config
     const lenis = new Lenis({
       duration: 1.2,
@@ -26,7 +30,7 @@ export const useSmoothScroll = () => {
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [enabled]);
 };
 
 /**
