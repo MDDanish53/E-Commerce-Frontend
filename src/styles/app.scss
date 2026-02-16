@@ -23,7 +23,6 @@
   line-height: 1.6;
   font-weight: 400;
   color: v.$neutral-900;
-  scroll-behavior: smooth;
 }
 
 * {
@@ -36,6 +35,8 @@ body {
   user-select: none;
   background: v.$bg-gradient-light;
   min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -65,7 +66,8 @@ a {
   max-width: 1400px;
   width: 100%;
   margin: auto;
-  overflow: auto;
+  padding: v.$spacing-xl 5%;
+  overflow: visible;
   > h1 {
     @include m.heading;
     margin: 1rem 0;

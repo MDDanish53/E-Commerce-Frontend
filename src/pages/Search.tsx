@@ -91,7 +91,7 @@ const Search = () => {
     toast.error(err.data.message);
   }
   return (
-    <div className="search">
+    <div className="product-search-page">
       <button className="mobile-filter-btn" onClick={() => setShowFilters(!showFilters)}>
         Filters <FaFilter />
       </button>

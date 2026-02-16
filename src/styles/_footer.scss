@@ -4,7 +4,7 @@
 .footer {
   background: v.$gradient-hero;
   color: white;
-  padding: v.$spacing-4xl 0 v.$spacing-xl;
+  padding: v.$spacing-2xl 0 v.$spacing-md;
   position: relative;
 
   &::before {
@@ -119,7 +119,7 @@
 
 @media (max-width: v.$breakpoint-md) {
   .footer {
-    padding: v.$spacing-3xl 0 v.$spacing-lg;
+    padding: v.$spacing-xl 0 v.$spacing-sm;
 
     .footer-container {
       padding: 0 v.$spacing-lg;
@@ -149,7 +149,7 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .footer {
-    padding: v.$spacing-2xl 0 v.$spacing-md;
+    padding: v.$spacing-lg 0 v.$spacing-xs;
 
     .footer-container {
       padding: 0 v.$spacing-md;

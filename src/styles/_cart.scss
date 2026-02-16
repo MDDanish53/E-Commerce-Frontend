@@ -6,7 +6,7 @@
   @include m.flex(row, unset, flex-start, v.$spacing-2xl);
   max-width: 1400px;
   margin: 0 auto;
-  min-height: calc(100vh - 100px);
+  min-height: auto;
 
   > main {
     width: 70%;
@@ -17,19 +17,7 @@
       color: v.$neutral-900;
       margin-bottom: v.$spacing-lg;
     }
-    overflow-y: auto;
     @include m.flex(column, flex-start, stretch, v.$spacing-md);
-
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: v.$neutral-300;
-      border-radius: v.$radius-full;
-    }
   }
 
   > aside {
@@ -259,6 +247,7 @@
         font-size: 0.85rem;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
