@@ -110,7 +110,11 @@ const Search = () => {
            <button 
              type="button"
              className="close-filters" 
-             onClick={() => setShowFilters(false)}
+             onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setShowFilters(false);
+              }}
            >
              <FaTimes />
            </button>

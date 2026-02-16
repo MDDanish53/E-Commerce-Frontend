@@ -213,30 +213,34 @@
       }
 
       .close-filters {
-        position: relative;
+        position: fixed; // FAIL-SAFE: detach from flow
+        top: 1rem;
+        right: 1rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: v.$error-light; // Make it visible!
+        background: v.$error; // Start Red
         border: none;
-        font-size: 1.25rem; // Slightly smaller icon
+        font-size: 1.5rem;
         cursor: pointer;
-        color: v.$error; // Red color for visibility
-        padding: v.$spacing-sm; // Compact padding
-        width: 2.5rem; // Explicit width
-        height: 2.5rem; // Explicit height
+        color: white; // Start White
+        padding: 0; // Reset padding
+        width: 3rem; // Large, explicit
+        height: 3rem; // Large, explicit
         border-radius: 50%;
+        box-shadow: v.$shadow-lg; // Add shadow for elevation
         transition: all v.$transition-base;
-        z-index: 1002;
-        flex-shrink: 0; // Prevent shrinking
+        z-index: 10000; // Nuclear z-index
+        flex-shrink: 0;
 
         svg {
           pointer-events: none;
         }
 
         &:hover {
-          color: white;
-          background: v.$error;
+          background: v.$error-light;
+          color: v.$error;
+          transform: scale(1.1);
         }
 
         &:active {
