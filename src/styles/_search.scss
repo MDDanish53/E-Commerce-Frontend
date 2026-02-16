@@ -215,7 +215,7 @@
         font-size: 1.5rem;
         cursor: pointer;
         color: v.$neutral-600;
-        padding: v.$spacing-sm;
+        padding: v.$spacing-md;
         border-radius: 50%;
         transition: all v.$transition-base;
         z-index: 1002;
@@ -239,10 +239,10 @@
       width: 85%;
       max-width: 380px;
       height: 100vh;
-      padding: v.$spacing-lg;
+      padding: v.$spacing-md;
       padding-top: v.$spacing-2xl; // Added safe area for top status bar
       flex-direction: column;
-      gap: v.$spacing-lg;
+      gap: v.$spacing-sm;
       border-radius: 0;
       z-index: 999;
       overflow-y: auto;
