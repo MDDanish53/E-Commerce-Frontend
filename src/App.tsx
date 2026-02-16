@@ -2,7 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, useLocation } from "react-router-dom";
 import Loader from "./components/admin/Loader";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
@@ -48,6 +48,16 @@ const DiscountManagement = lazy(
 );
 const NewDiscount = lazy(() => import("./pages/admin/management/newdiscount"));
 
+// Component to conditionally show footer based on route
+const ConditionalFooter = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  
+  // Don't show footer on admin pages
+  if (isAdminRoute) return null;
+  
+  return <Footer />;
+};
 
 const App = () => {
   const { user, loading } = useSelector(
@@ -165,7 +175,8 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      <Footer />
+      {/* Conditionally render footer - hidden on admin pages */}
+      <ConditionalFooter />
       <Toaster position="bottom-center" />
     </Router>
   );

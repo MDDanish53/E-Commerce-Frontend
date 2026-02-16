@@ -7,7 +7,7 @@
   padding: v.$spacing-2xl;
   background: v.$bg-gradient-light;
 
-  > div {
+  > main {
     max-width: 420px;
     width: 100%;
     background: white;
@@ -38,7 +38,8 @@
         display: block;
       }
 
-      > input {
+      > input,
+      > select {
         border: 1px solid v.$neutral-300;
         width: 100%;
         padding: v.$spacing-sm v.$spacing-md;
@@ -54,6 +55,15 @@
           box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.08);
           background: white;
         }
+      }
+
+      > select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right v.$spacing-md center;
+        padding-right: v.$spacing-2xl;
       }
 
       &.gender {
@@ -91,29 +101,35 @@
       }
     }
 
-    > button {
+    > div > button {
       width: 100%;
-      background: v.$gradient-primary;
+      background: white;
       padding: v.$spacing-md;
-      color: white;
-      border: none;
+      color: v.$neutral-800;
+      border: 1px solid v.$neutral-300;
       border-radius: v.$radius-lg;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       box-shadow: v.$shadow-sm;
       transition: all v.$transition-base;
       margin-top: v.$spacing-md;
+      @include m.flex(row, center, center, v.$spacing-sm);
 
       &:hover {
         transform: translateY(-2px);
         box-shadow: v.$shadow-md;
+        border-color: v.$primary-500;
+        background: v.$primary-50;
       }
 
       &:active {
         transform: translateY(0);
+      }
+
+      svg {
+        font-size: 1.25rem;
       }
     }
   }
@@ -127,7 +143,7 @@
   .login {
     padding: v.$spacing-md;
 
-    > div {
+    > main {
       padding: v.$spacing-xl;
       border-radius: v.$radius-lg;
 
@@ -136,7 +152,8 @@
         margin-bottom: v.$spacing-lg;
       }
 
-      > div > input {
+      > div > input,
+      > div > select {
         padding: 0.625rem v.$spacing-md;
       }
     }
