@@ -196,6 +196,31 @@
 
     .filter-header {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: v.$spacing-md;
+
+      h2 {
+        font-size: 1.25rem;
+        margin: 0;
+      }
+
+      .close-filters {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: v.$neutral-600;
+        padding: v.$spacing-xs;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: v.$error;
+        }
+      }
     }
 
     > aside {
