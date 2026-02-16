@@ -271,8 +271,39 @@
     overflow-x: hidden; // Prevent horizontal scroll
     
     .search-product-list {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr); // 2 columns
       gap: v.$spacing-sm;
+
+      // Override global .product-card styles for search grid context
+      .product-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        height: auto; // Let content determine height or fixed if needed
+        min-height: 18rem; // maintain some stature
+        padding: v.$spacing-sm;
+        
+        img {
+          width: 100% !important;
+          height: 10rem !important; // Adjust image height for smaller card
+          margin: 0 auto v.$spacing-xs auto;
+        }
+
+        h3, p {
+           font-size: 0.8rem;
+        }
+        
+        span {
+           font-size: 0.95rem;
+        }
+        
+        // Adjust action buttons size
+        > div button, > div a {
+           width: 2.25rem;
+           height: 2.25rem;
+           font-size: 0.9rem;
+        }
+      }
     }
 
     > aside > div {

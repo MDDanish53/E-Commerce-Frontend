@@ -264,19 +264,21 @@
       gap: 0.5rem;
       flex: none;
       display: flex !important;
-      flex-direction: row !important;
+      flex-direction: row !important; // Force Horizontal
       align-items: center;
       justify-content: center;
 
       button {
-        @include m.square(1.75rem);
-        font-size: 0.9rem;
+        @include m.square(2rem); // Slightly larger for touch
+        font-size: 1rem;
       }
 
       p {
         min-width: 1.5rem;
-        font-size: 0.9rem;
-        display: inline-block;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
       }
     }
