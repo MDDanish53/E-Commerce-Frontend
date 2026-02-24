@@ -100,8 +100,8 @@ const clients = [
 ];
 
 const banners = [
-  "https://res.cloudinary.com/dj5q966nb/image/upload/v1719253445/rmbjpuzctjdbtt8hewaz.png",
-  "https://res.cloudinary.com/dj5q966nb/image/upload/v1719253433/ticeufjqvf6napjhdiee.png",
+  "https://res.cloudinary.com/dj5q966nb/image/upload/w_1200,f_auto,q_auto/v1719253445/rmbjpuzctjdbtt8hewaz.png",
+  "https://res.cloudinary.com/dj5q966nb/image/upload/w_1200,f_auto,q_auto/v1719253433/ticeufjqvf6napjhdiee.png",
 ];
 const categories = [
   "Electronics",
@@ -299,7 +299,14 @@ const Home = () => {
 
       <article className="cover-video-container">
         <div className="cover-video-overlay"></div>
-        <video autoPlay loop muted src="https://res.cloudinary.com/dm0wfoqld/video/upload/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.mp4"></video>
+        <video
+          autoPlay
+          loop
+          muted
+          preload="none"
+          poster="https://res.cloudinary.com/dm0wfoqld/video/upload/q_auto,vc_h264,w_1280/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.jpg"
+          src="https://res.cloudinary.com/dm0wfoqld/video/upload/q_auto,vc_h264,w_1280/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.mp4"
+        ></video>
         <div className="cover-video-content">
           <motion.h2
             initial={{ x: -100, opacity: 0 }}
@@ -400,8 +407,8 @@ const Home = () => {
             >
               <div>{service.icon}</div>
               <section>
-                <h3>{service.title}Y</h3>
-                <p>{service.title}</p>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
               </section>
             </motion.li>
           ))}
