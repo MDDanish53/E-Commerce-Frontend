@@ -93,8 +93,8 @@ a {
 // ============================================
 
 .header {
-  @include m.flex(row, flex-end, center, 1rem); // Reduced gap for mobile
-  padding: v.$spacing-md v.$spacing-lg; // Aligned with page margins
+  @include m.flex(row, flex-end, center, 1rem); 
+  padding: v.$spacing-md v.$spacing-lg; 
   @media (min-width: v.$breakpoint-md) {
      padding: v.$spacing-md 5%;
      gap: 2rem;

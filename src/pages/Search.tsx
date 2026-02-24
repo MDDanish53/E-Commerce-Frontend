@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FiFilter } from "react-icons/fi";
+import { FiFilter, FiSearch } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import ProductCard from "../components/ProductCard";
 import {
@@ -159,12 +159,17 @@ const Search = () => {
            </button>
         </div>
         <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search by name..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="text"
+              placeholder="Search by brand or model..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button type="submit" aria-label="Search">
+              <FiSearch />
+            </button>
+          </form>
         </div>
         {productLoading ? <SkeletonLoader length={10} /> : <div className="search-product-list">
           {searchedData?.products.map((i) => (
