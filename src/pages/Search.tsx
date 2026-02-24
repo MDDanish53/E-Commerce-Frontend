@@ -141,6 +141,12 @@ const Search = () => {
               ))}
           </select>
         </div>
+        <button 
+          className="apply-filters-btn"
+          onClick={() => setIsMobileFilterOpen(false)}
+        >
+          Apply Filters
+        </button>
       </aside>
       <main>
         <div className="search-header-row">

@@ -223,10 +223,6 @@
 // RESPONSIVE
 // ============================================
 
-// ============================================
-// RESPONSIVE
-// ============================================
-
 @media (max-width: v.$breakpoint-lg) {
   .product-search-page {
     > aside {
@@ -241,29 +237,37 @@
 }
 
 @media (max-width: v.$breakpoint-md) {
-  // Mobile filter button - visible on mobile
+  // Mobile filter button - premium Amazon-style
   .mobile-filter-btn {
     display: flex;
     align-items: center;
-    gap: v.$spacing-xs;
-    background: v.$primary-500;
+    gap: v.$spacing-sm;
+    background: v.$neutral-900;
     color: white;
     border: none;
-    padding: v.$spacing-sm v.$spacing-md;
-    border-radius: v.$radius-md;
+    padding: v.$spacing-sm v.$spacing-lg;
+    border-radius: v.$radius-xl;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     cursor: pointer;
-    box-shadow: v.$shadow-sm;
-    transition: all v.$transition-base;
+    box-shadow: v.$shadow-md;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
     &:hover {
-      background: v.$primary-600;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: v.$shadow-lg;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    svg {
+      font-size: 1.1rem;
     }
   }
 
-  // Filter overlay - backdrop
+  // Filter overlay - backdrop with blur
   .filter-overlay {
     display: block;
     position: fixed;
@@ -271,12 +275,12 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
     z-index: v.$z-modal-backdrop;
     opacity: 0;
     pointer-events: none;
-    transition: opacity v.$transition-base;
+    transition: opacity 300ms ease;
 
     &.active {
       opacity: 1;
@@ -287,43 +291,47 @@
   .product-search-page {
     display: flex;
     flex-direction: column;
-    padding: v.$spacing-md v.$spacing-xl; // 1.5rem 2rem margin on mobile
+    padding: v.$spacing-md v.$spacing-xl;
     gap: v.$spacing-xl;
     overflow-x: hidden;
     padding-bottom: 10rem;
 
     > aside {
       position: fixed;
-      top: 0;
+      bottom: 0;
       left: 0;
-      height: 100vh;
-      width: 300px;
-      max-width: 80%;
+      top: auto;
+      height: auto;
+      max-height: 85vh;
+      width: 100%;
+      max-width: 100%;
       background: white;
       z-index: v.$z-modal;
-      transform: translateX(-100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: v.$shadow-xl;
-      border-radius: 0;
+      transform: translateY(100%);
+      transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+      border-radius: 24px 24px 0 0;
       border: none;
-      padding: v.$spacing-xl;
-      display: flex !important; // Override mobile hiding
+      padding: v.$spacing-xl v.$spacing-xl v.$spacing-3xl v.$spacing-xl;
+      display: flex !important;
       flex-direction: column;
       gap: v.$spacing-xl;
+      overflow-y: auto;
 
       &.active {
-        transform: translateX(0);
+        transform: translateY(0);
       }
 
       .filter-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 2px solid v.$neutral-100;
+        border-bottom: 1px solid v.$neutral-200;
         padding-bottom: v.$spacing-md;
 
         h2 {
-          font-size: 1.25rem;
+          font-size: 1.5rem;
+          font-weight: 700;
           margin: 0;
           color: v.$neutral-900;
         }
@@ -332,13 +340,13 @@
           background: v.$neutral-100;
           color: v.$neutral-700;
           border: none;
-          border-radius: 50%;
-          width: 2.5rem;
-          height: 2.5rem;
+          border-radius: v.$radius-full;
+          width: 2.75rem;
+          height: 2.75rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.25rem;
+          font-size: 1.5rem;
           cursor: pointer;
           transition: all v.$transition-base;
 
@@ -360,8 +368,43 @@
         flex: none;
 
         h4 {
-          font-size: 0.85rem;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: v.$neutral-700;
           margin-bottom: v.$spacing-sm;
+          text-transform: none;
+          letter-spacing: normal;
+        }
+
+        select {
+          background: v.$neutral-100;
+          border: 1px solid v.$neutral-200;
+          border-radius: v.$radius-lg;
+          padding: v.$spacing-md;
+          font-size: 0.95rem;
+        }
+      }
+
+      .apply-filters-btn {
+        display: block;
+        width: 100%;
+        padding: v.$spacing-md;
+        background: v.$primary-600;
+        color: white;
+        border: none;
+        border-radius: v.$radius-lg;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: auto;
+        box-shadow: v.$shadow-md;
+        transition: all v.$transition-base;
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+
+        &:active {
+          transform: scale(0.98);
         }
       }
     }
@@ -373,22 +416,38 @@
 
       .search-header-row {
         @include m.flex(row, space-between, center);
-        
+
         h1 {
           font-size: 1.75rem;
-          font-weight: 700;
+          font-weight: 800;
           margin: 0;
         }
       }
 
       .search-bar {
         width: 100%;
-        max-width: none;
+        max-width: 800px;
+
         input {
-          background: v.$neutral-100;
-          border-radius: v.$radius-lg; // Different style for mobile
+          @include m.inputStyle(100%, v.$spacing-md v.$spacing-xl);
+          border: 1px solid transparent;
+          border-radius: 20px;
+          font-size: 1.05rem;
+          box-shadow: v.$shadow-sm;
+          transition: all 250ms ease;
+          background: #f3f4f6;
+          color: v.$neutral-900;
+
+          &::placeholder {
+            color: v.$neutral-500;
+            font-weight: 500;
+          }
+
           &:focus {
             background: white;
+            border-color: v.$primary-400;
+            box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.1), v.$shadow-md;
+            outline: none;
           }
         }
       }
@@ -402,10 +461,11 @@
       .pagination {
         width: 100%;
         margin-top: v.$spacing-lg;
-        
+
         button {
-          height: 3rem;
-          font-size: 0.95rem;
+          height: 3.5rem;
+          font-size: 1rem;
+          border-radius: v.$radius-lg;
         }
       }
     }
@@ -414,16 +474,16 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-md v.$spacing-xl; // 1.5rem 2rem - Ensuring horizontal margin
-    
-    > main {
-       gap: v.$spacing-md;
+    padding: v.$spacing-md v.$spacing-lg;
 
-       .search-header-row {
-         h1 {
-           font-size: 1.5rem;
-         }
-       }
+    > main {
+      gap: v.$spacing-lg;
+
+      .search-header-row {
+        h1 {
+          font-size: 1.5rem;
+        }
+      }
     }
 
     .search-product-list {
@@ -431,10 +491,10 @@
       gap: v.$spacing-md;
 
       .product-card {
-        min-height: 20rem;
-        
+        min-height: 22rem;
+
         img {
-          height: 12rem !important;
+          height: 14rem !important;
         }
       }
     }
