@@ -31,7 +31,7 @@ const ProductCard = ({
       </div>
       <p>{name}</p>
       <span>₹{price}</span>
-      <div>
+      <div className="overlay">
         <button
           onClick={() =>
             handler({

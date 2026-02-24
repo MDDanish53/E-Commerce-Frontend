@@ -168,21 +168,57 @@
 
     .search-bar {
       width: 100%;
-      max-width: 800px; // Prevent search bar from becoming too wide on desktop
+      max-width: 800px;
+      position: relative;
+      margin-bottom: v.$spacing-md;
+
+      form {
+        width: 100%;
+        position: relative;
+      }
       
       input {
-        @include m.inputStyle(100%, v.$spacing-md v.$spacing-lg); // More padding for premium feel
+        @include m.inputStyle(100%, v.$spacing-md v.$spacing-xl); // More padding for premium feel
+        padding-left: 3.5rem;
         border: 1px solid v.$neutral-300;
-        border-radius: v.$radius-full; // Rounded pill shape
+        border-radius: v.$radius-lg; 
         font-size: 1rem;
         box-shadow: v.$shadow-sm;
         transition: all v.$transition-base;
         background: white;
+        height: 3.5rem;
 
         &:focus {
           border-color: v.$primary-500;
-          box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.1);
+          box-shadow: 0 0 0 4px rgba(255, 107, 1, 0.1);
           background: white;
+          outline: none;
+        }
+      }
+
+      button {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        @include m.flex;
+        @include m.square(2.5rem);
+        border-radius: v.$radius-md;
+        color: v.$neutral-600;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: all v.$transition-base;
+        z-index: 2;
+
+        &:hover {
+          color: v.$primary-600;
+          background: v.$primary-50;
+        }
+
+        &:active {
+          transform: translateY(-50%) scale(0.9);
         }
       }
     }
@@ -202,6 +238,7 @@
 
       button {
         @include m.btn(v.$spacing-sm v.$spacing-xl, v.$neutral-100, v.$neutral-700);
+        height: 3rem;
         border-radius: v.$radius-md;
         font-weight: 600;
         font-size: 0.9rem;
@@ -461,63 +498,15 @@
       }
 
       .search-bar {
-        width: 100%;
+        // Inherits from global search-bar
         margin-bottom: v.$spacing-md;
-        position: relative; // Context for absolute button
-
-        form {
-          width: 100%;
-          position: relative;
-        }
 
         input {
-          @include m.inputStyle(100%, v.$spacing-md v.$spacing-xl);
-          padding-left: 3.5rem; // Increased space for functional button
-          border: 1px solid transparent;
-          border-radius: v.$radius-lg;
-          font-size: 1.05rem;
-          box-shadow: none;
           background: v.$bg-secondary;
-          color: v.$neutral-900;
-          height: 3.5rem;
-          transition: all 250ms ease;
-
-          &::placeholder {
-            color: v.$neutral-500;
-            font-weight: 500;
-          }
+          border-color: transparent;
 
           &:focus {
             background: white;
-            border-color: v.$primary-400;
-            box-shadow: v.$shadow-md;
-            outline: none;
-          }
-        }
-
-        button {
-          position: absolute;
-          left: 0.75rem;
-          top: 50%;
-          transform: translateY(-50%);
-          background: transparent;
-          border: none;
-          @include m.flex;
-          @include m.square(2.5rem);
-          border-radius: v.$radius-md;
-          color: v.$neutral-600;
-          font-size: 1.25rem;
-          cursor: pointer;
-          transition: all v.$transition-base;
-          z-index: 2;
-
-          &:hover {
-            color: v.$primary-600;
-            background: v.$primary-50;
-          }
-
-          &:active {
-            transform: translateY(-50%) scale(0.9);
           }
         }
       }
@@ -534,8 +523,6 @@
 
         button {
           height: 3.5rem;
-          font-size: 1rem;
-          border-radius: v.$radius-lg;
         }
       }
     }

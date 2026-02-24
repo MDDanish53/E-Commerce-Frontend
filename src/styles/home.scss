@@ -137,7 +137,7 @@
     box-shadow: v.$shadow-hover;
     border-color: v.$neutral-300;
 
-    > div {
+    .overlay {
       opacity: 1;
       visibility: visible;
     }
@@ -188,7 +188,7 @@
     margin-bottom: v.$spacing-xs;
   }
 
-  > div {
+  .overlay {
     opacity: 0;
     visibility: hidden;
     position: absolute;
