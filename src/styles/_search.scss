@@ -15,7 +15,8 @@
   padding: v.$spacing-xl 5%;
   @include m.flex(row, unset, flex-start);
   gap: v.$spacing-2xl;
-  max-width: 1400px;
+  max-width: 100%; // Use full width on big screens
+  width: 100%;
   margin: 0 auto;
   min-height: auto;
   flex: 1; // Take up available space
@@ -240,8 +241,8 @@
 
 .search-product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: v.$spacing-lg;
+  grid-template-columns: repeat(4, 1fr); // Exactly 4 products in 1 row on big screens
+  gap: v.$spacing-xl;
   width: 100%;
 }
 
@@ -479,8 +480,8 @@
       }
 
       .search-product-list {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: v.$spacing-lg;
+        grid-template-columns: repeat(2, 1fr); // 2 products per row on phone/tablet
+        gap: v.$spacing-md;
         margin: 0;
       }
 
@@ -513,14 +514,14 @@
     }
 
     .search-product-list {
-      grid-template-columns: repeat(2, 1fr);
-      gap: v.$spacing-md;
+      grid-template-columns: repeat(2, 1fr); // Strictly 2 products per row on small phones
+      gap: v.$spacing-sm;
 
       .product-card {
-        min-height: 22rem;
-
+        min-height: 20rem;
+        
         img {
-          height: 14rem !important;
+          height: 12rem !important;
         }
       }
     }
