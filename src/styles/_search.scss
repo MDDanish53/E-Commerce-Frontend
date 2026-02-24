@@ -531,7 +531,8 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-xl v.$spacing-md; // Consistent margins for small devices
+    padding: v.$spacing-2xl v.$spacing-md; // Increased top margin
+    overflow-x: hidden; // Prevent horizontal scroll
 
     > main {
       gap: v.$spacing-lg;
@@ -549,6 +550,8 @@
 
       .product-card {
         min-height: 20rem;
+        width: 100% !important; // Prevent clipping
+        margin: 0;
         
         img {
           height: 12rem !important;

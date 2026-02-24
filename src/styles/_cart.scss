@@ -4,7 +4,7 @@
 .cart {
   padding: v.$spacing-xl 5%;
   @include m.flex(row, unset, flex-start, v.$spacing-2xl);
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   min-height: auto;
   flex: 1;
@@ -14,7 +14,7 @@
   }
 
   > main {
-    width: 70%;
+    width: 75%;
     > h1 {
       @include m.heading(1px);
       text-align: left;
@@ -26,7 +26,7 @@
   }
 
   > aside {
-    width: 30%;
+    width: 25%;
     padding: v.$spacing-xl;
     background: white;
     border-radius: v.$radius-xl;
@@ -117,7 +117,7 @@
   }
 
   > img {
-    @include m.square(8rem);
+    @include m.square(10rem);
     object-fit: contain;
     border-radius: v.$radius-lg;
     background: v.$neutral-100;

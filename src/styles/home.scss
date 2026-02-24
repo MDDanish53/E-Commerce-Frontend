@@ -119,8 +119,10 @@
 // ============================================
 
 .product-card {
-  width: 17rem;
-  height: 25rem;
+  width: 100%;
+  max-width: 20rem;
+  height: auto;
+  min-height: 25rem;
   padding: v.$spacing-md;
   flex: none;
   @include m.flex(column, flex-start, center, v.$spacing-sm);
@@ -145,7 +147,7 @@
 
   .image-wrapper {
     @include m.square(calc(100%));
-    background: v.$bg-secondary;
+    background: white;
     border-radius: v.$radius-lg;
     @include m.flex;
     padding: v.$spacing-md;

@@ -93,8 +93,8 @@ a {
 // ============================================
 
 .header {
-  @include m.flex(row, flex-end, center, 1rem); 
-  padding: v.$spacing-md v.$spacing-lg; 
+  @include m.flex(row, flex-end, center, 2rem); 
+  padding: v.$spacing-md v.$spacing-xl; 
   @media (min-width: v.$breakpoint-md) {
      padding: v.$spacing-md 5%;
      gap: 2rem;
@@ -188,6 +188,7 @@ a {
         text-align: left;
         font-size: 0.9rem;
         font-weight: 500;
+        color: v.$neutral-800; // Fixed: Explicitly dark for visibility on white bg
 
         &:hover {
           background: v.$primary-50;
