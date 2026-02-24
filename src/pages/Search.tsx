@@ -76,8 +76,8 @@ const Search = () => {
     };
   }, [searchedData]);
 
-  const isPrevPage = false;
-  const isNextPage = true;
+  const isPrevPage = page > 1;
+  const isNextPage = page < (searchedData?.totalPage || 0);
 
   if (isError) {
     const err = error as CustomError;
@@ -150,23 +150,25 @@ const Search = () => {
           />
           ))}
         </div>}
-        {searchedData && searchedData.totalPage > 1 && <article>
-          <button
-            disabled={!isPrevPage}
-            onClick={() => setPage((prev) => prev - 1)}
-          >
-            Prev
-          </button>
-          <span>
-            {page} of {searchedData.totalPage}
-          </span>
-          <button
-            disabled={!isNextPage}
-            onClick={() => setPage((prev) => prev + 1)}
-          >
-            Next
-          </button>
-        </article>}
+        {searchedData && searchedData.totalPage > 1 && (
+          <article className="pagination">
+            <button
+              disabled={!isPrevPage}
+              onClick={() => setPage((prev) => prev - 1)}
+            >
+              Prev
+            </button>
+            <span>
+              {page} of {searchedData.totalPage}
+            </span>
+            <button
+              disabled={!isNextPage}
+              onClick={() => setPage((prev) => prev + 1)}
+            >
+              Next
+            </button>
+          </article>
+        )}
       </main>
     </div>
   );

@@ -115,7 +115,6 @@
       }
     }
   }
-
   > main {
     flex: 1;
     @include m.flex(column, flex-start, stretch, v.$spacing-xl);
@@ -134,6 +133,56 @@
         outline: none;
         border-color: v.$primary-500;
         box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.08);
+      }
+    }
+
+    .pagination {
+      @include m.flex(row, center, center, v.$spacing-md);
+      margin-top: v.$spacing-2xl;
+      padding: v.$spacing-md;
+      background: white;
+      border-radius: v.$radius-lg;
+      box-shadow: v.$shadow-sm;
+      border: 1px solid v.$neutral-200;
+      width: fit-content;
+      align-self: center;
+
+      button {
+        @include m.btn(v.$spacing-sm v.$spacing-xl, v.$neutral-100, v.$neutral-700);
+        border-radius: v.$radius-md;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all v.$transition-base;
+        border: 1px solid v.$neutral-200;
+        @include m.flex(row, center, center, v.$spacing-xs);
+
+        &:hover:not(:disabled) {
+          background: v.$primary-500;
+          color: white;
+          border-color: v.$primary-600;
+          box-shadow: v.$shadow-md;
+          transform: translateY(-1px);
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(0);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          background: v.$neutral-50;
+          color: v.$neutral-400;
+        }
+      }
+
+      span {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: v.$neutral-800;
+        padding: 0 v.$spacing-md;
+        min-width: 100px;
+        text-align: center;
       }
     }
   }
@@ -199,10 +248,25 @@
       }
 
       // 5. Pagination
-      > article {
+      .pagination {
         order: 5;
         width: 100%;
         margin-top: v.$spacing-md;
+        @include m.flex(row, center, center, v.$spacing-sm);
+        padding: v.$spacing-sm;
+
+        button {
+          flex: 1;
+          padding: v.$spacing-sm;
+          font-size: 0.8rem;
+          min-width: 80px;
+        }
+
+        span {
+          font-size: 0.85rem;
+          padding: 0 v.$spacing-sm;
+          min-width: 80px;
+        }
       }
     }
 
