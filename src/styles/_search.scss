@@ -199,6 +199,10 @@
 // RESPONSIVE
 // ============================================
 
+// ============================================
+// RESPONSIVE
+// ============================================
+
 @media (max-width: v.$breakpoint-lg) {
   .product-search-page {
     > aside {
@@ -213,165 +217,209 @@
 }
 
 @media (max-width: v.$breakpoint-md) {
+  // Mobile filter button - visible on mobile
+  .mobile-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-xs;
+    background: v.$primary-500;
+    color: white;
+    border: none;
+    padding: v.$spacing-sm v.$spacing-md;
+    border-radius: v.$radius-md;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: v.$shadow-sm;
+    transition: all v.$transition-base;
+
+    &:hover {
+      background: v.$primary-600;
+      transform: translateY(-1px);
+    }
+  }
+
+  // Filter overlay - backdrop
+  .filter-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: v.$z-modal-backdrop;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity v.$transition-base;
+
+    &.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
   .product-search-page {
     display: flex;
     flex-direction: column;
-    padding: v.$spacing-md;
-    gap: v.$spacing-md;
+    padding: v.$spacing-md v.$spacing-lg;
+    gap: v.$spacing-lg;
+    overflow-x: hidden;
 
-    // Flatten the main container to interleave its children with aside
-    > main {
-      display: contents;
-
-      // 1. Title
-      > h1 {
-        order: 1;
-        font-size: 1.5rem;
-        margin-bottom: v.$spacing-sm;
-      }
-
-      // 2. Search Input
-      > input {
-        order: 2;
-        width: 100%;
-        margin-bottom: v.$spacing-sm;
-        border: 1px solid v.$neutral-300;
-        padding: v.$spacing-sm;
-      }
-
-      // 4. Product List (comes after filters)
-      .search-product-list {
-        order: 4;
-        width: 100%;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: v.$spacing-md;
-      }
-
-      // 5. Pagination
-      .pagination {
-        order: 5;
-        width: 100%;
-        margin-top: v.$spacing-md;
-        @include m.flex(row, center, center, v.$spacing-sm);
-        padding: v.$spacing-sm;
-
-        button {
-          flex: 1;
-          padding: v.$spacing-sm;
-          font-size: 0.8rem;
-          min-width: 80px;
-        }
-
-        span {
-          font-size: 0.85rem;
-          padding: 0 v.$spacing-sm;
-          min-width: 80px;
-        }
-      }
-    }
-
-    // 3. Filters Section
     > aside {
-      order: 3;
-      display: flex; // Always visible
-      flex-direction: row; // Horizontal layout for compactness
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: v.$spacing-sm;
-      width: 100%;
-      height: auto;
-      background: transparent;
-      padding: 0;
-      position: static; // No longer fixed
-      box-shadow: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 300px;
+      max-width: 80%;
+      background: white;
+      z-index: v.$z-modal;
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: v.$shadow-xl;
+      border-radius: 0;
       border: none;
-      z-index: 1;
-      overflow: visible;
+      padding: v.$spacing-xl;
+      display: flex !important; // Override mobile hiding
+      flex-direction: column;
+      gap: v.$spacing-xl;
 
-      // Hide the "Filters" header text on mobile to save space
+      &.active {
+        transform: translateX(0);
+      }
+
       .filter-header {
-        display: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid v.$neutral-100;
+        padding-bottom: v.$spacing-md;
+
+        h2 {
+          font-size: 1.25rem;
+          margin: 0;
+          color: v.$neutral-900;
+        }
+
+        .close-filters {
+          background: v.$neutral-100;
+          color: v.$neutral-700;
+          border: none;
+          border-radius: 50%;
+          width: 2.5rem;
+          height: 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+          cursor: pointer;
+          transition: all v.$transition-base;
+
+          &:hover {
+            background: v.$error-light;
+            color: v.$error;
+          }
+        }
       }
 
       > h2 {
         display: none;
       }
 
-      // Filter Groups (Sort, Price, Category)
       > div {
-        flex: 1 1 140px; // Responsive width
-        background: white;
-        padding: v.$spacing-sm;
-        border-radius: v.$radius-md;
-        border: 1px solid v.$neutral-200;
-        
-        > h4 {
-          font-size: 0.75rem;
-          margin-bottom: v.$spacing-xs;
-        }
+        background: transparent;
+        padding: 0;
+        border: none;
+        flex: none;
 
-        select, input[type="range"] {
-          width: 100%;
+        h4 {
           font-size: 0.85rem;
+          margin-bottom: v.$spacing-sm;
         }
       }
     }
-    
-    // Hide overlay
-    .filter-overlay {
-      display: none;
-    }
-  }
 
-  // Remove mobile toggle button
-  .mobile-filter-btn {
-    display: none;
+    > main {
+      display: flex;
+      flex-direction: column;
+      gap: v.$spacing-xl;
+
+      .search-header-row {
+        @include m.flex(row, space-between, center);
+        
+        h1 {
+          font-size: 1.75rem;
+          font-weight: 700;
+          margin: 0;
+        }
+      }
+
+      .search-bar {
+        width: 100%;
+        
+        input {
+          @include m.inputStyle(100%, v.$spacing-md);
+          border: 1px solid v.$neutral-200;
+          border-radius: v.$radius-xl;
+          font-size: 1rem;
+          box-shadow: v.$shadow-sm;
+          transition: all v.$transition-base;
+          background: v.$neutral-50;
+
+          &:focus {
+            background: white;
+            border-color: v.$primary-500;
+            box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.1);
+          }
+        }
+      }
+
+      .search-product-list {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: v.$spacing-lg;
+        margin: 0;
+      }
+
+      .pagination {
+        width: 100%;
+        margin-top: v.$spacing-lg;
+        
+        button {
+          height: 3rem;
+          font-size: 0.95rem;
+        }
+      }
+    }
   }
 }
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-md; // Increased from sm to md for better edge spacing
-    overflow-x: hidden; // Prevent horizontal scroll
+    padding: v.$spacing-md v.$spacing-md;
     
-    .search-product-list {
-      grid-template-columns: repeat(2, 1fr); // 2 columns
-      gap: v.$spacing-sm;
+    > main {
+       gap: v.$spacing-md;
 
-      // Override global .product-card styles for search grid context
-      .product-card {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-        height: auto; // Let content determine height or fixed if needed
-        min-height: 18rem; // maintain some stature
-        padding: v.$spacing-sm;
-        
-        img {
-          width: 100% !important;
-          height: 10rem !important; // Adjust image height for smaller card
-          margin: 0 auto v.$spacing-xs auto;
-        }
-
-        h3, p {
-           font-size: 0.8rem;
-        }
-        
-        span {
-           font-size: 0.95rem;
-        }
-        
-        // Adjust action buttons size
-        > div button, > div a {
-           width: 2.25rem;
-           height: 2.25rem;
-           font-size: 0.9rem;
-        }
-      }
+       .search-header-row {
+         h1 {
+           font-size: 1.5rem;
+         }
+       }
     }
 
-    > aside > div {
-       flex: 1 1 100%; // Stack filters on very small screens
+    .search-product-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: v.$spacing-md;
+
+      .product-card {
+        min-height: 20rem;
+        
+        img {
+          height: 12rem !important;
+        }
+      }
     }
   }
 }

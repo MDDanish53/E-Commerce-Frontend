@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { FiFilter } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 import ProductCard from "../components/ProductCard";
 import {
   useCategoriesQuery,
@@ -32,6 +34,7 @@ const Search = () => {
   const [maxPrice, setMaxPrice] = useState(1000);
   const [category, setCategory] = useState(searchQuery.get("category") || "");
   const [page, setPage] = useState(1);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   const {isLoading: productLoading, data: searchedData, isError: productIsError, error: productError} = useSearchProductsQuery({
     search,
@@ -90,9 +93,19 @@ const Search = () => {
   }
   return (
     <div className="product-search-page">
-      <aside>
+      <div 
+        className={`filter-overlay ${isMobileFilterOpen ? "active" : ""}`} 
+        onClick={() => setIsMobileFilterOpen(false)}
+      />
+      <aside className={isMobileFilterOpen ? "active" : ""}>
         <div className="filter-header">
            <h2>Filters</h2>
+           <button 
+             className="close-filters"
+             onClick={() => setIsMobileFilterOpen(false)}
+           >
+             <IoClose />
+           </button>
         </div>
         <div>
           <h4>Sort</h4>
@@ -130,13 +143,23 @@ const Search = () => {
         </div>
       </aside>
       <main>
-        <h1>Products</h1>
-        <input
-          type="text"
-          placeholder="Search by name..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <div className="search-header-row">
+           <h1>Products</h1>
+           <button 
+             className="mobile-filter-btn"
+             onClick={() => setIsMobileFilterOpen(true)}
+           >
+             <FiFilter /> Filters
+           </button>
+        </div>
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
         {productLoading ? <SkeletonLoader length={10} /> : <div className="search-product-list">
           {searchedData?.products.map((i) => (
             <ProductCard
