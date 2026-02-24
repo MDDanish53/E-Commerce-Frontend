@@ -40,6 +40,7 @@ body {
   overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-bottom: 5rem; // Global gap before footer
 }
 
 a {
@@ -66,9 +67,15 @@ a {
 .container {
   max-width: 1400px;
   width: 100%;
+  margin: 0 auto;
   padding: v.$spacing-xl 5%;
-  margin: 0 auto 10rem auto;
   overflow: visible;
+  padding-bottom: 10rem; // Substantial gap before footer
+
+  @media (max-width: v.$breakpoint-md) {
+    padding: v.$spacing-lg v.$spacing-xl; // 1.5rem 2rem horizontal margin on mobile
+  }
+
   > h1 {
     @include m.heading;
     margin: 1rem 0;
@@ -82,7 +89,7 @@ a {
 
 .header {
   @include m.flex(row, flex-end, center, 2rem);
-  padding: v.$spacing-md v.$spacing-2xl;
+  padding: v.$spacing-md 5%; // Align padding with container
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);

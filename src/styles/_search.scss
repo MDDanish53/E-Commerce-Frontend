@@ -18,6 +18,7 @@
   max-width: 1400px;
   margin: 0 auto;
   min-height: auto;
+  padding-bottom: 15rem; // Generous space for footer
 
   // Filter header - hidden on desktop
   .filter-header {
@@ -138,11 +139,12 @@
 
     .search-bar {
       width: 100%;
+      max-width: 800px; // Prevent search bar from becoming too wide on desktop
       
       input {
-        @include m.inputStyle(100%, v.$spacing-md);
-        border: 1px solid v.$neutral-200;
-        border-radius: v.$radius-xl;
+        @include m.inputStyle(100%, v.$spacing-md v.$spacing-lg); // More padding for premium feel
+        border: 1px solid v.$neutral-300;
+        border-radius: v.$radius-full; // Rounded pill shape
         font-size: 1rem;
         box-shadow: v.$shadow-sm;
         transition: all v.$transition-base;
@@ -151,11 +153,12 @@
         &:focus {
           border-color: v.$primary-500;
           box-shadow: 0 0 0 4px rgba(66, 99, 235, 0.1);
+          background: white;
         }
       }
     }
     
-    margin-bottom: 8rem; // Space for footer
+    margin-bottom: 0; // Handled by padding-bottom on container
 
     .pagination {
       @include m.flex(row, center, center, v.$spacing-md);
@@ -284,9 +287,10 @@
   .product-search-page {
     display: flex;
     flex-direction: column;
-    padding: v.$spacing-md v.$spacing-xl; // Increased horizontal padding
-    gap: v.$spacing-lg;
+    padding: v.$spacing-md v.$spacing-xl; // 1.5rem 2rem margin on mobile
+    gap: v.$spacing-xl;
     overflow-x: hidden;
+    padding-bottom: 10rem;
 
     > aside {
       position: fixed;
@@ -379,8 +383,10 @@
 
       .search-bar {
         width: 100%;
+        max-width: none;
         input {
-          background: v.$neutral-50;
+          background: v.$neutral-100;
+          border-radius: v.$radius-lg; // Different style for mobile
           &:focus {
             background: white;
           }
@@ -408,7 +414,7 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-md v.$spacing-xl; // Maintain horizontal margin
+    padding: v.$spacing-md v.$spacing-xl; // 1.5rem 2rem - Ensuring horizontal margin
     
     > main {
        gap: v.$spacing-md;

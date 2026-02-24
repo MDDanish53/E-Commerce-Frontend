@@ -5,8 +5,13 @@
   padding: v.$spacing-xl 5%;
   @include m.flex(row, unset, flex-start, v.$spacing-2xl);
   max-width: 1400px;
-  margin: 0 auto 8rem auto;
+  margin: 0 auto;
   min-height: auto;
+  padding-bottom: 12rem; // Footer gap
+
+  @media (max-width: v.$breakpoint-md) {
+     padding: v.$spacing-md v.$spacing-xl;
+  }
 
   > main {
     width: 70%;
