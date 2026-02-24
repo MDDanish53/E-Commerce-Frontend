@@ -7,10 +7,10 @@
   max-width: 1400px;
   margin: 0 auto;
   min-height: auto;
-  padding-bottom: 12rem; // Footer gap
+  flex: 1;
 
   @media (max-width: v.$breakpoint-md) {
-     padding: v.$spacing-md v.$spacing-xl;
+     padding: v.$spacing-xl;
   }
 
   > main {

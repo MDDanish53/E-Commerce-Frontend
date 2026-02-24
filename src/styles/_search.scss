@@ -18,7 +18,7 @@
   max-width: 1400px;
   margin: 0 auto;
   min-height: auto;
-  padding-bottom: 15rem; // Generous space for footer
+  flex: 1; // Take up available space
 
   // Filter header - hidden on desktop
   .filter-header {
@@ -113,6 +113,32 @@
         color: v.$neutral-600;
         margin-bottom: v.$spacing-sm;
         font-weight: 500;
+      }
+    }
+
+    .apply-filters-btn {
+      display: block;
+      width: 100%;
+      padding: v.$spacing-md;
+      background: v.$primary-600;
+      color: white;
+      border: none;
+      border-radius: v.$radius-lg;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: v.$spacing-md;
+      box-shadow: v.$shadow-sm;
+      transition: all v.$transition-base;
+
+      &:hover {
+        background: v.$primary-700;
+        transform: translateY(-1px);
+        box-shadow: v.$shadow-md;
+      }
+
+      &:active {
+        transform: scale(0.98);
       }
     }
   }
@@ -291,10 +317,9 @@
   .product-search-page {
     display: flex;
     flex-direction: column;
-    padding: v.$spacing-md v.$spacing-xl;
+    padding: v.$spacing-xl; // Consistent margins on all sides on mobile
     gap: v.$spacing-xl;
     overflow-x: hidden;
-    padding-bottom: 10rem;
 
     > aside {
       position: fixed;
@@ -402,7 +427,8 @@
         position: sticky;
         bottom: 0;
         z-index: 10;
-
+        
+        // Ensure it uses the global transition/transform
         &:active {
           transform: scale(0.98);
         }
@@ -474,7 +500,7 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-md v.$spacing-lg;
+    padding: v.$spacing-xl; // Consistent margins
 
     > main {
       gap: v.$spacing-lg;
