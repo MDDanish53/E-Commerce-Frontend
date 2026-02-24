@@ -14,12 +14,13 @@
 .product-search-page {
   padding: v.$spacing-xl 5%;
   @include m.flex(row, unset, flex-start);
-  gap: v.$spacing-2xl;
-  max-width: 100%; // Use full width on big screens
+  gap: v.$spacing-xl; // Reduced gap slightly for better fit
+  max-width: 100%;
   width: 100%;
   margin: 0 auto;
   min-height: auto;
-  flex: 1; // Take up available space
+  flex: 1;
+  overflow: hidden; // Contain grid
 
   // Filter header - hidden on desktop
   .filter-header {
@@ -145,6 +146,7 @@
   }
   > main {
     flex: 1;
+    min-width: 0; // CRITICAL: Prevent flex child from overflowing
     @include m.flex(column, flex-start, stretch, v.$spacing-xl);
 
     > input {
@@ -241,8 +243,8 @@
 
 .search-product-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); // Exactly 4 products in 1 row on big screens
-  gap: v.$spacing-xl;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); // CRITICAL: minmax(0, 1fr) ensures responsive columns
+  gap: v.$spacing-lg;
   width: 100%;
 }
 
@@ -318,9 +320,9 @@
   .product-search-page {
     display: flex;
     flex-direction: column;
-    padding: v.$spacing-xl; // Consistent margins on all sides on mobile
+    padding: v.$spacing-xl v.$spacing-lg; // Generous 2rem top, 1.5rem sides
     gap: v.$spacing-xl;
-    overflow-x: hidden;
+    overflow: hidden;
 
     > aside {
       position: fixed;
@@ -501,7 +503,7 @@
 
 @media (max-width: v.$breakpoint-sm) {
   .product-search-page {
-    padding: v.$spacing-xl; // Consistent margins
+    padding: v.$spacing-xl v.$spacing-md; // Consistent margins for small devices
 
     > main {
       gap: v.$spacing-lg;

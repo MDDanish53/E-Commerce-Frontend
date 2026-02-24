@@ -93,8 +93,12 @@ a {
 // ============================================
 
 .header {
-  @include m.flex(row, flex-end, center, 2rem);
-  padding: v.$spacing-md 5%; // Align padding with container
+  @include m.flex(row, flex-end, center, 1rem); // Reduced gap for mobile
+  padding: v.$spacing-md v.$spacing-lg; // Aligned with page margins
+  @media (min-width: v.$breakpoint-md) {
+     padding: v.$spacing-md 5%;
+     gap: 2rem;
+  }
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
