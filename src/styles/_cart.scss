@@ -5,7 +5,7 @@
   padding: v.$spacing-xl 5%;
   @include m.flex(row, unset, flex-start, v.$spacing-2xl);
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0 auto 8rem auto;
   min-height: auto;
 
   > main {

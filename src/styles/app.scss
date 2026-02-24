@@ -66,8 +66,8 @@ a {
 .container {
   max-width: 1400px;
   width: 100%;
-  margin: auto;
   padding: v.$spacing-xl 5%;
+  margin: 0 auto 10rem auto;
   overflow: visible;
   > h1 {
     @include m.heading;
