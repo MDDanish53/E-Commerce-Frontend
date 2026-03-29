@@ -144,18 +144,8 @@ const coverMessage =
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { data, isLoading, isError, refetch } = useLatestProductsQuery("");
+  const { data, isLoading, isError } = useLatestProductsQuery("");
   const products = data?.products || [];
-
-  // Auto-retry once if fetch fails (helps with Render server sleep)
-  useEffect(() => {
-    if (isError) {
-      const timer = setTimeout(() => {
-        refetch();
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [isError, refetch]);
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
@@ -238,7 +228,7 @@ const Home = () => {
               ))}
             </ul>
           </aside>
-          {banners.length > 0 && (
+          {!isLoading && data && banners.length > 0 && (
             <Slider
               autoplay
               autoplayDuration={1500}
@@ -282,7 +272,7 @@ const Home = () => {
             ) : (
               products.map((i: any, index: number) => {
                 const validPhotos = (i.photos ?? [])
-                  .map((p: any) => p.url)
+                  .map((p: { url: string }) => p.url)
                   .filter((url: string | undefined): url is string => !!url);
                 const displayPhotos =
                   validPhotos.length > 0
@@ -307,6 +297,7 @@ const Home = () => {
                     stock={i.stock}
                     handler={addToCartHandler}
                     loading={index < 4 ? "eager" : "lazy"}
+                    fetchPriority={index < 4 ? "high" : "auto"}
                   />
                 );
               })
@@ -315,123 +306,130 @@ const Home = () => {
         </main>
       </div>
 
-      <article className="cover-video-container">
-        <div className="cover-video-overlay"></div>
-        <video
-          autoPlay
-          loop
-          muted
-          preload="none"
-          poster="https://res.cloudinary.com/dm0wfoqld/video/upload/q_auto,vc_h264,w_1280/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.jpg"
-          src="https://res.cloudinary.com/dm0wfoqld/video/upload/q_auto,vc_h264,w_1280/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.mp4"
-        ></video>
-        <div className="cover-video-content">
-          <motion.h2
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            Fashion
-          </motion.h2>
-          {coverMessage.map((el, i) => (
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: 0.25,
-                delay: i / 10,
-              }}
-              key={i}
+      {!isLoading && data && (
+        <article className="cover-video-container">
+          <div className="cover-video-overlay"></div>
+          <video
+            autoPlay
+            loop
+            muted
+            preload="none"
+            poster="https://res.cloudinary.com/dm0wfoqld/video/upload/q_auto,vc_h264,w_1280/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.jpg"
+            src="https://res.cloudinary.com/dm0wfoqld/video/upload/q_auto,vc_h264,w_1280/v1762611880/4962796-uhd_3840_2160_25fps_nvexaz.mp4"
+          ></video>
+          <div className="cover-video-content">
+            <motion.h2
+              initial={{ x: -100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
             >
-              {el}{" "}
-            </motion.span>
-          ))}
-        </div>
-        <motion.span
-          animate={{
-            y: [0, 10, 0],
-            transition: {
-              duration: 1,
-              repeat: Infinity,
-            },
-          }}
-        >
-          <FaAnglesDown />
-        </motion.span>
-      </article>
-
-      <article className="our-clients">
-        <div>
-          <h2>Our Clients</h2>
-          <div>
-            {clients.map((client, i) => (
-              <motion.img
-                initial={{
-                  opacity: 0,
-                  x: -10,
+              Fashion
+            </motion.h2>
+            {coverMessage.map((el, i) => (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                  duration: 0.25,
+                  delay: i / 10,
                 }}
-                whileInView={{
-                  opacity: 1,
-                  x: 0,
-                  transition: {
-                    delay: i / 20,
-                    ease: "circIn",
-                  },
-                }}
-                src={client.src}
-                alt={client.alt}
                 key={i}
-              />
+              >
+                {el}{" "}
+              </motion.span>
             ))}
           </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: -100 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
+          <motion.span
+            animate={{
+              y: [0, 10, 0],
               transition: {
-                delay: clients.length / 20,
+                duration: 1,
+                repeat: Infinity,
               },
             }}
           >
-            Trusted By 100+ Companies in 30+ Countries
-          </motion.p>
-        </div>
-      </article>
+            <FaAnglesDown />
+          </motion.span>
+        </article>
+      )}
 
-      <hr
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.1)",
-          border: "none",
-          height: "1px",
-        }}
-      />
+      {!isLoading && data && (
+        <>
+          <article className="our-clients">
+            <div>
+              <h2>Our Clients</h2>
+              <div>
+                {clients.map((client, i) => (
+                  <motion.img
+                    initial={{
+                      opacity: 0,
+                      x: -10,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      x: 0,
+                      transition: {
+                        delay: i / 20,
+                        ease: "circIn",
+                      },
+                    }}
+                    src={client.src}
+                    alt={client.alt}
+                    key={i}
+                    loading="lazy"
+                  />
+                ))}
+              </div>
 
-      <article className="our-services">
-        <ul>
-          {services.map((service, i) => (
-            <motion.li
-              initial={{ opacity: 0, y: -100 }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: i / 20,
-                },
-              }}
-              exit={{ opacity: 0, y: 50 }}
-              key={service.title}
-            >
-              <div>{service.icon}</div>
-              <section>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </section>
-            </motion.li>
-          ))}
-        </ul>
-      </article>
+              <motion.p
+                initial={{ opacity: 0, y: -100 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    delay: clients.length / 20,
+                  },
+                }}
+              >
+                Trusted By 100+ Companies in 30+ Countries
+              </motion.p>
+            </div>
+          </article>
+
+          <hr
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
+              border: "none",
+              height: "1px",
+            }}
+          />
+
+          <article className="our-services">
+            <ul>
+              {services.map((service, i) => (
+                <motion.li
+                  initial={{ opacity: 0, y: -100 }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: i / 20,
+                    },
+                  }}
+                  exit={{ opacity: 0, y: 50 }}
+                  key={service.title}
+                >
+                  <div>{service.icon}</div>
+                  <section>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                  </section>
+                </motion.li>
+              ))}
+            </ul>
+          </article>
+        </>
+      )}
     </>
   );
 };

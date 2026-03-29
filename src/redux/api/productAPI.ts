@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   type AllProductsResponse,
   type AllReviewsResponse,
@@ -16,12 +16,9 @@ import {
 
 export const productAPI = createApi({
   reducerPath: "productApi",
-  baseQuery: retry(
-    fetchBaseQuery({
-      baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product/`,
-    }),
-    { maxRetries: 3 }
-  ),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product/`,
+  }),
   tagTypes: ["product"],
   endpoints: (builder) => ({
     latestProducts: builder.query<AllProductsResponse, string>({

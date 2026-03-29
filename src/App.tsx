@@ -13,7 +13,6 @@ import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import type { UserReducerInitialState } from "./types/reducer-types";
 import Footer from "./components/Footer";
 import { useSmoothScroll } from "./utils/smoothScroll";
-import { productAPI } from "./redux/api/productAPI";
 
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
@@ -79,11 +78,6 @@ const App = () => {
   const isAdminRoute = currentPath.startsWith('/admin');
   useSmoothScroll(!isAdminRoute);
 
-  // Pre-fetch latest products silently in the background
-  const prefetchProducts = productAPI.usePrefetch("latestProducts");
-  useEffect(() => {
-    prefetchProducts("");
-  }, [prefetchProducts]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

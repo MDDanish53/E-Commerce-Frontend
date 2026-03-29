@@ -5,13 +5,11 @@ import type { NavigateFunction } from "react-router-dom";
 import toast from "react-hot-toast";
 import moment from "moment";
 
-export type ResType =
-  | {
-      data: MessageResponse;
-    }
-  | {
-      error: FetchBaseQueryError | SerializedError | any;
-    };
+type ResType = {
+  data: MessageResponse;
+} | {
+    error: FetchBaseQueryError | SerializedError;
+}
 
 export const responseToast = (
   res: ResType,

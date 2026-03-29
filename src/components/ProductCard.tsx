@@ -15,6 +15,7 @@ type productProps = {
   stock: number;
   handler: (cartItem: CartItem) => string | undefined;
   loading?: "lazy" | "eager";
+  fetchPriority?: "high" | "low" | "auto";
 };
 
 const ProductCard = ({
@@ -25,11 +26,17 @@ const ProductCard = ({
   stock,
   handler,
   loading = "lazy",
+  fetchPriority = "auto",
 }: productProps) => {
   return (
     <div className="product-card">
       <div className="image-wrapper">
-        <img src={transformImage(photos?.[0]?.url, 400)} alt={name} loading={loading} />
+        <img 
+          src={transformImage(photos?.[0]?.url, 400)} 
+          alt={name} 
+          loading={loading} 
+          {...({ fetchPriority } as any)} 
+        />
       </div>
       <p>{name}</p>
       <span>₹{price}</span>
