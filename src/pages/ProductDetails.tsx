@@ -138,12 +138,20 @@ const ProductDetails = () => {
               )}
 
               {carouselOpen && validImages && validImages.length > 0 && (
-                <MyntraCarousel
-                  images={data?.product.photos.map((i) => i.url) || []}
-                  NextButton={NextButton}
-                  PrevButton={PrevButton}
-                  setIsOpen={setCarouselOpen}
-                />
+                <>
+                  <button 
+                    className="force-close-modal-btn" 
+                    onClick={() => setCarouselOpen(false)}
+                  >
+                    ✕ Close
+                  </button>
+                  <MyntraCarousel
+                    images={data?.product.photos.map((i) => i.url) || []}
+                    NextButton={NextButton}
+                    PrevButton={PrevButton}
+                    setIsOpen={setCarouselOpen}
+                  />
+                </>
               )}
             </section>
             <section>
@@ -300,15 +308,19 @@ const ProductLoader = () => {
 };
 
 const NextButton: CarouselButtonType = ({ onClick }) => (
-  <button onClick={onClick} className="carousel-btn">
-    <FaArrowRight />
-  </button>
+  <div className="carousel-btn-wrapper">
+    <button onClick={onClick} className="carousel-btn">
+      <FaArrowRight />
+    </button>
+  </div>
 );
 
 const PrevButton: CarouselButtonType = ({ onClick }) => (
-  <button onClick={onClick} className="carousel-btn">
-    <FaArrowLeft />
-  </button>
+  <div className="carousel-btn-wrapper">
+    <button onClick={onClick} className="carousel-btn">
+      <FaArrowLeft />
+    </button>
+  </div>
 );
 
 export default ProductDetails;
