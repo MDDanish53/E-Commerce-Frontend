@@ -13,6 +13,7 @@ import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import type { UserReducerInitialState } from "./types/reducer-types";
 import Footer from "./components/Footer";
 import { useSmoothScroll } from "./utils/smoothScroll";
+import { useLatestProductsQuery } from "./redux/api/productAPI";
 
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
@@ -77,6 +78,9 @@ const App = () => {
   // Disable smooth scrolling on admin routes to allow internal container scrolling
   const isAdminRoute = currentPath.startsWith('/admin');
   useSmoothScroll(!isAdminRoute);
+
+  // Pre-fetch latest products for Home page
+  useLatestProductsQuery("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

@@ -169,8 +169,8 @@ const Home = () => {
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.1,
+          duration: 0.4,
+          stagger: 0.05,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: '.home > main',
@@ -248,22 +248,29 @@ const Home = () => {
             {isLoading ? (
               <>
                 {Array.from({ length: 6 }, (_, i) => (
-                  <div key={i} style={{ height: "25rem" }}>
+                  <div key={i} className="product-card skeleton-card">
+                    <div className="image-wrapper">
+                      <SkeletonLoader
+                        width="100%"
+                        length={1}
+                        height="100%"
+                      />
+                    </div>
                     <SkeletonLoader
-                      width="18.75rem"
+                      width="80%"
                       length={1}
-                      height="20rem"
+                      height="1.2rem"
                     />
                     <SkeletonLoader
-                      width="18.75rem"
-                      length={2}
-                      height="1.95rem"
+                      width="40%"
+                      length={1}
+                      height="1.5rem"
                     />
                   </div>
                 ))}
               </>
             ) : (
-              products.map((i) => {
+              products.map((i, index) => {
                 const validPhotos = (i.photos ?? [])
                   .map((p) => p.url)
                   .filter((url): url is string => !!url);
@@ -289,6 +296,7 @@ const Home = () => {
                     name={i.name}
                     stock={i.stock}
                     handler={addToCartHandler}
+                    loading={index < 4 ? "eager" : "lazy"}
                   />
                 );
               })

@@ -225,6 +225,30 @@
   }
 }
 
+.skeleton-card {
+  pointer-events: none;
+  .image-wrapper {
+    background: v.$neutral-100 !important;
+  }
+}
+
+.skeleton-shape {
+  background: linear-gradient(
+    90deg,
+    v.$neutral-100 25%,
+    v.$neutral-200 50%,
+    v.$neutral-100 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s infinite linear !important;
+  border-radius: v.$radius-md;
+}
+
+@keyframes skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 // ============================================
 // COVER VIDEO
 // ============================================
