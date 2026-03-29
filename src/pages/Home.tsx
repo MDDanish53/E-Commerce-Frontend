@@ -1,7 +1,7 @@
 import { Slider } from "6pp";
 import { AnimatePresence, motion } from "framer-motion";
 import toast from "react-hot-toast";
-import { FaHeadset } from "react-icons/fa";
+import { FaHeadset, FaChevronRight } from "react-icons/fa";
 import { FaAnglesDown } from "react-icons/fa6";
 import { LuShieldCheck } from "react-icons/lu";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -12,7 +12,7 @@ import ProductCard from "../components/ProductCard";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
 import { addToCart } from "../redux/reducer/cartReducer";
 import type { CartItem } from "../types/types";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -144,8 +144,31 @@ const coverMessage =
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { data, isLoading, isError } = useLatestProductsQuery("");
+  const { data, isLoading, isError, isFetching, refetch } = useLatestProductsQuery("");
   const products = data?.products || [];
+
+  const scrollContainerRef = useRef<HTMLElement>(null);
+  
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 340, behavior: 'smooth' });
+    }
+  };
+
+  // Manual retry loop for Render cold starts
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isError && !data) {
+      // Retry every 3 seconds until successful
+      timer = setTimeout(() => {
+        refetch();
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [isError, data, refetch]);
+
+  // Only show loading skeletons when there's actually no data yet
+  const showSkeletons = isLoading || (isFetching && products.length === 0);
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
@@ -211,7 +234,7 @@ const Home = () => {
     };
   }, [products.length]);
 
-  if (isError) toast.error("Cannot Fetch the Products");
+  // Remove immediate error toast since we are auto-retrying
   return (
     <>
       <div className="home">
@@ -228,7 +251,7 @@ const Home = () => {
               ))}
             </ul>
           </aside>
-          {!isLoading && banners.length > 0 && (
+          {banners.length > 0 && (
             <Slider
               autoplay
               autoplayDuration={1500}
@@ -243,9 +266,10 @@ const Home = () => {
             More
           </Link>
         </h1>
-        <main>
-          <AnimatePresence>
-            {isLoading ? (
+        <div className="main-wrapper">
+          <main ref={scrollContainerRef}>
+            <AnimatePresence>
+            {showSkeletons ? (
               <>
                 {Array.from({ length: 6 }, (_, i) => (
                   <div key={i} className="product-card skeleton-card">
@@ -304,10 +328,16 @@ const Home = () => {
             )}
           </AnimatePresence>
         </main>
+        
+        {products.length > 4 && (
+          <button className="scroll-btn right-arrow" onClick={scrollRight} title="Scroll Right">
+            <FaChevronRight />
+          </button>
+        )}
+        </div>
       </div>
 
-      {!isLoading && (
-        <article className="cover-video-container">
+      <article className="cover-video-container">
           <div className="cover-video-overlay"></div>
           <video
             autoPlay
@@ -350,13 +380,10 @@ const Home = () => {
           >
             <FaAnglesDown />
           </motion.span>
-        </article>
-      )}
+      </article>
 
-      {!isLoading && (
-        <>
-          <article className="our-clients">
-            <div>
+      <article className="our-clients">
+        <div>
               <h2>Our Clients</h2>
               <div>
                 {clients.map((client, i) => (
@@ -428,8 +455,6 @@ const Home = () => {
               ))}
             </ul>
           </article>
-        </>
-      )}
     </>
   );
 };

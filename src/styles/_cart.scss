@@ -14,19 +14,22 @@
   }
 
   > main {
-    width: 75%;
+    flex: 1;
     > h1 {
       @include m.heading(1px);
-      text-align: left;
-      font-size: 1.75rem;
-      color: v.$neutral-900;
-      margin-bottom: v.$spacing-lg;
+      text-align: center;
+      font-size: 2rem;
+      color: v.$neutral-500;
+      margin: auto;
+      padding: v.$spacing-2xl 0;
+      width: 100%;
     }
     @include m.flex(column, flex-start, stretch, v.$spacing-md);
   }
 
   > aside {
-    width: 25%;
+    width: 350px;
+    flex-shrink: 0;
     padding: v.$spacing-xl;
     background: white;
     border-radius: v.$radius-xl;
