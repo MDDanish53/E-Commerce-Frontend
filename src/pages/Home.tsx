@@ -144,8 +144,18 @@ const coverMessage =
 const Home = () => {
   const dispatch = useDispatch();
 
-  const { data, isLoading, isError } = useLatestProductsQuery("");
+  const { data, isLoading, isError, refetch } = useLatestProductsQuery("");
   const products = data?.products || [];
+
+  // Auto-retry once if fetch fails (helps with Render server sleep)
+  useEffect(() => {
+    if (isError) {
+      const timer = setTimeout(() => {
+        refetch();
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isError, refetch]);
 
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of Stock");
@@ -270,13 +280,13 @@ const Home = () => {
                 ))}
               </>
             ) : (
-              products.map((i, index) => {
+              products.map((i: any, index: number) => {
                 const validPhotos = (i.photos ?? [])
-                  .map((p) => p.url)
-                  .filter((url): url is string => !!url);
+                  .map((p: any) => p.url)
+                  .filter((url: string | undefined): url is string => !!url);
                 const displayPhotos =
                   validPhotos.length > 0
-                    ? validPhotos.map((url, index) => ({
+                    ? validPhotos.map((url: string, index: number) => ({
                         public_id: `placeholder-${index}`,
                         url,
                       }))

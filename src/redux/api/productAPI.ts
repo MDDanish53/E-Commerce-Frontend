@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import {
   type AllProductsResponse,
   type AllReviewsResponse,
@@ -16,9 +16,12 @@ import {
 
 export const productAPI = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product/`,
-  }),
+  baseQuery: retry(
+    fetchBaseQuery({
+      baseUrl: `${import.meta.env.VITE_SERVER}/api/v1/product/`,
+    }),
+    { maxRetries: 3 }
+  ),
   tagTypes: ["product"],
   endpoints: (builder) => ({
     latestProducts: builder.query<AllProductsResponse, string>({
@@ -26,7 +29,7 @@ export const productAPI = createApi({
       providesTags: ["product"],
     }),
     allProducts: builder.query<AllProductsResponse, string>({
-      query: (id) => `admin-products?id=${id}`,
+      query: (id: string) => `admin-products?id=${id}`,
       providesTags: ["product"],
     }),
     categories: builder.query<CategoriesResponse, string>({
@@ -49,11 +52,11 @@ export const productAPI = createApi({
       providesTags: ["product"]
     }),
     productDetails: builder.query<ProductResponse, string>({
-      query: (id) => id,
+      query: (id: string) => id,
       providesTags: ["product"]
     }),
     getReviewsOfProduct: builder.query<AllReviewsResponse, string>({
-      query: (productId) => `reviews/${productId}`,
+      query: (productId: string) => `reviews/${productId}`,
       providesTags: ["product"]
     }),
     newProduct: builder.mutation<MessageResponse, NewProductRequest>({
