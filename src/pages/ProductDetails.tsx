@@ -1,8 +1,6 @@
 import {
-  MyntraCarousel,
   Slider,
   useRating,
-  type CarouselButtonType,
 } from "6pp";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -40,6 +38,7 @@ const ProductDetails = () => {
   const reviewsResponse = useGetReviewsOfProductQuery(params.id!);
 
   const [carouselOpen, setCarouselOpen] = useState<boolean>(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   const [reviewComment, setReviewComment] = useState<string>("");
@@ -132,26 +131,40 @@ const ProductDetails = () => {
                 <Slider
                   showThumbnails
                   showNav={false}
-                  onClick={() => setCarouselOpen(true)}
+                  onClick={() => {
+                    setActiveImageIndex(0);
+                    setCarouselOpen(true);
+                  }}
                   images={data?.product.photos.map((i) => i.url) || []}
                 />
               )}
 
               {carouselOpen && validImages && validImages.length > 0 && (
-                <>
+                <div className="custom-fullscreen-modal">
                   <button 
                     className="force-close-modal-btn" 
                     onClick={() => setCarouselOpen(false)}
                   >
                     ✕ Close
                   </button>
-                  <MyntraCarousel
-                    images={data?.product.photos.map((i) => i.url) || []}
-                    NextButton={NextButton}
-                    PrevButton={PrevButton}
-                    setIsOpen={setCarouselOpen}
-                  />
-                </>
+                  <div className="carousel-btn-wrapper prev">
+                    <button 
+                      className="carousel-btn" 
+                      onClick={() => setActiveImageIndex(p => p === 0 ? validImages.length - 1 : p - 1)}
+                    >
+                      <FaArrowLeft />
+                    </button>
+                  </div>
+                  <img src={validImages[activeImageIndex]} alt="Product view" />
+                  <div className="carousel-btn-wrapper next">
+                    <button 
+                      className="carousel-btn" 
+                      onClick={() => setActiveImageIndex(p => p === validImages.length - 1 ? 0 : p + 1)}
+                    >
+                      <FaArrowRight />
+                    </button>
+                  </div>
+                </div>
               )}
             </section>
             <section>
@@ -306,21 +319,5 @@ const ProductLoader = () => {
     </div>
   );
 };
-
-const NextButton: CarouselButtonType = ({ onClick }) => (
-  <div className="carousel-btn-wrapper">
-    <button onClick={onClick} className="carousel-btn">
-      <FaArrowRight />
-    </button>
-  </div>
-);
-
-const PrevButton: CarouselButtonType = ({ onClick }) => (
-  <div className="carousel-btn-wrapper">
-    <button onClick={onClick} className="carousel-btn">
-      <FaArrowLeft />
-    </button>
-  </div>
-);
 
 export default ProductDetails;

@@ -263,77 +263,125 @@
   }
 }
 
-// Force Close Modal Button
-.force-close-modal-btn {
+// Custom Fullscreen Image Modal
+.custom-fullscreen-modal {
   position: fixed;
-  top: 1rem;
-  right: 1.5rem;
-  z-index: 10000 !important; // Always above everything
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: all v.$transition-base;
-  
-  &:hover {
-    background-color: v.$error;
-    transform: scale(1.05);
-  }
-}
-
-// Carousel Wrapper to prevent Grid/Flex from stretching the buttons
-.carousel-btn-wrapper {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 0 0.5rem;
+  align-items: center;
+  gap: v.$spacing-md;
 
-  .carousel-btn {
-    background-color: rgba(0, 0, 0, 0.5);
+  .force-close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 10000;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
     color: white;
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-    min-width: 3rem;
-    min-height: 3rem;
-    padding: 0;
-    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
     cursor: pointer;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     transition: all v.$transition-base;
-    flex-shrink: 0;
-
+    
     &:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-      transform: scale(1.1);
-    }
-
-    svg {
-      width: 1.25rem;
-      height: 1.25rem;
+      background-color: v.$error;
+      border-color: v.$error;
+      transform: scale(1.05);
     }
   }
-}
 
-// Global fix for 6pp MyntraCarousel layout and image zooming
-// Target the modal container that holds our custom buttons
-div:has(.carousel-btn-wrapper) {
-  z-index: 9999 !important; // Bring above header (which is usually around 100)
-  background-color: rgba(0, 0, 0, 0.85) !important; // Ensure high contrast backdrop
-  
   img {
-    object-fit: contain !important;
-    height: 80vh !important;
-    width: 100vw !important;
-    margin: 0 auto !important;
-    display: block !important;
+    object-fit: contain;
+    height: 85vh;
+    width: 60vw;
+    margin: 0;
+    user-select: none;
+  }
+
+  .carousel-btn-wrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+
+    &.prev {
+      left: v.$spacing-md;
+    }
+    
+    &.next {
+      right: v.$spacing-md;
+    }
+
+    .carousel-btn {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(4px);
+      color: white;
+      border-radius: 50%;
+      width: 3.5rem;
+      height: 3.5rem;
+      min-width: 3.5rem;
+      min-height: 3.5rem;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      transition: all v.$transition-base;
+      flex-shrink: 0;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+      }
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+  }
+
+  @media (max-width: v.$breakpoint-md) {
+    justify-content: space-between;
+    gap: 0;
+    padding: 0 v.$spacing-xs;
+    
+    img {
+      width: 100%;
+      max-width: 75vw;
+    }
+
+    .carousel-btn-wrapper .carousel-btn {
+      width: 3rem;
+      height: 3rem;
+      min-width: 3rem;
+      min-height: 3rem;
+
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+
+    .force-close-modal-btn {
+      top: 1rem;
+      right: 1rem;
+    }
   }
 }
 
