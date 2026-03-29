@@ -5,11 +5,13 @@ import type { NavigateFunction } from "react-router-dom";
 import toast from "react-hot-toast";
 import moment from "moment";
 
-type ResType = {
-  data: MessageResponse;
-} | {
-    error: FetchBaseQueryError | SerializedError;
-}
+export type ResType =
+  | {
+      data: MessageResponse;
+    }
+  | {
+      error: FetchBaseQueryError | SerializedError | any;
+    };
 
 export const responseToast = (
   res: ResType,
@@ -21,7 +23,7 @@ export const responseToast = (
     if(navigate) navigate(url);
   } else {
     const error = res.error as FetchBaseQueryError;
-    const messageResponse = error.data as MessageResponse;
+    const messageResponse = (error?.data as MessageResponse) || { message: "Internal Server Error" };
     toast.error(messageResponse.message);
   }
 }
