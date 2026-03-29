@@ -228,7 +228,7 @@ const Home = () => {
               ))}
             </ul>
           </aside>
-          {!isLoading && data && banners.length > 0 && (
+          {!isLoading && banners.length > 0 && (
             <Slider
               autoplay
               autoplayDuration={1500}
@@ -306,7 +306,7 @@ const Home = () => {
         </main>
       </div>
 
-      {!isLoading && data && (
+      {!isLoading && (
         <article className="cover-video-container">
           <div className="cover-video-overlay"></div>
           <video
@@ -353,7 +353,7 @@ const Home = () => {
         </article>
       )}
 
-      {!isLoading && data && (
+      {!isLoading && (
         <>
           <article className="our-clients">
             <div>
