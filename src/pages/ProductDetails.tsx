@@ -144,8 +144,9 @@ const ProductDetails = () => {
                   <button 
                     className="force-close-modal-btn" 
                     onClick={() => setCarouselOpen(false)}
+                    aria-label="Close"
                   >
-                    ✕ Close
+                    ✕
                   </button>
                   <div className="carousel-btn-wrapper prev">
                     <button 
