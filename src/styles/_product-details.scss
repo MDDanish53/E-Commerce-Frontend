@@ -270,37 +270,48 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: white; // Was dark, user requested white
-  z-index: 9999;
+  background-color: #ffffff;
+  z-index: 2147483647; // Maximum possible z-index to ensure it is always on top
   display: flex;
   justify-content: center;
   align-items: center;
   gap: v.$spacing-md;
+  overflow: hidden; // Prevent internal scrolling
 
   .force-close-modal-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    z-index: 10000;
-    background-color: v.$error; // Red color
+    position: fixed; // Ensure it stays in the corner of the viewport
+    top: 2rem;
+    right: 2rem;
+    z-index: 2147483647;
+    background-color: v.$error;
     color: white;
     border: none;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    font-weight: bold;
-    font-size: 1.25rem;
+    border-radius: v.$radius-full;
+    font-weight: 700;
+    font-size: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 32px rgba(255, 0, 0, 0.3);
     padding: 0;
-    transition: all v.$transition-base;
+    transition: all v.$transition-bounce;
     
     &:hover {
-      background-color: darken(#f56565, 10%);
-      transform: scale(1.05);
+      background-color: darken(#f56565, 15%);
+      transform: scale(1.1) rotate(90deg);
+      box-shadow: 0 12px 48px rgba(255, 0, 0, 0.4);
+    }
+
+    // Larger version for laptop/desktop
+    @media (min-width: v.$breakpoint-lg) {
+      top: 3rem;
+      right: 3rem;
+      width: 4rem;
+      height: 4rem;
+      font-size: 2rem;
     }
   }
 
@@ -314,13 +325,13 @@
   }
 
   .carousel-btn-wrapper {
-    position: absolute;
+    position: fixed; // Keep arrows fixed in the viewport
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10000;
+    z-index: 2147483647;
 
     &.prev {
       left: v.$spacing-md;

@@ -2,7 +2,7 @@ import {
   Slider,
   useRating,
 } from "6pp";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import {
   FaArrowLeft,
@@ -46,6 +46,18 @@ const ProductDetails = () => {
 
   const [createReview] = useNewReviewMutation();
   const [deleteReview] = useDeleteReviewMutation();
+
+  // Handle body scroll lock
+  useEffect(() => {
+    if (carouselOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [carouselOpen]);
 
   const {
     Ratings: RatingsEditable,
@@ -138,35 +150,6 @@ const ProductDetails = () => {
                   images={data?.product.photos.map((i) => i.url) || []}
                 />
               )}
-
-              {carouselOpen && validImages && validImages.length > 0 && (
-                <div className="custom-fullscreen-modal">
-                  <button 
-                    className="force-close-modal-btn" 
-                    onClick={() => setCarouselOpen(false)}
-                    aria-label="Close"
-                  >
-                    ✕
-                  </button>
-                  <div className="carousel-btn-wrapper prev">
-                    <button 
-                      className="carousel-btn" 
-                      onClick={() => setActiveImageIndex(p => p === 0 ? validImages.length - 1 : p - 1)}
-                    >
-                      <FaArrowLeft />
-                    </button>
-                  </div>
-                  <img src={validImages[activeImageIndex]} alt="Product view" />
-                  <div className="carousel-btn-wrapper next">
-                    <button 
-                      className="carousel-btn" 
-                      onClick={() => setActiveImageIndex(p => p === validImages.length - 1 ? 0 : p + 1)}
-                    >
-                      <FaArrowRight />
-                    </button>
-                  </div>
-                </div>
-              )}
             </section>
             <section>
               <h1>{data?.product.name}</h1>
@@ -257,6 +240,35 @@ const ProductDetails = () => {
           )}
         </div>
       </section>
+
+      {carouselOpen && validImages && validImages.length > 0 && (
+        <div className="custom-fullscreen-modal">
+          <button 
+            className="force-close-modal-btn" 
+            onClick={() => setCarouselOpen(false)}
+            aria-label="Close"
+          >
+            ✕
+          </button>
+          <div className="carousel-btn-wrapper prev">
+            <button 
+              className="carousel-btn" 
+              onClick={() => setActiveImageIndex(p => p === 0 ? validImages.length - 1 : p - 1)}
+            >
+              <FaArrowLeft />
+            </button>
+          </div>
+          <img src={validImages[activeImageIndex]} alt="Product view" />
+          <div className="carousel-btn-wrapper next">
+            <button 
+              className="carousel-btn" 
+              onClick={() => setActiveImageIndex(p => p === validImages.length - 1 ? 0 : p + 1)}
+            >
+              <FaArrowRight />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
