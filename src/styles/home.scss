@@ -254,20 +254,23 @@
 
 .skeleton-card {
   pointer-events: none;
+  background: white !important;
+  
   .image-wrapper {
-    background: v.$neutral-100 !important;
+    background: v.$neutral-50 !important;
+    border: 1px solid v.$neutral-100;
   }
 }
 
 .skeleton-shape {
   background: linear-gradient(
     90deg,
-    v.$neutral-100 25%,
-    v.$neutral-200 50%,
-    v.$neutral-100 75%
+    v.$neutral-50 25%,
+    v.$neutral-100 50%,
+    v.$neutral-50 75%
   );
   background-size: 200% 100%;
-  animation: skeleton-pulse 1.5s infinite linear !important;
+  animation: skeleton-pulse 2s infinite ease-in-out !important;
   border-radius: v.$radius-md;
 }
 

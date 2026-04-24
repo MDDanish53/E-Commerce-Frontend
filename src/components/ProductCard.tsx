@@ -35,6 +35,7 @@ const ProductCard = ({
           src={transformImage(photos?.[0]?.url, 400)} 
           alt={name} 
           loading={loading} 
+          decoding="async"
           {...({ fetchPriority } as any)} 
         />
       </div>

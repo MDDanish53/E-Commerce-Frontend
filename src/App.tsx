@@ -13,6 +13,7 @@ import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import type { UserReducerInitialState } from "./types/reducer-types";
 import Footer from "./components/Footer";
 import { useSmoothScroll } from "./utils/smoothScroll";
+import { productAPI } from "./redux/api/productAPI";
 
 const Home = lazy(() => import("./pages/Home"));
 const Search = lazy(() => import("./pages/Search"));
@@ -77,6 +78,16 @@ const App = () => {
   // Disable smooth scrolling on admin routes to allow internal container scrolling
   const isAdminRoute = currentPath.startsWith('/admin');
   useSmoothScroll(!isAdminRoute);
+
+  // Prefetch latest products and categories early to reduce perceived latency
+  const prefetchLatest = productAPI.usePrefetch("latestProducts");
+  const prefetchCategories = productAPI.usePrefetch("categories");
+
+  useEffect(() => {
+    // Start fetching as soon as the app initializes
+    prefetchLatest("");
+    prefetchCategories("");
+  }, [prefetchLatest, prefetchCategories]);
 
 
   useEffect(() => {
